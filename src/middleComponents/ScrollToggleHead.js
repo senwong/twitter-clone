@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import styled from 'styled-components'
 
 const FakeHeader = styled.div`
@@ -15,36 +15,30 @@ const Header = styled.div`
   z-index: 2;
   transform: ${props => props.isShort && 'translateY(-49px)'};
 `;
-export default class ScrollToggleHead extends React.Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      lastWindowScrollTop: null,
-      isHeadShort: false,
+export default function ScrollToggleHead(props) {
+  const [lastWindowScrollTop, setLastWindowScrollTop] = useState(null);
+  const [isHeadShort, setIsHeadShort] = useState(false);
+  const { head, main } = props;
+  
+  function handleWindowScroll(e) {
+    lastWindowScrollTop && setIsHeadShort(e.target.scrollingElement.scrollTop > lastWindowScrollTop);
+    setLastWindowScrollTop(e.target.scrollingElement.scrollTop);
+  }
+  useEffect(() => {
+    window.addEventListener('scroll', handleWindowScroll);
+    return () => {
+      window.removeEventListener('scroll', handleWindowScroll)
     };
-    this.handleWindowScroll = this.handleWindowScroll.bind(this);
-  }
-  handleWindowScroll(e) {
-    this.state.lastWindowScrollTop && this.setState({isHeadShort: e.target.scrollingElement.scrollTop > this.state.lastWindowScrollTop,});
-    this.setState({lastWindowScrollTop: e.target.scrollingElement.scrollTop})
-  }
-  componentDidMount() {
-    window.addEventListener('scroll', this.handleWindowScroll)
-  }
-  componentWillUnmount() {
-    window.removeEventListener('scroll', this.handleWindowScroll)
-  }
-  render() {
-    return (
+  });
+  return (
+    <div>
+      <FakeHeader />
+      <Header isShort={isHeadShort} >
+        {head}
+      </Header>
       <div>
-        <FakeHeader />
-        <Header isShort={this.state.isHeadShort} >
-          {this.props.head}
-        </Header>
-        <div>
-          {this.props.main}
-        </div>
+        {main}
       </div>
-    );
-  }
+    </div>
+  );
 }

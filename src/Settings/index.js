@@ -1,4 +1,4 @@
-import React from "react"
+import React, { useState } from "react"
 import { Link, } from "react-router-dom"
 import { ArrowRight, CheckedIcon } from "../BaseComponents/SVGIcons"
 import Text from "../BaseComponents/Text"
@@ -125,27 +125,20 @@ const CheckBoxInput = styled.input`
   left: 0;
   margin: 0;
 `;
-export class CheckboxInput extends React.Component {
-  constructor(props) {
-    super(props)
-    this.state = {
-      checked: false,
-    }
-    this.handleChange = this.handleChange.bind(this)
+export function CheckboxInput(props) {
+  const [checked, setChecked] = useState(false);
+
+  function handleChange() {
+    setChecked(!checked);
   }
-  handleChange() {
-    this.setState({checked: !this.state.checked})
-  }
-  render() {
-    return (
-      <CheckBoxInputContainer>
-        <FakeCheckBoxInput checked={this.state.checked} >
-          {this.state.checked && <CheckedIcon xsmall white/>}
-        </FakeCheckBoxInput>
-        <CheckboxInput type="checkbox" checked={this.state.checked} onChange={this.handleChange} />
-      </CheckBoxInputContainer>
-    )
-  }
+  return (
+    <CheckBoxInputContainer>
+      <FakeCheckBoxInput checked={checked} >
+        {checked && <CheckedIcon xsmall white/>}
+      </FakeCheckBoxInput>
+      <CheckboxInput type="checkbox" checked={checked} onChange={handleChange} />
+    </CheckBoxInputContainer>
+  );
 }
 
 const CustomizedInputContainer = styled.div`

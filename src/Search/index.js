@@ -1,14 +1,14 @@
-import React from "react"
+import React, { useEffect, useState, } from "react";
 import { NavLink, } from 'react-router-dom'
 import CustomHr from "../BaseComponents/CustomHr.js"
 import { PrevIcon, NextIcon, RelateIcon, BackIcon } from "../BaseComponents/SVGIcons"
 import { searchHot, } from "../dataMock"
 import { TweetCard, UserCard, } from "../middleComponents/Cards"
-import { Route, } from "react-router-dom"
+import { Route } from "react-router-dom"
 import PrimaryGap from "../BaseComponents/PrimaryGap"
 import CustomHead from "../middleComponents/CustomHead"
 import InputText from "../BaseComponents/InputText"
-import styled, { css } from 'styled-components'
+import styled from 'styled-components'
 
 export default function Search(props) {
   return (
@@ -28,7 +28,7 @@ export default function Search(props) {
         <SearchTypesHead query={props.searchQuery} />
         <SearchResutlPage query={props.searchQuery} />
     </div>
-  )
+  );
 }
 
 const NavContainer = styled.div`
@@ -51,77 +51,85 @@ const NavListWrapper = styled.div`
 /**
  * search result page, result types navigators
  */
-class SearchTypesHead extends React.Component {
-  constructor(props) {
-    super(props)
-    this.state = {
-      moveLeftCount: 0, // how many page in left side can scroll
-      moveRightCount: 0, // how many page in right side can scroll
-    }
-    this.moveLeft = this.moveLeft.bind(this)
-    this.moveRight = this.moveRight.bind(this)
-    this.headContainerRef = React.createRef();
-    this.leftBtnRef = React.createRef();
-    this.rightBtnRef = React.createRef();
-    this.typeItemRef = React.createRef();
-  }
-  moveLeft() {
-    if (this.state.moveLeftCount < 1) {
+function SearchTypesHead(props) {
+  const [moveLeftCount, setMoveLeftCount] = useState(0);
+  const [moveRightCount, setMoveRightCount] = useState(0);
+
+  const { query } = props;
+
+  let headMiddle = null;
+  let linkEl = null;
+  let linksContainer = null;
+
+  function moveLeft() {
+    if (moveLeftCount < 1) {
       return;
     }
-    const width = Math.floor(this.headMiddle.clientWidth / this.linkEl.clientWidth) * this.linkEl.clientWidth;
-    this.linksContainer.style.transform=`translateX(-${width*(this.state.moveLeftCount - 1)}px)`;
+    const width = Math.floor(headMiddle.clientWidth / linkEl.clientWidth) * linkEl.clientWidth;
+    linksContainer.style.transform=`translateX(-${width*(moveLeftCount - 1)}px)`;
     console.log({ width })
-    this.setState({
-      moveLeftCount: this.state.moveLeftCount - 1,
-      moveRightCount: this.state.moveRightCount + 1,
-    })
+    setMoveLeftCount(moveLeftCount - 1);
+    setMoveRightCount(moveRightCount + 1);
   }
-  moveRight() {
-    if (this.state.moveRightCount < 1) {
+  function moveRight() {
+    if (moveRightCount < 1) {
       return;
     }
-    const width = Math.floor(this.headMiddle.clientWidth / this.linkEl.clientWidth) * this.linkEl.clientWidth;
-    this.linksContainer.style.transform=`translateX(-${width*(this.state.moveLeftCount + 1)}px)`;
+    const width = Math.floor(headMiddle.clientWidth / linkEl.clientWidth) * linkEl.clientWidth;
+    linksContainer.style.transform=`translateX(-${width*(moveLeftCount + 1)}px)`;
     console.log({ width })
-    this.setState({
-      moveLeftCount: this.state.moveLeftCount + 1,
-      moveRightCount: this.state.moveRightCount - 1,
-    })
+    setMoveLeftCount(moveLeftCount + 1);
+    setMoveRightCount(moveRightCount - 1);
   }
-  componentDidMount() {
-    let count = Math.floor(this.linksContainer.clientWidth / this.headMiddle.clientWidth);
-    this.linksContainer.clientWidth % this.headMiddle.clientWidth === 0 && count--;
-    this.setState({moveRightCount: count});
-    console.log({ count })
+  useEffect(() => {
+    window.addEventListener('resize', calculateCountMoveRight);
+    return () => {
+      window.removeEventListener('resize', calculateCountMoveRight);
+    }
+  });
+  function calculateCountMoveRight() {
+    console.log('resize', linksContainer);
+    console.log('resize', headMiddle);
+    if (window.innerWidth >= 400) {
+      setMoveRightCount(0);
+      setMoveLeftCount(0);
+    }
+    if (linksContainer && headMiddle ) {
+      const x = getComputedStyle(linksContainer);
+      console.log({x});
+      let count = Math.floor(linksContainer.clientWidth / headMiddle.clientWidth);
+      linksContainer.clientWidth % headMiddle.clientWidth === 0 && count--;
+      setMoveRightCount(count);
+    }
   }
-  render() {
-    return (
-      <div>
-        <NavContainer>
-          <NavArrow onClick={this.moveLeft} ref={el => this.leftBtn = el}>
-            <PrevIcon xsmall primary={this.state.moveLeftCount > 0} secondary={this.state.moveLeftCount <= 0} />
-          </NavArrow>
-          <NavListWrapper ref={el => this.headMiddle = el}>
-            <SearchTypeList query={this.props.query} 
-              linkContainer={el => this.linksContainer = el} 
-              linkRef={el => this.linkEl = el} 
-            />
-          </NavListWrapper>
-          <NavArrow onClick={this.moveRight} ref={el => this.rightBtn = el}>
-            <NextIcon xsmall primary={this.state.moveRightCount > 0} secondary={this.state.moveRightCount <= 0} />
-          </NavArrow>
-        </NavContainer>
-        {/* <SearchTypeList query={this.props.query}/> */}
-      </div>
-    )
-  }
+  return (
+    <div>
+      <NavContainer>
+        <NavArrow onClick={moveLeft}>
+          <PrevIcon xsmall primary={moveLeftCount > 0} secondary={moveLeftCount <= 0} />
+        </NavArrow>
+        <NavListWrapper ref={el => headMiddle = el}>
+          <SearchTypeList query={query} 
+            linkContainer={el => linksContainer = el} 
+            linkRef={el => linkEl = el} 
+          />
+        </NavListWrapper>
+        <NavArrow onClick={moveRight}>
+          <NextIcon xsmall primary={moveRightCount > 0} secondary={moveRightCount <= 0} />
+        </NavArrow>
+      </NavContainer>
+      {/* <SearchTypeList query={this.props.query}/> */}
+    </div>
+  );
 }
 
 const TypeListContainer = styled.div`
   display: flex;
   transition: transform 0.2s;
-  width: 100%;
+  width: fit-content;
+  @media (min-width: 400px){
+    width: 100%;
+  }
 `;
 const TypeItem = styled(NavLink)`
   flex: 1 1 0;
@@ -132,11 +140,12 @@ const TypeItem = styled(NavLink)`
   font-weight: bold;
   padding: 14px;
   word-break: keep-all;
-  ${props => props.isActive && css`
+  &.active {
     color: rgb(29, 161, 242);
     border-bottom-color: rgb(29, 161, 242);
-  `}
+  }
 `;
+
 function SearchTypeList(props) {
   return (
     <TypeListContainer ref={props.linkContainer}>
@@ -219,46 +228,42 @@ const Check = styled.div`
   color: rgb(29, 161, 242);
   font-weight: 700;
 `;
-class HotPage extends React.Component {
-  constructor(props) {
-    super(props)
-    this.state = {
-      users: [],
-      tweets: []
-    }
-  }
-  componentDidMount() {
-    const {users, tweets } = searchHot(this.props.query);
-    this.setState({users: users});
-    tweets.then(searchResult => {
-      this.setState({searchResult: searchResult})
-    })
-  }
-  render() {
-    const  {users, tweets} = this.state;
-    return (
-      <div>
-        {users.length > 0
-          ? (
-            <div>
-              <Container>
-                <Title>用户</Title>
-                {users.map(u => <UserCard key={u.id} user={u} />)}
-                <Check>查看全部</Check>
-              </Container>
-              <PrimaryGap />
-            </div>
-          )
-          : <div />
-        }
-        <div>
-          {tweets.map(t => <TweetCard key={t.id} tweet={t} />)}
-        </div>
-      </div>
-    )
 
-  }
+function HotPage(props) {
+  const [users, setUsers] = useState([]);
+  const [tweets, setTweets] = useState([]);
+
+  const { query } = props;
+
+  useEffect(() => {
+    const {users, tweets } = searchHot(query);
+    setUsers(users);
+    tweets.then(searchResult => {
+      setTweets(searchResult);
+    });
+  }, []);
+  return (
+    <div>
+      {users.length > 0
+        ? (
+          <div>
+            <Container>
+              <Title>用户</Title>
+              {users.map(u => <UserCard key={u.id} user={u} />)}
+              <Check>查看全部</Check>
+            </Container>
+            <PrimaryGap />
+          </div>
+        )
+        : <div />
+      }
+      <div>
+        {tweets.map(t => <TweetCard key={t.id} tweet={t} />)}
+      </div>
+    </div>
+  );
 }
+
 function LivePage() {
   return (
     <div>

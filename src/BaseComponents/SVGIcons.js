@@ -256,9 +256,8 @@ const rotate = keyframes`
   }
 `;
 const WattingIconWrapper = styled(SvgWrapper)`
-  font-size: 16px;
+  font-size: 14px;
   display: flex;
-  padding: 14px 9px;
   animation-name: ${rotate};
   animation-duration: 1s;
   animation-timing-function: linear;
@@ -269,7 +268,7 @@ const WattingIconWrapper = styled(SvgWrapper)`
 export function WattingIcon(props) {
   return (
     <WattingIconWrapper {...props}>
-      <Svg>
+      <Svg viewBox="0 0 32 32">
         <circle cx="16" cy="16" fill="none" r="14" strokeWidth="4" style={{stroke: "rgb(29, 161, 242)", opacity: 0.2}}></circle>
         <circle cx="16" cy="16" fill="none" r="14" strokeWidth="4" style={{stroke: "rgb(29, 161, 242)", strokeDasharray: 80, strokedashoffset: 60}}></circle>
       </Svg>

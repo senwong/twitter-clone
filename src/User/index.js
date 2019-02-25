@@ -1,4 +1,4 @@
-import React from "react"
+import React, { useState, useEffect } from "react"
 import Avatar from "../BaseComponents/Avatar"
 import Text from "../BaseComponents/Text"
 import { LinkList } from "../middleComponents/NavList"
@@ -30,99 +30,90 @@ const InlineSvgWrapper = styled.div`
   margin-right: 9px;
   display: inline-block;
 `;
-export default class User extends React.Component {
-  constructor(props) {
-    super(props)
-    this.handleRefresh = this.handleRefresh.bind(this);
-    this.state = {
-      user: {},
-    }
-  }
-  handleRefresh() {
+export default function User(props) {
+  const [user, setUser] = useState({});
+  function handleRefresh() {
     return new Promise((resolve, reject) => {
       setTimeout(() => resolve(), 100)
     })
   }
-  componentWillMount()
-  {
-    const userName = this.props.match.params.userName;
+  useEffect(() => {
+    const userName = props.match.params.userName;
     getUserByName(userName)
-      .then(user => this.setState({user}))
+      .then(user => setUser(user))
       .catch(err => console.log(err))
-  }
-  render() {
-    const {currentUser, match, toggleUserSettingPopupPage} = this.props
-    const userName = match.params.userName;
-    // console.log({ userName });
-    const user = this.state.user;
-    return (
-      <div>
-        <BackHeadWithRouter title={user.name} />
-        <PullDownRefresh onRefresh={this.handleRefresh}>
-          <Container>
-            <UserAvaterBG />
-            <div style={{padding: "9px 9px 0",marginBottom: "14px"}}>
-              <div style={{display: "flex", justifyContent: "space-between", alignItems: "flex-start"}}>
-                <UserAvaterWrapper>
-                  <Avatar large user={user}/>
-                </UserAvaterWrapper>
-                {
-                  currentUser.name === userName
-                  ? <CustomizedButton>编辑个人资料</CustomizedButton>
-                  : <div style={{display: 'flex'}}>
-                      <div style={{border: '1px solid rgb(27, 149, 224)', borderRadius: '9999px', minHeight: "37px", minWidth: "37px", display: "flex", alignItems: 'center', justifyContent: 'center', marginRight: '9px'}}
-                        onClick={() => toggleUserSettingPopupPage(true)}
-                      >
-                        <SettingIcon middle primary />
-                      </div>
-                      <CustomizedButton>关注</CustomizedButton>
+  }, []);
+
+  const {currentUser, match, toggleUserSettingPopupPage} = props
+  const userName = match.params.userName;
+  // console.log({ userName });
+  return (
+    <div>
+      <BackHeadWithRouter title={user.name} />
+      <PullDownRefresh onRefresh={handleRefresh}>
+        <Container>
+          <UserAvaterBG />
+          <div style={{padding: "9px 9px 0",marginBottom: "14px"}}>
+            <div style={{display: "flex", justifyContent: "space-between", alignItems: "flex-start"}}>
+              <UserAvaterWrapper>
+                <Avatar large user={user}/>
+              </UserAvaterWrapper>
+              {
+                currentUser.name === userName
+                ? <CustomizedButton>编辑个人资料</CustomizedButton>
+                : <div style={{display: 'flex'}}>
+                    <div style={{border: '1px solid rgb(27, 149, 224)', borderRadius: '9999px', minHeight: "37px", minWidth: "37px", display: "flex", alignItems: 'center', justifyContent: 'center', marginRight: '9px'}}
+                      onClick={() => toggleUserSettingPopupPage(true)}
+                    >
+                      <SettingIcon middle primary />
                     </div>
-                }
-              </div>
-              <div style={{margin: "5px 0 9px"}}>
-                <Text bold large >{user.name}</Text><br/>
-                <Text secondary >@{user.nickName}</Text>
-              </div>
-              <div style={{marginBottom: "9px"}}>
-                <InlineSvgWrapper>
-                  <LocationIcon xsmall secondary/>
-                  <Text secondary >{user.location}</Text>
-                </InlineSvgWrapper>
-                <InlineSvgWrapper>
-                  <BirthdayIcon xsmall secondary/>
-                  <Text secondary >出生于 {user.birthday}</Text>
-                </InlineSvgWrapper>
-                <InlineSvgWrapper>
-                  <CalendarIcon xsmall secondary/>
-                  <Text secondary >{user.registerTime} 加入</Text>
-                </InlineSvgWrapper>
-              </div>
-              <div style={{display: "flex"}}>
-                <div style={{marginRight: "18px"}}>
-                  <Text bold >{user.following}</Text>
-                  <Text secondary >正在关注</Text>
-                </div>
-                <Text bold >{user.followers}</Text>
-                <Text secondary >关注者</Text>
-              </div>
-      
+                    <CustomizedButton>关注</CustomizedButton>
+                  </div>
+              }
             </div>
-      
-            <LinkList links={[
-              {to: match.url, title: "推文", exact: true},
-              {to: match.url + "/with_replies", title: "推文与回复"},
-              {to: match.url + "/media", title: "媒体"},
-              {to: match.url + "/likes", title: "喜欢"},
-            ]}/>
-            <Route path={match.url} exact component={Tweets}/>
-            <Route path={match.url + "/with_replies"} component={WithReplies}/>
-            <Route path={match.url + "/media"} component={Media}/>
-            <Route path={match.url + "/likes"} component={Likes}/>
-          </Container>
-        </PullDownRefresh>
-      </div>
-    )
-  }
+            <div style={{margin: "5px 0 9px"}}>
+              <Text bold large >{user.name}</Text><br/>
+              <Text secondary >@{user.nickName}</Text>
+            </div>
+            <div style={{marginBottom: "9px"}}>
+              <InlineSvgWrapper>
+                <LocationIcon xsmall secondary/>
+                <Text secondary >{user.location}</Text>
+              </InlineSvgWrapper>
+              <InlineSvgWrapper>
+                <BirthdayIcon xsmall secondary/>
+                <Text secondary >出生于 {user.birthday}</Text>
+              </InlineSvgWrapper>
+              <InlineSvgWrapper>
+                <CalendarIcon xsmall secondary/>
+                <Text secondary >{user.registerTime} 加入</Text>
+              </InlineSvgWrapper>
+            </div>
+            <div style={{display: "flex"}}>
+              <div style={{marginRight: "18px"}}>
+                <Text bold >{user.following}</Text>
+                <Text secondary >正在关注</Text>
+              </div>
+              <Text bold >{user.followers}</Text>
+              <Text secondary >关注者</Text>
+            </div>
+    
+          </div>
+    
+          <LinkList links={[
+            {to: match.url, title: "推文", exact: true},
+            {to: match.url + "/with_replies", title: "推文与回复"},
+            {to: match.url + "/media", title: "媒体"},
+            {to: match.url + "/likes", title: "喜欢"},
+          ]}/>
+          <Route path={match.url} exact component={Tweets}/>
+          <Route path={match.url + "/with_replies"} component={WithReplies}/>
+          <Route path={match.url + "/media"} component={Media}/>
+          <Route path={match.url + "/likes"} component={Likes}/>
+        </Container>
+      </PullDownRefresh>
+    </div>
+  );
 }
 function WithReplies() {
   return (

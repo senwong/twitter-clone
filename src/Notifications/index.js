@@ -1,4 +1,4 @@
-import React from "react"
+import React, { useState, useEffect } from "react"
 import { Link } from "react-router-dom"
 import { SettingIcon, } from "../BaseComponents/SVGIcons"
 import CustomHr from "../BaseComponents/CustomHr"
@@ -13,69 +13,61 @@ import CurrentUserAvatar from '../container/CurrentUserAvatar'
 import PullDownRefresh from "../middleComponents/PullDownRefresh";
 import ScrollToggleHead from "../middleComponents/ScrollToggleHead";
 
-export default class Notifications extends React.Component {
-  constructor(props) {
-    super(props)
-    this.links = [
-      {to: this.props.match.url, title: "全部", exact: true},
-      {to: this.props.match.url + "/mentions", title: "提及"},
-    ];
-    this.handleRefresh = this.handleRefresh.bind(this);
-  }
-  handleRefresh() {
+export default function Notifications(props) {
+  const { match } = props;
+  const LINKS = [
+    {to: match.url, title: "全部", exact: true},
+    {to: match.url + "/mentions", title: "提及"},
+  ];
+  function handleRefresh() {
     return new Promise((resolve, reject) => {
       setTimeout(() => resolve(), 1000)
     })
   }
-  render() {
-    return (
-      <ScrollToggleHead 
-        head={
-          <React.Fragment>
-            <CustomHead 
-              left={<CurrentUserAvatar xsmall />}
-              middle={<Text bold large>通知</Text>} 
-              right={<Link to="/settings/notifications"><SettingIcon small primary /></Link>} 
-            />
-            <NavList />
-            <CustomHr />            
-          </React.Fragment>          
-        }
-        main={
-          <React.Fragment>
-            <LinkList links={this.links}/>
-            <PullDownRefresh onRefresh={this.handleRefresh}>
-              <Switch>
-                <Route exact path={this.props.match.url} component={AllNotifications}/>
-                <Route path={this.props.match.url + "/mentions"} component={Mentions}/>
-              </Switch>
-            </PullDownRefresh>
-          </React.Fragment>
-        }
-      />
-    )
-  }
-};
-class AllNotifications extends React.Component {
-  constructor(props) {
-    super(props)
-    this.state = {
-      notifications: []
-    }
-  }
-  componentDidMount() {
-    this.setState({notifications: getNotifications()})
-  }
-  render() {
-    return (
-      <div>
-        {
-          this.state.notifications.map(n => <NotifyCard key={n.id} notification={n}/>)
-        }
-      </div>
-    )
-  }
+  return (
+    <ScrollToggleHead 
+      head={
+        <React.Fragment>
+          <CustomHead 
+            left={<CurrentUserAvatar xsmall />}
+            middle={<Text bold large>通知</Text>} 
+            right={<Link to="/settings/notifications"><SettingIcon small primary /></Link>} 
+          />
+          <NavList />
+          <CustomHr />            
+        </React.Fragment>          
+      }
+      main={
+        <React.Fragment>
+          <LinkList links={LINKS}/>
+          <PullDownRefresh onRefresh={handleRefresh}>
+            <Switch>
+              <Route exact path={match.url} component={AllNotifications}/>
+              <Route path={match.url + "/mentions"} component={Mentions}/>
+            </Switch>
+          </PullDownRefresh>
+        </React.Fragment>
+      }
+    />
+  );
 }
+
+
+function AllNotifications(props) {
+  const [notifications, setNotifications] = useState([]);
+  useEffect(() => {
+    setNotifications(getNotifications());
+  }, []);
+
+  return (
+    <div>
+      {
+        notifications.map(n => <NotifyCard key={n.id} notification={n}/>)
+      }
+    </div>
+  );
+}
+
 function Mentions() {
   return (
     <div style={{padding: "37px 18px", textAlign: "center"}}>

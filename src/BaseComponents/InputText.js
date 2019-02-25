@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState, useRef } from "react";
 import { ExploreIcon, FilledDeleteIcon } from "./SVGIcons";
 import PropTypes from "prop-types";
 import styled, { css } from 'styled-components'
@@ -31,77 +31,69 @@ const Input = styled.input`
   }
 `;
 
-export default class InputText extends React.Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      theme: InputText.themes.secondary
-    };
-    this.inputRef = React.createRef();
-    this.handleDelte = this.handleDelte.bind(this);
-    this.handleFocus = this.handleFocus.bind(this);
-    this.handleBlur = this.handleBlur.bind(this);
-    this.handleKeyDown = this.handleKeyDown.bind(this);
+const THEME = {
+  primary: "primary",
+  secondary: "secondary",
+}
+
+function InputText(props) {
+  const { onChange, onFocus, onKeyDown, placeholder, value, ...other } = props;
+  const [theme, setTheme] = useState(THEME.primary);
+  const inputRef = useRef(null);
+  function handleDelte() {
+    onChange({ target: { value: "" } });
+    inputRef && inputRef.current && inputRef.current.focus();
   }
-  static themes = { primary: "primary", secondary: "secondary" };
-  handleDelte() {
-    this.props.onChange({ target: { value: "" } });
-    this.inputRef.current.focus();
+  function handleFocus(e) {
+    setTheme(THEME.primary);
+    onFocus && typeof onFocus === 'function' && onFocus(e);
   }
-  handleFocus(e) {
-    this.setState({ theme: InputText.themes.primary });
-    this.props.onFocus && this.props.onFocus(e);
+  function handleBlur(e) {
+    setTheme(THEME.secondary);
   }
-  handleBlur(e) {
-    this.setState({ theme: InputText.themes.secondary });
-  }
-  handleKeyDown(e) {
+  function handleKeyDown(e) {
     e.persist();
     if (e.key === "Enter") {
       e.target.blur();
     }
-    this.props.onKeyDown(e);
+    onKeyDown && typeof onKeyDown === 'function' && onKeyDown(e);
     console.log(e);
   }
-  render() {
-    const { onChange, placeholder, value, ...other } = this.props;
-    const theme = this.state.theme;
-    return (
-      <Container primary={theme === InputText.themes.primary}>
-        <span style={{ paddingLeft: "9px", display: "flex" }}>
-          <ExploreIcon xsmall primary={theme === InputText.themes.primary}  secondary={theme === InputText.themes.secondary} />
+  return (
+    <Container primary={theme === THEME.primary}>
+      <span style={{ paddingLeft: "9px", display: "flex" }}>
+        <ExploreIcon xsmall primary={theme === THEME.primary}  secondary={theme === THEME.secondary} />
+      </span>
+      <Input
+        type="text"
+        primary={theme === THEME.primary}
+        value={value}
+        onChange={onChange}
+        onKeyDown={handleKeyDown}
+        placeholder={placeholder}
+        onFocus={handleFocus}
+        onBlur={handleBlur}
+        ref={inputRef}
+        {...other}
+      />
+      {value && value.length > 0 ? (
+        <span
+          style={{
+            justifyContent: "center",
+            alignItems: "center",
+            minHeight: "32px",
+            minWidth: "32px",
+            display: "flex"
+          }}
+          onClick={handleDelte}
+        >
+          <FilledDeleteIcon small primary/>
         </span>
-        <Input
-          type="text"
-          primary={theme === InputText.themes.primary}
-          value={value}
-          onChange={onChange}
-          onKeyDown={this.handleKeyDown}
-          placeholder={placeholder}
-          onFocus={this.handleFocus}
-          onBlur={this.handleBlur}
-          ref={this.inputRef}
-          {...other}
-        />
-        {this.props.value && this.props.value.length > 0 ? (
-          <span
-            style={{
-              justifyContent: "center",
-              alignItems: "center",
-              minHeight: "32px",
-              minWidth: "32px",
-              display: "flex"
-            }}
-            onClick={this.handleDelte}
-          >
-            <FilledDeleteIcon small primary/>
-          </span>
-        ) : (
-          <div />
-        )}
-      </Container>
-    );
-  }
+      ) : (
+        <div />
+      )}
+    </Container>
+  );
 }
 
 InputText.propTypes = {
@@ -110,3 +102,5 @@ InputText.propTypes = {
   onFocus: PropTypes.func,
   onKeyDown: PropTypes.func
 };
+
+export default InputText;

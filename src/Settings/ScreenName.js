@@ -1,5 +1,5 @@
 
-import React from "react"
+import React, { useState, useEffect } from "react"
 import PrimaryGap from "../BaseComponents/PrimaryGap"
 import { SettingsContainer, SubTitle, } from "./index"
 import Head from "../container/settingPages/Head"
@@ -8,63 +8,54 @@ import { getRecommendScreenName } from "../dataMock"
 import CustomizedButton from "../BaseComponents/CustomizedButton"
 import Text from "../BaseComponents/Text"
 
-export default class ScreenName extends React.Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      name: props.name,
-      recommendNames: [],
-    }
-    this.handleChange = this.handleChange.bind(this);
-    this.handleSave = this.handleSave.bind(this);
+export default function ScreenName(props) {
+  const [name, setName ] = useState(props.name);
+  const [recommendNames, setRecommendNames] = useState([]);
+  function handleChange(e) {
+    setName(e.target.value);
   }
-  handleChange(e) {
-    this.setState({name: e.target.value});
+  useEffect(() => {
+    setRecommendNames(getRecommendScreenName());
+  }, []);
+  function handleSave() {
+    props.setName(name);
+    props.history.goBack();
   }
-  componentDidMount() {
-    this.setState({recommendNames: getRecommendScreenName()})
-  }
-  handleSave() {
-    this.props.setName(this.state.name);
-    this.props.history.goBack();
-  }
-  render() {
-    return (
-      <SettingsContainer>
-        <Head title="更改用户名"/>
-        <CustomizedInput
-          value={this.state.name} 
-          label="用户名" 
-          placeholder="选择你的用户名"
-          onChange={this.handleChange} 
-          WarningLabel={() => <Warning value={this.state.name}/>}
-        />
-        <SubTitle>建议</SubTitle>
-        <div style={{padding: "14px 9px", backgroundColor: "white"}}>
-          {
-            this.state.recommendNames.map((name, i) =>
-              <div key={i} onClick={() => this.setState({name: name})} style={{marginBottom: "9px"}} >
-                <Text primary >{name}</Text>
-              </div>
-            )
+  return (
+    <SettingsContainer>
+      <Head title="更改用户名"/>
+      <CustomizedInput
+        value={name} 
+        label="用户名" 
+        placeholder="选择你的用户名"
+        onChange={handleChange} 
+        WarningLabel={() => <Warning value={name}/>}
+      />
+      <SubTitle>建议</SubTitle>
+      <div style={{padding: "14px 9px", backgroundColor: "white"}}>
+        {
+          recommendNames.map((name, i) =>
+            <div key={i} onClick={() => setName(name)} style={{marginBottom: "9px"}} >
+              <Text primary >{name}</Text>
+            </div>
+          )
+        }
+      </div>
+      <PrimaryGap/>
+      <div style={{display: 'flex', justifyContent: 'flex-end', padding: "9px", backgroundColor: 'white'}}>
+        <CustomizedButton 
+          filled 
+          onClick={handleSave} 
+          disabled={
+            !name || 
+            name === props.name ||
+            name.length <= 4 || 
+            name.length >= 15
           }
-        </div>
-        <PrimaryGap/>
-        <div style={{display: 'flex', justifyContent: 'flex-end', padding: "9px", backgroundColor: 'white'}}>
-          <CustomizedButton 
-            filled 
-            onClick={this.handleSave} 
-            disabled={
-              !this.state.name || 
-              this.state.name === this.props.name ||
-              this.state.name.length <= 4 || 
-              this.state.name.length >= 15
-            }
-          >保存</CustomizedButton>
-        </div>
-      </SettingsContainer>
-    )
-  }
+        >保存</CustomizedButton>
+      </div>
+    </SettingsContainer>
+  );
 }
 function Warning({value}) {
   return (

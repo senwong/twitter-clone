@@ -1,4 +1,4 @@
-import React from "react"
+import React, { useEffect, useRef } from "react"
 import styled from 'styled-components'
 import { withRouter } from 'react-router-dom';
 
@@ -19,60 +19,52 @@ const ContentWrapper = styled.div`
 `;
 const Item = styled.div`
   padding: 14px 18px;
-  color: ${props => props.warning ? 'rgb(224, 36, 94)' : 'inherits'}
+  color: ${props => props.warning ? 'rgb(224, 36, 94)' : 'inherit'};
 `;
 const Cancel = styled.div`
   padding: 14px 18px;
-  border-top: 1px solid rgb(230, 236, 240)
+  border-top: 1px solid rgb(230, 236, 240);
 `;
 
-class PopupPage extends React.Component {
-  constructor(props) {
-    super(props);
-    this.handleWrapperClick = this.handleWrapperClick.bind(this);
-    this.hide = this.hide.bind(this);
-    this.contentRef = React.createRef();
-    this.handlePopstate = this.handlePopstate.bind(this);
-  }
-  handleWrapperClick(e) {
-    if(e.target !== this.contentRef.current && !this.contentRef.current.contains(e.target)) {
-      this.hide();
+function PopupPage(props) {
+  const contentRef = useRef();
+  const { history, location, toggle, items } = props;
+  function handleWrapperClick(e) {
+    if(e.target !== contentRef.current && !contentRef.current.contains(e.target)) {
+      hide();
     }
   }
-  hide() {
-    this.props.history.goBack();
-    this.props.toggle(false);
+  function hide() {
+    history.goBack();
+    toggle(false);
   }
-  handlePopstate(e) {
+  function handlePopstate(e) {
     // 安卓返回键
     console.log('popstate pop', e)
-    this.props.toggle(false);
+    toggle(false);
   }
-  componentDidMount() {
-    this.props.history.push(this.props.location.pathname);
-    window.addEventListener('popstate', this.handlePopstate)
-  }
-  componentWillUnmount() {
-    window.removeEventListener('popstate', this.handlePopstate)
-  }
-  render() {
-    const { items } = this.props;
-    return (
-      <Wrapper 
-        onClick={this.handleWrapperClick}
+  useEffect(() => {
+    history.push(location.pathname);
+    window.addEventListener('popstate', handlePopstate);
+    return () => {
+      window.removeEventListener('popstate', handlePopstate)
+    };
+  }, []);
+  return (
+    <Wrapper 
+      onClick={handleWrapperClick}
+    >
+      <ContentWrapper 
+        ref={contentRef}
       >
-        <ContentWrapper 
-          ref={this.contentRef}
-        >
-          {
-            items.map(({title, ...itemProps}, i) =>
-              <Item key= {i} {...itemProps}>{title}</Item>
-            )
-          }
-          <Cancel onClick={() => this.hide()}>取消</Cancel>
-        </ContentWrapper>
-      </Wrapper>
-    )
-  }
+        {
+          items.map(({title, ...itemProps}, i) =>
+            <Item key= {i} {...itemProps}>{title}</Item>
+          )
+        }
+        <Cancel onClick={() => hide()}>取消</Cancel>
+      </ContentWrapper>
+    </Wrapper>
+  );
 }
 export default withRouter(PopupPage);

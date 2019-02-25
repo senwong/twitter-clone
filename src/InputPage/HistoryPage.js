@@ -57,56 +57,53 @@ const ItemRight = styled.div`
   display: flex;
   align-items: center;
 `;
+// search history page (exclude search bar in top)
+function HistorysPage(props) {
 
-export default class HistorysPage extends React.Component {
-  constructor(props) {
-    super(props)
-    this.handleDeleteAll = this.handleDeleteAll.bind(this);
-    this.handleDelete = this.handleDelete.bind(this);
-  }
-  handleDeleteAll() {
+  function handleDeleteAll() {
     deleteAllSearchHistory();
     this.forceUpdate();
   }
-  handleDelete(h) {
+  function handleDelete(h) {
     deleteSearchHistory(h);
     this.forceUpdate();
   }
-  render() {
-    const historys = getSearchHistory();
-    return (
-      <Container>
-        {historys.length === 0 
-          ? <Padding>
-              <Text secondary>尝试搜索用户、话题或关键词</Text>
-            </Padding>
-          : (
-            <React.Fragment>
-              <HeadContainer>
-                <HeadLeft>
-                  最近搜索
-                </HeadLeft>
-                <HeadRight>
-                  <DeleteIcon small primary onClick={this.handleDeleteAll}/>
-                </HeadRight>
-              </HeadContainer>
-              {historys.map((h, i) => (
-                <Item selected={this.props.selected === h} tabIndex="0" key={h}>
-                  <ItemLeft>
-                    <ExploreIcon xsmall />
-                  </ItemLeft>
-                  <ItemMiddle>
-                    {h}
-                  </ItemMiddle>
-                  <ItemRight>
-                    <DeleteIcon small primary onClick={() => this.handleDelete(h)}/>
-                  </ItemRight>
-                </Item>
-              ))}
-            </React.Fragment>
-          )
-        }
-      </Container>
-    )
-  }
+  const historys = getSearchHistory();
+  // current selected search history
+  const { selected } = props;
+  return (
+    <Container>
+      {historys.length === 0 
+        ? <Padding>
+            <Text secondary>尝试搜索用户、话题或关键词</Text>
+          </Padding>
+        : (
+          <React.Fragment>
+            <HeadContainer>
+              <HeadLeft>
+                最近搜索
+              </HeadLeft>
+              <HeadRight>
+                <DeleteIcon small primary onClick={handleDeleteAll}/>
+              </HeadRight>
+            </HeadContainer>
+            {historys.map((h, i) => (
+              <Item selected={selected === h} tabIndex="0" key={h}>
+                <ItemLeft>
+                  <ExploreIcon xsmall />
+                </ItemLeft>
+                <ItemMiddle>
+                  {h}
+                </ItemMiddle>
+                <ItemRight>
+                  <DeleteIcon small primary onClick={() => handleDelete(h)}/>
+                </ItemRight>
+              </Item>
+            ))}
+          </React.Fragment>
+        )
+      }
+    </Container>
+  );
 }
+export default HistorysPage;

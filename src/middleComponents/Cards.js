@@ -1,4 +1,4 @@
-import React from"react"
+import React, { useState, useEffect } from"react"
 import { Link } from "react-router-dom"
 import DateTime from "../BaseComponents/DateTime"
 import Dot from "../BaseComponents/Dot"
@@ -74,50 +74,41 @@ const MediaCardHeadLeft = styled.div`
 const MediaCardContent = styled.div`
   padding-top: 5px;
 `;
-export class MediaCard extends React.Component {
-  constructor(props) {
-    super(props)
-    this.state = {
-      isTouching: false,
-    }
-    this.handleTouchStart = this.handleTouchStart.bind(this)
-    this.handleTouchMove = this.handleTouchMove.bind(this)
-    this.handleEnd = this.handleEnd.bind(this)
-  }
-  handleTouchStart(e) {
-    this.setState({isTouching: true})
-  }
-  handleTouchMove(e) {
-    this.setState({isTouching: false})
-  }
-  handleEnd(e) {
-    this.setState({isTouching: false})
-  }
-  render() {
-    return (
-      <MediaCardContainer
-        isTouching={this.state.isTouching}  
-        onTouchStart={this.handleTouchStart} 
-        onTouchMove={this.handleTouchMove} 
-        onTouchEnd={this.handleEnd}
-      >
-        <MediaCardLeft>
-          {this.props.left}
-        </MediaCardLeft>
-        <MediaCardRight>
-          <MediaCardHead>
-            <MediaCardHeadLeft>{this.props.headLeft}</MediaCardHeadLeft>
-            <div>{this.props.headRight}</div>
-          </MediaCardHead>
-          {
-            this.props.content && <MediaCardContent>{this.props.content}</MediaCardContent>
-          }
-        </MediaCardRight>
-      </MediaCardContainer>
-    )
-  }
-}
+export function MediaCard(props) {
+  const [isTouching, setIsTouching] = useState(false);
 
+  function handleTouchStart(e) {
+    setIsTouching(true);
+  }
+  function handleTouchMove(e) {
+    setIsTouching(false);
+  }
+  function handleEnd(e) {
+    setIsTouching(false);
+  }
+  const {left, headLeft, headRight, content} = props;
+  return (
+    <MediaCardContainer
+      isTouching={isTouching}  
+      onTouchStart={handleTouchStart} 
+      onTouchMove={handleTouchMove} 
+      onTouchEnd={handleEnd}
+    >
+      <MediaCardLeft>
+        {left}
+      </MediaCardLeft>
+      <MediaCardRight>
+        <MediaCardHead>
+          <MediaCardHeadLeft>{headLeft}</MediaCardHeadLeft>
+          <div>{headRight}</div>
+        </MediaCardHead>
+        {
+          content && <MediaCardContent>{content}</MediaCardContent>
+        }
+      </MediaCardRight>
+    </MediaCardContainer>
+  )
+}
 
 const SvgBtnContainer = styled.div`
   position: relative;
@@ -132,67 +123,51 @@ const FakeSvgBtn = styled.div`
   margin: -6px;
 `;
 // component TweetCard, a card to show tweet content and user info
-export class TweetCard extends React.Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      user: {},
-    }
-  }
-  componentDidMount() {
-    const userId = this.props.tweet.userId;
-    console.log({userId});
-    console.log({"props tweet": this.props.tweet});
-    if (userId === undefined) return;
-    getUserById(userId).then(user => {
-      this.setState({user: user})
-    })
-  }
-  render() {
-    const { togglePop, tweet } = this.props;
-    const user = this.state.user;
-    const left = <Link
-      to={{
-        pathname: '/' + user.name,
-      }}
-    ><Avatar user={user}/></Link>;
-    const actions = {
-      replayAmount: tweet.replayAmount,
-      forewardAmount: tweet.forewardAmount,
-      likeAmount: tweet.likeAmount, 
-    }
-    const headLeft = (
-      <div>
-        <Link to={'/' + user.name}>
-          <Text bold>{user.nickName}</Text>
-        </Link>
-        {user.isV ? <BigVIcon xsmall primary/> : null}
-        <Link to={'/'+user.name}>
-          <Text secondary>@{user.name}</Text>
-        </Link>
-        <Dot />
-        <DateTime dateTime={tweet.createdTime}/>
-      </div>
-    );
-    const headRight = (
-      <SvgBtnContainer>
-        <FakeSvgBtn onClick={() => togglePop(user)} />
-        <ArrowDown xsmall secondary/>
-      </SvgBtnContainer>
-    );
-    const content = (
-      <div>
-        <div>{tweet.content}</div>
-        <TweetCardActions actions={actions}/>
-      </div>
-    );
-    const p = {left, headLeft, headRight, content, }
-    return (
-      <React.Fragment>
-        <MediaCard {...p}/>
-      </React.Fragment>
-    )
-  }
+export function TweetCard(props) {
+  const [user, setUser] = useState({});
+  const {togglePop, tweet} = props;
+  useEffect(() => {
+    const userId = tweet.userId;
+    userId && getUserById(userId).then(user => setUser(user));
+  }, []);
+  
+  const left = <Link to={{pathname: '/' + user.name}}><Avatar user={user}/></Link>;
+  const headLeft = (
+    <div>
+      <Link to={'/' + user.name}>
+        <Text bold>{user.nickName}</Text>
+      </Link>
+      {user.isV ? <BigVIcon xsmall primary/> : null}
+      <Link to={'/'+user.name}>
+        <Text secondary>@{user.name}</Text>
+      </Link>
+      <Dot />
+      <DateTime dateTime={tweet.createdTime}/>
+    </div>
+  );
+  const headRight = (
+    <SvgBtnContainer>
+      <FakeSvgBtn onClick={() => togglePop(user)} />
+      <ArrowDown xsmall secondary/>
+    </SvgBtnContainer>
+  );
+  const actions = {
+    replayAmount: tweet.replayAmount,
+    forewardAmount: tweet.forewardAmount,
+    likeAmount: tweet.likeAmount, 
+  };
+  const content = (
+    <div>
+      <div>{tweet.content}</div>
+      <TweetCardActions actions={actions}/>
+    </div>
+  );
+  const p = {left, headLeft, headRight, content, }
+  return (
+    <React.Fragment>
+      <MediaCard {...p}/>
+    </React.Fragment>
+  );
 }
 
 

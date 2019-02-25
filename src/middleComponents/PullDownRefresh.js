@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState, } from "react";
 import { PullDownIcon, WattingIcon } from "../BaseComponents/SVGIcons";
 import styled from 'styled-components'
 
@@ -17,64 +17,62 @@ const ActionsContainer = styled.div`
   top: -3em;
   left: 0;
   right: 0;
-  border-bottom: 1px solid rgb(230, 236, 240);
   transform: ${props => props.isTurnUp && 'rotate(180deg)'};
 `;
-export default class PullDownRefresh extends React.Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      mainTranslateY: 0,
-      RefreshHeight: 42,
-      isRefressWatting: false,
-      firstTouchY: 0,
-    };
-    this.handleTouchStart = this.handleTouchStart.bind(this);
-    this.handleTouchMove = this.handleTouchMove.bind(this);
-    this.handleTouchEnd = this.handleTouchEnd.bind(this);
+const GreyHr = styled.div`
+  height: 1px;
+  border-bottom: 1px solid rgb(230, 236, 240);
+`;
+export default function PullDownRefresh(props) {
+  const [mainTranslateY, setMainTranslateY] = useState(0);
+  const [isRefressWatting, setIsRefressWatting] = useState(false);
+  const [firstTouchY, setFirstTouchY] = useState(0);
+  const RefreshHeight = 42;
+  const { onRefresh, children } = props;
+
+  function handleTouchStart(e) {
+    setFirstTouchY(e.touches[0].clientY);
   }
-  handleTouchStart(e) {
-    this.setState({ firstTouchY: e.touches[0].clientY });
-  }
-  handleTouchMove(e) {
+  function handleTouchMove(e) {
     e.persist();
     if (document.scrollingElement.scrollTop > 0) {
       return;
     }
-    const dis = e.touches[0].clientY - this.state.firstTouchY;
+    const dis = e.touches[0].clientY - firstTouchY;
     if (dis > 0) {
-      this.setState({ mainTranslateY: Math.round(dis / 2) });
+      setMainTranslateY(Math.round(dis / 2));
     }
   }
-  handleTouchEnd() {
-    console.log("touch end, this.state.mainTranslateY", this.state.mainTranslateY);
-    if (this.state.mainTranslateY > this.state.RefreshHeight) {
+  function handleTouchEnd() {
+    console.log("touch end, this.state.mainTranslateY", mainTranslateY);
+    if (mainTranslateY > RefreshHeight) {
       window.requestAnimationFrame(() => {
-        this.setState({ isRefressWatting: true });
-        console.log("touch end, dis: " + this.state.mainTranslateY);
-        this.props.onRefresh().then(() => {
-          this.setState({ isRefressWatting: false, mainTranslateY: 0 });
+        setIsRefressWatting(true);
+        console.log("touch end, dis: " + mainTranslateY);
+        onRefresh().then(() => {
+          setIsRefressWatting(false);
+          setMainTranslateY(0);
         });
-        this.setState({ mainTranslateY: 42 });
+        setMainTranslateY(RefreshHeight);
       });
     } else {
-      this.setState({ mainTranslateY: 0 });
+      setMainTranslateY(0);
     }
   }
-  render() {
-    return (
-      <Container translateY={this.state.mainTranslateY}
-        onTouchStart={this.handleTouchStart}
-        onTouchMove={this.handleTouchMove}
-        onTouchEnd={this.handleTouchEnd}
+  
+  return (
+    <Container translateY={mainTranslateY}
+      onTouchStart={handleTouchStart}
+      onTouchMove={handleTouchMove}
+      onTouchEnd={handleTouchEnd}
+    >
+      <ActionsContainer
+        isTurnUp={mainTranslateY > RefreshHeight}
       >
-        <ActionsContainer
-          isTurnUp={this.state.mainTranslateY > this.state.RefreshHeight}
-        >
-          {this.state.isRefressWatting ? <WattingIcon /> : <PullDownIcon large secondary />}
-        </ActionsContainer>
-        {this.props.children}
-      </Container>
-    );
-  }
+        {isRefressWatting ? <WattingIcon large/> : <PullDownIcon large secondary />}
+      </ActionsContainer>
+      <GreyHr />
+      {children}
+    </Container>
+  );
 }

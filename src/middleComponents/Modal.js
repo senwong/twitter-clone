@@ -25,58 +25,51 @@ const Content = styled.div`
   flex-direction: column;
   align-items: center;
 `;
-export default class Modal extends React.Component {
-  constructor(props) {
-    super(props)
-    this.handleContainerClick = this.handleContainerClick.bind(this);
-    this.contentRef = null;
-    this.handleConfirm = this.handleConfirm.bind(this);
-    this.handleCancel = this.handleCancel.bind(this);
-  }
-  handleContainerClick(e) {
-    if (e.target !== this.contentRef.current && !this.contentRef.current.contains(e.target)) {
-      this.props.toggle();
+export default function Modal(props) {
+  const contentRef = null;
+  const { toggle, onConfirm, onCancel, config } = props;
+  const {title, type, hasConfirm, hasCancel} = config
+  function handleContainerClick(e) {
+    if (e.target !== contentRef.current && !contentRef.current.contains(e.target)) {
+      toggle();
     }
   }
-  handleConfirm(e) {
-    this.props.toggle();
-    this.props.onConfirm && typeof this.props.onConfirm === 'function' && this.props.onConfirm();
+  function handleConfirm(e) {
+    toggle();
+    onConfirm && typeof onConfirm === 'function' && onConfirm();
     e.stopPropagation();
   }
-  handleCancel(e) {
-    this.props.toggle();
-    this.props.onCancel && typeof this.props.onCancel === 'function' && this.props.onCancel();
+  function handleCancel(e) {
+    toggle();
+    onCancel && typeof onCancel === 'function' && onCancel();
     e.stopPropagation();
   }
-  render () {
-    const {title, type, hasConfirm, hasCancel} = this.props.config
-    return (
-      <Container onClick={this.handleContainerClick}>
-        <Content ref={this.contentRef}>
-          <div style={{marginTop: '14px', textAlign: 'center'}}>
-            <Text 
-              primary={type==='primary'}
-              secondary={type==='secondary'}
-              warning={type==='warning'} 
-            >{title}</Text>
-          </div>
-          {
-            hasConfirm && (
-              <div style={{marginTop: '18px', minWidth: '58px'}}>
-                <CustomizedButton filled onClick={this.handleConfirm}>是</CustomizedButton>
-              </div>
-            )
-          }
-          {
-            hasCancel && (
-              <div style={{marginTop: '9px', minWidth: '58px'}}>
-                <CustomizedButton onClick={this.handleCancel}>坦</CustomizedButton>
-              </div>
-            )
-          }
-        </Content>
-      </Container>
-    )
-  }
- 
+  
+  return (
+    <Container onClick={handleContainerClick}>
+      <Content ref={contentRef}>
+        <div style={{marginTop: '14px', textAlign: 'center'}}>
+          <Text 
+            primary={type==='primary'}
+            secondary={type==='secondary'}
+            warning={type==='warning'} 
+          >{title}</Text>
+        </div>
+        {
+          hasConfirm && (
+            <div style={{marginTop: '18px', minWidth: '58px'}}>
+              <CustomizedButton filled onClick={handleConfirm}>是</CustomizedButton>
+            </div>
+          )
+        }
+        {
+          hasCancel && (
+            <div style={{marginTop: '9px', minWidth: '58px'}}>
+              <CustomizedButton onClick={handleCancel}>否</CustomizedButton>
+            </div>
+          )
+        }
+      </Content>
+    </Container>
+  );
 }

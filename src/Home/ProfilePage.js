@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import { withRouter } from "react-router-dom"
 import Avatar from "../BaseComponents/Avatar";
 import CustomHr from "../BaseComponents/CustomHr"
@@ -26,96 +26,86 @@ const SideMenu = styled.div`
   box-shadow: rgba(0, 0, 0, 0.19) 0px 10px 20px, rgba(0, 0, 0, 0.22) 0px 6px 6px;
 `;
 
-class ProfilePage extends React.Component {
-  constructor(props) {
-    super(props)
-    this.menu = null;
-    this.state = {
-      isDataSaver: false,
-      isDarkMode: false,
-    }
-    this.handleClick = this.handleClick.bind(this);
-    this.handleSettingClick = this.handleSettingClick.bind(this);
-    this.handleUserClick = this.handleUserClick.bind(this);
-    this.handleDataSaverClick = this.handleDataSaverClick.bind(this);
-    this.handleDarkModeClick = this.handleDarkModeClick.bind(this);
-  }
-  handleClick(e) {
-    if (this.menu &&  e.target !== this.menu && !this.menu.contains(e.target)) {
-      this.props.toggle();
+function ProfilePage(props) {
+  const [isDataSaver, setIsDataSaver] = useState(false);
+  const [isDarkMode, setIsDarkMode] = useState(false);
+  let menu = null;
+  const { user, toggle, history} = props;
+  function handleClick(e) {
+    if (menu &&  e.target !== menu && !menu.contains(e.target)) {
+      toggle();
     }
   }
-  handleSettingClick() {
-    this.props.history.push("/settings")
-    this.props.toggle();
+  function handleSettingClick() {
+    history.push("/settings")
+    toggle();
   }
-  handleUserClick() {
-    this.props.history.push("/"+this.props.user.name)
-    this.props.toggle();
+  function handleUserClick() {
+    history.push("/" + user.name)
+    toggle();
   }
-  handleDataSaverClick() {
-    this.setState({
-      isDataSaver: !this.state.isDataSaver,
-    })
+  function handleDataSaverClick() {
+    setIsDataSaver(!isDataSaver);
   }
-  handleDarkModeClick() {
-    this.setState({
-      isDarkMode: !this.state.isDarkMode,
-    })
+  function handleDarkModeClick() {
+    setIsDarkMode(!isDarkMode);
   }
-  render() {
-    const { user } = this.props;
-    return (
-      <SidePage onClick={this.handleClick}>
-        <SideMenu ref={ el => this.menu = el }>
-          <div style={{padding: "9px 18px 0"}} onClick={this.handleUserClick}>
-            <Avatar user={user}/>
+  return (
+    <SidePage onClick={handleClick}>
+      <SideMenu ref={ el => menu = el }>
+        <div 
+          style={{padding: "9px 18px 0"}} 
+          onClick={handleUserClick}
+        >
+          <Avatar user={user}/>
+        </div>
+        <div 
+          style={{padding: "9px 18px 0"}} 
+          onClick={handleUserClick}
+        >
+          <Text bold>{user.nickName}</Text><br/>
+          <Text secondary>@{user.name}</Text>
+        </div>
+        <div style={{padding: "9px 18px"}}>
+          <div style={{display: "inline-block", marginRight: "9px"}}>
+            <Text bold>{user.following} </Text>正在关注
           </div>
-          <div style={{padding: "9px 18px 0"}} onClick={this.handleUserClick}>
-            <Text bold>{user.nickName}</Text><br/>
-            <Text secondary>@{user.name}</Text>
+          <div style={{display: "inline-block"}}>
+            <Text bold>{user.followers} </Text>关注者
           </div>
-          <div style={{padding: "9px 18px"}}>
-            <div style={{display: "inline-block", marginRight: "9px"}}>
-              <Text bold>{user.following} </Text>正在关注
+        </div>
+        <ListItem left={<Person xsmall secondary/>} middle={<div>个人资料</div>}/>
+        <ListItem left={<List  xsmall secondary/>} middle={<div>列表</div>}/>
+        <ListItem left={<BookMark xsmall secondary/>} middle={<div>书签</div>}/>
+        <ListItem left={<Momments xsmall secondary/>} middle={<div>瞬间</div>}/>
+        <CustomHr />
+        <ListItem middle={<div onClick={handleSettingClick }>设置和隐私</div>}/>
+        <ListItem middle={<div>帮助中心</div>}/>
+        <ListItem middle={<div>登出</div>}/>
+        <CustomHr />
+        <ListItem 
+          middle={
+            <div style={{marginRight: "55px"}}>流量节省程序</div>
+          } 
+          right={
+            <div style={{margin: "0 9px"}}>
+              <ToggleButton checked={isDataSaver} onClick={handleDataSaverClick}/>
             </div>
-            <div style={{display: "inline-block"}}>
-              <Text bold>{user.followers} </Text>关注者
-            </div>
-          </div>
-          <ListItem left={<Person xsmall secondary/>} middle={<div>个人资料</div>}/>
-          <ListItem left={<List  xsmall secondary/>} middle={<div>列表</div>}/>
-          <ListItem left={<BookMark xsmall secondary/>} middle={<div>书签</div>}/>
-          <ListItem left={<Momments xsmall secondary/>} middle={<div>瞬间</div>}/>
-          <CustomHr />
-          <ListItem middle={<div onClick={ this.handleSettingClick }>设置和隐私</div>}/>
-          <ListItem middle={<div>帮助中心</div>}/>
-          <ListItem middle={<div>登出</div>}/>
-          <CustomHr />
-          <ListItem 
-            middle={
-              <div style={{marginRight: "55px"}}>流量节省程序</div>
-            } 
-            right={
-              <div style={{margin: "0 9px"}}>
-                <ToggleButton checked={this.state.isDataSaver} onClick={this.handleDataSaverClick}/>
-              </div>
-              }
-          />
-          <ListItem 
-            middle={
-              <div style={{marginRight: "55px"}}>夜间模式</div>
-            } 
-            right={
-              <div style={{margin: "0 9px"}}>
-                <ToggleButton checked={this.state.isDarkMode} onClick={this.handleDarkModeClick}/>
-              </div>
             }
-          />
-        </SideMenu>
-      </SidePage>
-    );
-  }
+        />
+        <ListItem 
+          middle={
+            <div style={{marginRight: "55px"}}>夜间模式</div>
+          } 
+          right={
+            <div style={{margin: "0 9px"}}>
+              <ToggleButton checked={isDarkMode} onClick={handleDarkModeClick}/>
+            </div>
+          }
+        />
+      </SideMenu>
+    </SidePage>
+  );
 }
 
 const ListItemContainer = styled.div`
