@@ -1,5 +1,5 @@
-import React from "react";
-import styled, { css } from 'styled-components'
+import React from 'react';
+import styled, { css } from 'styled-components';
 import PropTypes from 'prop-types';
 
 const Container = styled.div`
@@ -13,10 +13,10 @@ const Container = styled.div`
 const Background = styled.div`
   height: 70%;
   border-radius: 10px;
-  background-color: ${props => props.checked 
+  background-color: ${props => (props.checked
     ? 'rgb(113, 201, 248)'
-    : 'rgb(147, 147, 147)'
-  };
+    : 'rgb(147, 147, 147)')
+};
   position: absolute;
   top: 0;
   left: 0;
@@ -57,16 +57,16 @@ const Input = styled.input`
   margin: 0;
 `;
 
-export default function ToggleButton(props) {
+export default function ToggleButton({ checked, onClick }) {
   return (
     <Container>
-      <Background checked={props.checked} />
-      <Circle checked={props.checked} />
-      <Input type="checkbox" onClick={props.onClick}/>
+      <Background checked={checked} />
+      <Circle checked={checked} />
+      <Input type="checkbox" onClick={onClick} />
     </Container>
-  )
+  );
 }
 ToggleButton.propTypes = {
   checked: PropTypes.bool.isRequired,
   onClick: PropTypes.func.isRequired,
-}
+};

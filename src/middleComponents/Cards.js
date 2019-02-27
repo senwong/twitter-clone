@@ -1,13 +1,16 @@
-import React, { useState, useEffect } from"react"
-import { Link } from "react-router-dom"
-import DateTime from "../BaseComponents/DateTime"
-import Dot from "../BaseComponents/Dot"
-import CustomizedButton from "../BaseComponents/CustomizedButton"
-import { ReplyIcon, ForewardIcon, LikeIcon, ShareIcon, BigVIcon, PurpleStar, ArrowDown } from "../BaseComponents/SVGIcons"
-import Avatar from "../BaseComponents/Avatar"
-import Text from "../BaseComponents/Text";
-import styled from 'styled-components'
-import { getUserById } from "../Api"
+import React, { useState, useEffect } from 'react';
+import { Link } from 'react-router-dom';
+import styled from 'styled-components';
+import PropTypes from 'prop-types';
+import DateTime from '../BaseComponents/DateTime';
+import Dot from '../BaseComponents/Dot';
+import CustomizedButton from '../BaseComponents/CustomizedButton';
+import {
+  ReplyIcon, ForewardIcon, LikeIcon, ShareIcon, BigVIcon, PurpleStar, ArrowDown,
+} from '../BaseComponents/SVGIcons';
+import Avatar from '../BaseComponents/Avatar';
+import Text from '../BaseComponents/Text';
+import { getUserById } from '../Api';
 
 /*
 * actions at tweet card bottom
@@ -23,24 +26,31 @@ const ActionsItem = styled.div`
 const ActionsItemShare = styled(ActionsItem)`
   flex: 0 0 0;
 `;
-function TweetCardActions(props) {
+function TweetCardActions({ actions }) {
   return (
     <ActionsContainer>
       <ActionsItem>
-        <ReplyIcon xxsmall secondary value={props.actions.replayAmount}/>
+        <ReplyIcon xxsmall secondary value={actions.replayAmount} />
       </ActionsItem>
       <ActionsItem>
-        <ForewardIcon xxsmall secondary value={props.actions.forewardAmount}/>
+        <ForewardIcon xxsmall secondary value={actions.forewardAmount} />
       </ActionsItem>
       <ActionsItem>
-        <LikeIcon xxsmall secondary value={props.actions.likeAmount}/>
+        <LikeIcon xxsmall secondary value={actions.likeAmount} />
       </ActionsItem>
       <ActionsItemShare>
         <ShareIcon xxsmall secondary />
       </ActionsItemShare>
     </ActionsContainer>
-  )
+  );
 }
+TweetCardActions.propTypes = {
+  actions: PropTypes.shape({
+    replayAmount: PropTypes.number.isRequired,
+    forewardAmount: PropTypes.number.isRequired,
+    likeAmount: PropTypes.number.isRequired,
+  }).isRequired,
+};
 
 
 const MediaCardContainer = styled.div`
@@ -74,24 +84,25 @@ const MediaCardHeadLeft = styled.div`
 const MediaCardContent = styled.div`
   padding-top: 5px;
 `;
-export function MediaCard(props) {
+export function MediaCard({
+  left, headLeft, headRight, content,
+}) {
   const [isTouching, setIsTouching] = useState(false);
 
-  function handleTouchStart(e) {
+  function handleTouchStart() {
     setIsTouching(true);
   }
-  function handleTouchMove(e) {
+  function handleTouchMove() {
     setIsTouching(false);
   }
-  function handleEnd(e) {
+  function handleEnd() {
     setIsTouching(false);
   }
-  const {left, headLeft, headRight, content} = props;
   return (
     <MediaCardContainer
-      isTouching={isTouching}  
-      onTouchStart={handleTouchStart} 
-      onTouchMove={handleTouchMove} 
+      isTouching={isTouching}
+      onTouchStart={handleTouchStart}
+      onTouchMove={handleTouchMove}
       onTouchEnd={handleEnd}
     >
       <MediaCardLeft>
@@ -107,8 +118,17 @@ export function MediaCard(props) {
         }
       </MediaCardRight>
     </MediaCardContainer>
-  )
+  );
 }
+MediaCard.propTypes = {
+  left: PropTypes.node.isRequired,
+  headLeft: PropTypes.node.isRequired,
+  headRight: PropTypes.element,
+  content: PropTypes.node.isRequired,
+};
+MediaCard.defaultProps = {
+  headRight: <div />,
+};
 
 const SvgBtnContainer = styled.div`
   position: relative;
@@ -123,102 +143,173 @@ const FakeSvgBtn = styled.div`
   margin: -6px;
 `;
 // component TweetCard, a card to show tweet content and user info
-export function TweetCard(props) {
-  const [user, setUser] = useState({});
-  const {togglePop, tweet} = props;
+export function TweetCard({ togglePop, tweet }) {
+  const [user, setUser] = useState();
   useEffect(() => {
-    const userId = tweet.userId;
-    userId && getUserById(userId).then(user => setUser(user));
-  }, []);
-  
-  const left = <Link to={{pathname: '/' + user.name}}><Avatar user={user}/></Link>;
+    const { userId } = tweet;
+    const p = getUserById(userId);
+    p.promise.then(res => setUser(res.data), () => {});
+    return () => {
+      p.cancel();
+    };
+  }, [tweet.userId]);
+  const left = (
+    <React.Fragment>
+      {
+        user
+        && user.name
+        && (
+          <Link to={{ pathname: `/${user.name}` }}>
+            <Avatar user={user} />
+          </Link>
+        )
+      }
+    </React.Fragment>
+  );
   const headLeft = (
     <div>
-      <Link to={'/' + user.name}>
-        <Text bold>{user.nickName}</Text>
-      </Link>
-      {user.isV ? <BigVIcon xsmall primary/> : null}
-      <Link to={'/'+user.name}>
-        <Text secondary>@{user.name}</Text>
-      </Link>
+      {
+        user
+        && user.name
+        && user.nickName
+        && (
+          <Link to={`/${user.name}`}>
+            <Text bold>{user.nickName}</Text>
+          </Link>
+        )
+      }
+      {
+        user
+        && typeof user.isV !== 'undefined'
+        && <BigVIcon xsmall primary />
+      }
+      {
+        user
+        && user.name
+        && (
+          <Link to={`/${user.name}`}>
+            <Text secondary>
+              @
+              {user.name}
+            </Text>
+          </Link>
+        )
+      }
       <Dot />
-      <DateTime dateTime={tweet.createdTime}/>
+      <DateTime dateTimeStr={tweet.createdTime} />
     </div>
   );
   const headRight = (
     <SvgBtnContainer>
       <FakeSvgBtn onClick={() => togglePop(user)} />
-      <ArrowDown xsmall secondary/>
+      <ArrowDown xsmall secondary />
     </SvgBtnContainer>
   );
   const actions = {
     replayAmount: tweet.replayAmount,
     forewardAmount: tweet.forewardAmount,
-    likeAmount: tweet.likeAmount, 
+    likeAmount: tweet.likeAmount,
   };
   const content = (
     <div>
       <div>{tweet.content}</div>
-      <TweetCardActions actions={actions}/>
+      <TweetCardActions actions={actions} />
     </div>
   );
-  const p = {left, headLeft, headRight, content, }
+  const p = {
+    left, headLeft, headRight, content,
+  };
   return (
     <React.Fragment>
-      <MediaCard {...p}/>
+      <MediaCard {...p} />
     </React.Fragment>
   );
 }
-
+TweetCard.propTypes = {
+  togglePop: PropTypes.func.isRequired,
+  tweet: PropTypes.shape({
+    userId: PropTypes.number.isRequired,
+    createdTime: PropTypes.string.isRequired,
+    replayAmount: PropTypes.number.isRequired,
+    forewardAmount: PropTypes.number.isRequired,
+    likeAmount: PropTypes.number.isRequired,
+    content: PropTypes.string.isRequired,
+  }).isRequired,
+};
 
 const UserNickName = styled.div`
   display: flex;
   align-items: center;
 `;
-function UserName(props) {
+function UserName({ user }) {
   return (
     <React.Fragment>
       <UserNickName>
-        <Text bold >{props.user.nickName}</Text>
-        {props.user.isV ? <BigVIcon xsmall primary/> : null}
+        <Text bold>{user.nickName}</Text>
+        {user.isV ? <BigVIcon xsmall primary /> : null}
       </UserNickName>
       <div>
-        <Text secondary>@{props.user.name}</Text>
+        <Text secondary>
+@
+          {user.name}
+        </Text>
       </div>
     </React.Fragment>
-  )
+  );
 }
-export function UserCard(props) {
-  const left = <Avatar user={props.user} />;
+const UserType = PropTypes.shape({
+  nickName: PropTypes.string.isRequired,
+  name: PropTypes.string.isRequired,
+  isV: PropTypes.bool.isRequired,
+  desc: PropTypes.string.isRequired,
+});
+UserName.propTypes = {
+  user: UserType.isRequired,
+};
+
+export function UserCard({ user }) {
+  const left = <Avatar user={user} />;
   const headLeft = (
     <React.Fragment>
-      <Text bold>{props.user.nickName}</Text>
-      {props.user.isV ? <BigVIcon xsmall primary/> : null}
-      <br/>
-      <Text secondary>@{props.user.name}</Text>
+      <Text bold>{user.nickName}</Text>
+      {user.isV ? <BigVIcon xsmall primary /> : null}
+      <br />
+      <Text secondary>
+@
+        {user.name}
+      </Text>
     </React.Fragment>
   );
   const headRight = (
-      <CustomizedButton small>关注</CustomizedButton>
+    <CustomizedButton small>关注</CustomizedButton>
   );
   const content = (
     <div>
-      <div>{props.user.desc}</div>
+      <div>{user.desc}</div>
     </div>
   );
-  const p = {left, headLeft, headRight, content, }
+  const p = {
+    left, headLeft, headRight, content,
+  };
   return (
-    <MediaCard {...p}/>
-  )
+    <MediaCard {...p} />
+  );
 }
-export function UserBar(props) {
-  const left = <Avatar user={props.user} />;
-  const headLeft = <UserName user={props.user}/>;
-  const p = {left, headLeft }
+UserCard.propTypes = {
+  user: UserType.isRequired,
+};
+
+export function UserBar({ user }) {
+  const left = <Avatar user={user} />;
+  const headLeft = <UserName user={user} />;
+  const p = { left, headLeft };
   return (
-    <MediaCard {...p}/>
-  )
+    <MediaCard {...p} />
+  );
 }
+UserBar.propTypes = {
+  user: UserType.isRequired,
+};
 
 const NotifyCardLeft = styled.div`
   display: flex;
@@ -229,23 +320,30 @@ const NotifyCardLeft = styled.div`
 const NotifyCardContent = styled.div`
   margin-top: 9px;
 `;
-export function NotifyCard(props) {
-  const left = 
+export function NotifyCard({ notification }) {
+  const left = (
     <NotifyCardLeft>
-      <PurpleStar large/>
-    </NotifyCardLeft> ;
-  const headLeft = <Avatar user={props.notification.user} small />;
-  const content = 
+      <PurpleStar large />
+    </NotifyCardLeft>
+  );
+  const headLeft = <Avatar user={notification.user} small />;
+  const content = (
     <div>
       <div>
         <Text>来自 </Text>
-        <Text bold>{props.notification.user.name}</Text>
+        <Text bold>{notification.user.name}</Text>
         <Text> 的推文</Text>
       </div>
       <NotifyCardContent>
-        <Text secondary>{props.notification.desc}</Text>
+        <Text secondary>{notification.desc}</Text>
       </NotifyCardContent>
-    </div>;
-  const p = {left, headLeft, content, }
+    </div>
+  );
+  const p = { left, headLeft, content };
   return <MediaCard {...p} />;
 }
+NotifyCard.propTypes = {
+  notification: PropTypes.shape({
+    user: UserType.isRequired,
+  }).isRequired,
+};

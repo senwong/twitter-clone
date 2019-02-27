@@ -1,8 +1,10 @@
-import React from "react"
-import { withRouter } from "react-router";
-import { BackIcon } from "../BaseComponents/SVGIcons"
-import Text from "../BaseComponents/Text"
-import styled from 'styled-components'
+import React from 'react';
+import { withRouter } from 'react-router-dom';
+import styled from 'styled-components';
+import PropTypes from 'prop-types';
+import ReactRouterPropTypes from 'react-router-prop-types';
+import { BackIcon } from '../BaseComponents/SVGIcons';
+import Text from '../BaseComponents/Text';
 
 const Filling = styled.div`
   height: 49px;
@@ -30,26 +32,37 @@ const BtnWrapper = styled.div`
   margin-right: 18px;
 `;
 
-function BackHead(props) {
+function BackHead({ history, title, subtitle }) {
   return (
     <React.Fragment>
       <Filling />
       <Container>
-        <BtnWrapper aria-label='button' role='button' onClick={() => props.history.goBack()}>
+        <BtnWrapper aria-label="button" role="button" onClick={() => history.goBack()}>
           <BackIcon small primary />
         </BtnWrapper>
         <div>
-          <Text large bold>{props.title}</Text>
-          {props.subtitle &&
+          <Text large bold>{title}</Text>
+          {subtitle
+            && (
             <div>
-              <Text small secondary color="secondary" size="small">{props.subtitle}</Text>
+              <Text small secondary color="secondary" size="small">{subtitle}</Text>
             </div>
+            )
           }
         </div>
       </Container>
     </React.Fragment>
-
-  )
+  );
 }
-const BackHeadWithRouter =  withRouter(BackHead)
+BackHead.propTypes = {
+  history: ReactRouterPropTypes.history.isRequired,
+  title: PropTypes.string,
+  subtitle: PropTypes.string,
+};
+BackHead.defaultProps = {
+  title: '',
+  subtitle: '',
+};
+
+const BackHeadWithRouter = withRouter(BackHead);
 export default BackHeadWithRouter;

@@ -1,5 +1,6 @@
-import React, { useState, useEffect } from "react";
-import styled from 'styled-components'
+import React, { useState, useEffect } from 'react';
+import styled from 'styled-components';
+import PropTypes from 'prop-types';
 
 const FakeHeader = styled.div`
   height: 98px;
@@ -15,25 +16,26 @@ const Header = styled.div`
   z-index: 2;
   transform: ${props => props.isShort && 'translateY(-49px)'};
 `;
-export default function ScrollToggleHead(props) {
+export default function ScrollToggleHead({ head, main }) {
   const [lastWindowScrollTop, setLastWindowScrollTop] = useState(null);
   const [isHeadShort, setIsHeadShort] = useState(false);
-  const { head, main } = props;
-  
+
   function handleWindowScroll(e) {
-    lastWindowScrollTop && setIsHeadShort(e.target.scrollingElement.scrollTop > lastWindowScrollTop);
+    if (lastWindowScrollTop) {
+      setIsHeadShort(e.target.scrollingElement.scrollTop > lastWindowScrollTop);
+    }
     setLastWindowScrollTop(e.target.scrollingElement.scrollTop);
   }
   useEffect(() => {
     window.addEventListener('scroll', handleWindowScroll);
     return () => {
-      window.removeEventListener('scroll', handleWindowScroll)
+      window.removeEventListener('scroll', handleWindowScroll);
     };
   });
   return (
     <div>
       <FakeHeader />
-      <Header isShort={isHeadShort} >
+      <Header isShort={isHeadShort}>
         {head}
       </Header>
       <div>
@@ -42,3 +44,7 @@ export default function ScrollToggleHead(props) {
     </div>
   );
 }
+ScrollToggleHead.propTypes = {
+  head: PropTypes.node.isRequired,
+  main: PropTypes.node.isRequired,
+};

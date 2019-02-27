@@ -1,8 +1,11 @@
-import React from "react"
-import { NavLink } from "react-router-dom"
-import { HomeIcon,  ExploreIcon,  NotifyIcon,  MessageIcon, } from "../BaseComponents/SVGIcons"
-import styled from 'styled-components'
-import Text from "../BaseComponents/Text"
+import React from 'react';
+import { NavLink } from 'react-router-dom';
+import styled from 'styled-components';
+import PropTypes from 'prop-types';
+import {
+  HomeIcon, ExploreIcon, NotifyIcon, MessageIcon,
+} from '../BaseComponents/SVGIcons';
+import Text from '../BaseComponents/Text';
 
 const Wrapper = styled.ul`
   list-style: none;
@@ -28,29 +31,39 @@ const StyledNavLink = styled(NavLink)`
     color: rgb(29, 161, 242);
   }
 `;
-export default function NavList(props) {
+export default function NavList() {
   const links = [
-    {to: "/home", title: <HomeIcon middle/>},
-    {to: "/explore", title: <ExploreIcon middle/>},
-    {to: "/notifications", title: <NotifyIcon middle/>},
-    {to: "/messages", title: <MessageIcon middle/>},
-  ]
-  return <LinkList links={links}/>;
+    { to: '/home', title: <HomeIcon middle /> },
+    { to: '/explore', title: <ExploreIcon middle /> },
+    { to: '/notifications', title: <NotifyIcon middle /> },
+    { to: '/messages', title: <MessageIcon middle /> },
+  ];
+  return <LinkList links={links} />;
 }
 
-export function LinkList(props) {
+export function LinkList({ links }) {
   return (
     <Wrapper>
       {
-        props.links.map((link, i) => 
-          <StyledNavLink key={i} to={link.to} {...link}>
-            { typeof link.title === 'string'
-              ? <Text secondary>{link.title}</Text>
-              : link.title
+        links.map(({ to, title, exact }) => (
+          <StyledNavLink key={to} to={to} exact={exact}>
+            { typeof title === 'string'
+              ? <Text secondary>{title}</Text>
+              : title
             }
           </StyledNavLink>
-        )
+        ))
       }
     </Wrapper>
-  )
+  );
 }
+LinkList.propTypes = {
+  links: PropTypes.arrayOf(PropTypes.shape({
+    to: PropTypes.string.isRequired,
+    title: PropTypes.oneOfType([
+      PropTypes.string,
+      PropTypes.node,
+    ]).isRequired,
+    exact: PropTypes.bool,
+  })).isRequired,
+};

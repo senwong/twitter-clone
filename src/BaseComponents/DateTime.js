@@ -1,11 +1,11 @@
-import React from "react";
-import Text from "./Text";
-import PropTypes from "prop-types";
+import React from 'react';
+import PropTypes from 'prop-types';
+import Text from './Text';
 
-export default function DateTime(props) {
-  const dateTime = Date.parse(props.dateTime);
+export default function DateTime({ dateTimeStr }) {
+  const dateTime = Date.parse(dateTimeStr);
   let timeDesc;
-  if (isNaN(dateTime)) return;
+  if (Number.isNaN(dateTime)) return <div />;
   /*
   距此时一小时之类： x分钟
   今天之内：距离此时的时间 x小时
@@ -18,30 +18,28 @@ export default function DateTime(props) {
   const oneHour = 60 * oneMinute;
   const oneDay = 24 * oneHour;
   if (timeCap < oneHour) {
-    timeDesc = Math.round(timeCap / oneMinute) + "分钟";
+    timeDesc = `${Math.round(timeCap / oneMinute)}分钟`;
   } else if (
-    timeCap < oneDay &&
-    new Date(now).getDate() === new Date(dateTime).getDate()
+    timeCap < oneDay
+    && new Date(now).getDate() === new Date(dateTime).getDate()
   ) {
-    timeDesc = Math.round(timeCap / oneHour) + "时";
+    timeDesc = `${Math.round(timeCap / oneHour)}时`;
   } else if (new Date(now).getFullYear() === new Date(dateTime).getFullYear()) {
-    timeDesc =
-      new Date(dateTime).getMonth() +
-      "月" +
-      new Date(dateTime).getDate() +
-      "日";
+    timeDesc = `${new Date(dateTime).getMonth()
+    }月${
+      new Date(dateTime).getDate()
+    }日`;
   } else {
-    timeDesc =
-      new Date(dateTime).getFullYear() +
-      "年" +
-      new Date(dateTime).getMonth() +
-      "月" +
-      new Date(dateTime).getDate() +
-      "日";
+    timeDesc = `${new Date(dateTime).getFullYear()
+    }年${
+      new Date(dateTime).getMonth()
+    }月${
+      new Date(dateTime).getDate()
+    }日`;
   }
 
-  return <Text secondary>{timeDesc}</Text>;
+  return (<Text secondary>{timeDesc}</Text>);
 }
-Date.propTypes = {
-  dateTime: PropTypes.string.isRequired
+DateTime.propTypes = {
+  dateTimeStr: PropTypes.string.isRequired,
 };

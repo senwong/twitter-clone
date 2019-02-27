@@ -1,9 +1,9 @@
-import { connect } from "react-redux";
-import Data from "../../Settings/Data"
+import { connect } from 'react-redux';
+import Data from '../../Settings/Data';
 
-const mapStateToProps = state => ({
-  
-})
+const mapStateToProps = () => ({
+
+});
 export default connect(
   mapStateToProps,
 )(Data);

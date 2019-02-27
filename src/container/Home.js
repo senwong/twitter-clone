@@ -1,11 +1,11 @@
-import { connect } from "react-redux";
-import Home from "../Home";
-import { 
+import { connect } from 'react-redux';
+import Home from '../Home';
+import {
   toggleModal,
   setModal,
   setModalOnConfirm,
   setModalOnCancel,
-} from "../actions"
+} from '../actions';
 
 const mapDispatchToProps = dispatch => ({
   toggleModal: () => dispatch(toggleModal()),
@@ -15,5 +15,5 @@ const mapDispatchToProps = dispatch => ({
 });
 export default connect(
   null,
-  mapDispatchToProps
-)(Home)
+  mapDispatchToProps,
+)(Home);

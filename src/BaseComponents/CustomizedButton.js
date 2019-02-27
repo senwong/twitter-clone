@@ -1,6 +1,6 @@
-import React from "react"
+import React from 'react';
 import PropTypes from 'prop-types';
-import styled from 'styled-components'
+import styled from 'styled-components';
 
 const Button = styled.div`
   border-radius: 9999px;
@@ -13,21 +13,23 @@ const Button = styled.div`
   align-items: center;
   border: 1px solid rgb(29, 161, 242);
   /* customize property */
-  font-size: ${props => props.large ? '18px' : '14px'};
-  min-height: ${props => {
+  font-size: ${props => (props.large ? '18px' : '14px')};
+  min-height: ${(props) => {
     if (props.small) return '28px';
     if (props.large) return '46px';
     return '37px';
   }};
-  color: ${props => props.filled ? 'white' : 'rgb(29, 161, 242)'};
-  background-color: ${props => props.filled ? 'rgb(29, 161, 242)' : 'white'};
+  color: ${props => (props.filled ? 'white' : 'rgb(29, 161, 242)')};
+  background-color: ${props => (props.filled ? 'rgb(29, 161, 242)' : 'white')};
 `;
-export default function CustomizedButton({ disabled, onClick, ...props}) {
+export default function CustomizedButton({
+  disabled, onClick, children, ...otherProps
+}) {
   return (
-    <Button {...props} onClick={disabled ? null : onClick}>
-      {props.children}
+    <Button {...otherProps} onClick={disabled ? null : onClick}>
+      {children}
     </Button>
-  )
+  );
 }
 CustomizedButton.propTypes = {
   filled: PropTypes.bool,
@@ -35,4 +37,12 @@ CustomizedButton.propTypes = {
   large: PropTypes.bool,
   disabled: PropTypes.bool,
   onClick: PropTypes.func,
-}
+  children: PropTypes.oneOfType([PropTypes.element, PropTypes.string]).isRequired,
+};
+CustomizedButton.defaultProps = {
+  filled: false,
+  small: false,
+  large: false,
+  disabled: false,
+  onClick: () => {},
+};

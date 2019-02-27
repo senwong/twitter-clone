@@ -1,6 +1,8 @@
-import React, { useEffect, useRef } from "react"
-import styled from 'styled-components'
+import React, { useEffect, useRef } from 'react';
+import styled from 'styled-components';
 import { withRouter } from 'react-router-dom';
+import PropTypes from 'prop-types';
+import ReactRouterPropTypes from 'react-router-prop-types';
 
 const Wrapper = styled.div`
   position: fixed;
@@ -19,48 +21,46 @@ const ContentWrapper = styled.div`
 `;
 const Item = styled.div`
   padding: 14px 18px;
-  color: ${props => props.warning ? 'rgb(224, 36, 94)' : 'inherit'};
+  color: ${props => (props.warning ? 'rgb(224, 36, 94)' : 'inherit')};
 `;
 const Cancel = styled.div`
   padding: 14px 18px;
   border-top: 1px solid rgb(230, 236, 240);
 `;
 
-function PopupPage(props) {
+function PopupPage({
+  history, location, toggle, items,
+}) {
   const contentRef = useRef();
-  const { history, location, toggle, items } = props;
-  function handleWrapperClick(e) {
-    if(e.target !== contentRef.current && !contentRef.current.contains(e.target)) {
-      hide();
-    }
-  }
   function hide() {
     history.goBack();
     toggle(false);
   }
-  function handlePopstate(e) {
+  function handleWrapperClick(e) {
+    if (e.target !== contentRef.current && !contentRef.current.contains(e.target)) {
+      hide();
+    }
+  }
+  function handlePopstate() {
     // 安卓返回键
-    console.log('popstate pop', e)
     toggle(false);
   }
   useEffect(() => {
     history.push(location.pathname);
     window.addEventListener('popstate', handlePopstate);
     return () => {
-      window.removeEventListener('popstate', handlePopstate)
+      window.removeEventListener('popstate', handlePopstate);
     };
   }, []);
   return (
-    <Wrapper 
+    <Wrapper
       onClick={handleWrapperClick}
     >
-      <ContentWrapper 
+      <ContentWrapper
         ref={contentRef}
       >
         {
-          items.map(({title, ...itemProps}, i) =>
-            <Item key= {i} {...itemProps}>{title}</Item>
-          )
+          items.map(({ title, warning }) => <Item key={title} warning={warning}>{title}</Item>)
         }
         <Cancel onClick={() => hide()}>取消</Cancel>
       </ContentWrapper>
@@ -68,3 +68,12 @@ function PopupPage(props) {
   );
 }
 export default withRouter(PopupPage);
+PopupPage.propTypes = {
+  toggle: PropTypes.func.isRequired,
+  items: PropTypes.arrayOf(PropTypes.shape({
+    title: PropTypes.string.isRequired,
+    warning: PropTypes.bool,
+  })).isRequired,
+  history: ReactRouterPropTypes.history.isRequired,
+  location: ReactRouterPropTypes.location.isRequired,
+};

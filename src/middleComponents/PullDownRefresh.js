@@ -1,15 +1,16 @@
-import React, { useState, } from "react";
-import { PullDownIcon, WattingIcon } from "../BaseComponents/SVGIcons";
-import styled from 'styled-components'
+import React, { useState } from 'react';
+import styled from 'styled-components';
+import PropTypes from 'prop-types';
+import { PullDownIcon, WattingIcon } from '../BaseComponents/SVGIcons';
 
 const Container = styled.div`
   position: relative;
-  transform: ${props => 'translateY('+ props.translateY+'px)'};
+  transform: ${props => `translateY(${props.translateY}px)`};
 `;
 const ActionsContainer = styled.div`
   display: flex;
-	align-items: center;
-	justify-content: center;
+  align-items: center;
+  justify-content: center;
   transition-property: transform;
   transition-duration: 0.2s;
   height: 3em;
@@ -23,12 +24,11 @@ const GreyHr = styled.div`
   height: 1px;
   border-bottom: 1px solid rgb(230, 236, 240);
 `;
-export default function PullDownRefresh(props) {
+export default function PullDownRefresh({ onRefresh, children }) {
   const [mainTranslateY, setMainTranslateY] = useState(0);
   const [isRefressWatting, setIsRefressWatting] = useState(false);
   const [firstTouchY, setFirstTouchY] = useState(0);
   const RefreshHeight = 42;
-  const { onRefresh, children } = props;
 
   function handleTouchStart(e) {
     setFirstTouchY(e.touches[0].clientY);
@@ -44,11 +44,9 @@ export default function PullDownRefresh(props) {
     }
   }
   function handleTouchEnd() {
-    console.log("touch end, this.state.mainTranslateY", mainTranslateY);
     if (mainTranslateY > RefreshHeight) {
       window.requestAnimationFrame(() => {
         setIsRefressWatting(true);
-        console.log("touch end, dis: " + mainTranslateY);
         onRefresh().then(() => {
           setIsRefressWatting(false);
           setMainTranslateY(0);
@@ -59,9 +57,10 @@ export default function PullDownRefresh(props) {
       setMainTranslateY(0);
     }
   }
-  
+
   return (
-    <Container translateY={mainTranslateY}
+    <Container
+      translateY={mainTranslateY}
       onTouchStart={handleTouchStart}
       onTouchMove={handleTouchMove}
       onTouchEnd={handleTouchEnd}
@@ -69,10 +68,14 @@ export default function PullDownRefresh(props) {
       <ActionsContainer
         isTurnUp={mainTranslateY > RefreshHeight}
       >
-        {isRefressWatting ? <WattingIcon large/> : <PullDownIcon large secondary />}
+        {isRefressWatting ? <WattingIcon large /> : <PullDownIcon large secondary />}
       </ActionsContainer>
       <GreyHr />
       {children}
     </Container>
   );
 }
+PullDownRefresh.propTypes = {
+  onRefresh: PropTypes.func.isRequired,
+  children: PropTypes.node.isRequired,
+};

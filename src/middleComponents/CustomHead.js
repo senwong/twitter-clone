@@ -1,5 +1,6 @@
-import React from "react"
-import styled from 'styled-components'
+import React from 'react';
+import styled from 'styled-components';
+import PropTypes from 'prop-types';
 
 const Container = styled.div`
   display: flex;
@@ -18,19 +19,25 @@ const Right = styled.div`
   margin-left: 18px;
   display: flex;
 `;
-const CustomHead = (props) => {
-  return (
-    <Container>
-      <Left>
-        {props.left}
-      </Left>
-      <Middle>
-        {props.middle}
-      </Middle>
-      <Right>
-        {props.right}
-      </Right>
-    </Container>
-  )
-}
+const CustomHead = ({ left, middle, right }) => (
+  <Container>
+    <Left>
+      {left}
+    </Left>
+    <Middle>
+      {middle}
+    </Middle>
+    <Right>
+      {right}
+    </Right>
+  </Container>
+);
+CustomHead.propTypes = {
+  left: PropTypes.node.isRequired,
+  middle: PropTypes.node.isRequired,
+  right: PropTypes.node,
+};
+CustomHead.defaultProps = {
+  right: <></>,
+};
 export default CustomHead;

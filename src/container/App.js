@@ -1,5 +1,5 @@
-import { connect } from "react-redux"
-import { App } from "../index"
+import { connect } from 'react-redux';
+import App from '../index';
 
 const mapStateToProps = state => ({
   currentUser: state.currentUser,
@@ -9,7 +9,7 @@ const mapStateToProps = state => ({
   showUserSettingPopupPage: state.showUserSettingPopupPage,
   // modal
   showModal: state.showModal,
-})
+});
 export default connect(
   mapStateToProps,
-)(App)
+)(App);

@@ -1,12 +1,14 @@
-import React, { useState } from "react"
-import { BackIcon, RelateIcon, } from "../BaseComponents/SVGIcons"
-import InputText from "../BaseComponents/InputText"
-import CustomHead from "../middleComponents/CustomHead"
-import { getSearchHistory, addSearchHistory, } from "../Api/SearchHistory"
-import HistoryPage from "./HistoryPage"
-import SearchRecommendPage from "./SearchRecommendPage"
-import { withRouter, } from "react-router-dom"
-import styled from 'styled-components'
+import React, { useState } from 'react';
+import { withRouter } from 'react-router-dom';
+import styled from 'styled-components';
+import PropTypes from 'prop-types';
+import ReactRouterPropTypes from 'react-router-prop-types';
+import { BackIcon, RelateIcon } from '../BaseComponents/SVGIcons';
+import InputText from '../BaseComponents/InputText';
+import CustomHead from '../middleComponents/CustomHead';
+import { getSearchHistory, addSearchHistory } from '../Api/SearchHistory';
+import HistoryPage from './HistoryPage';
+import SearchRecommendPage from './SearchRecommendPage';
 
 const Container = styled.div`
   position: fixed;
@@ -19,16 +21,15 @@ const Container = styled.div`
   background-color: rgb(255, 255, 255);
 `;
 
-function HistoryNRecommendPage(props) {
+function HistoryNRecommendPage({
+  recommendQuery, // last time query in global state
+  setRecommendQuery, // record last time query in global state
+  hide, // function to hide current page
+  setSearchQuery, // record query in global state, search page can access
+  history, // router history object
+}) {
   const historys = getSearchHistory();
   const [selectedHistory, setSelectedHistory] = useState(historys.length > 0 ? historys[0] : null);
-  const {
-    recommendQuery, // last time query in global state
-    setRecommendQuery, // record last time query in global state
-    hide, // function to hide current page
-    setSearchQuery, // record query in global state, search page can access
-    history // router history object
-  } = props;
 
   function handleChange(e) {
     setRecommendQuery(e.target.value);
@@ -36,18 +37,8 @@ function HistoryNRecommendPage(props) {
   function handleBack() {
     hide();
   }
-  function handleInputKeyDown(e) {
-    e.persist();
-    if (e.key === "Enter") {
-      handleInputEnter(e);
-    } else if (e.key === "ArrowUp") {
-      handleInputArrowUp(e);
-    } else if (e.key === "ArrowDown") {
-      handleInputArrowDown(e);
-    }
-  }
+
   function handleInputEnter(e) {
-    console.log("input enter!");
     if (e.target.value) {
       setSearchQuery(e.target.value);
       addSearchHistory(e.target.value);
@@ -61,47 +52,68 @@ function HistoryNRecommendPage(props) {
       hide();
     }
   }
-  function handleInputArrowUp(e) {
+  function handleInputArrowUp() {
     if (!recommendQuery) {
-      const historys = getSearchHistory();
-      const index = historys.indexOf(selectedHistory);
-      const newSelectedHistory = historys[index > 0 ? index - 1 : historys.length - 1];
+      const searchHistorys = getSearchHistory();
+      const index = searchHistorys.indexOf(selectedHistory);
+      const newSelectedHistory = searchHistorys[index > 0 ? index - 1 : searchHistorys.length - 1];
       setSelectedHistory(newSelectedHistory);
     }
   }
   function handleInputArrowDown() {
     if (!recommendQuery) {
-      const historys = getSearchHistory();
-      const index = historys.indexOf(selectedHistory);
-      const newSelectedHistory = historys[index < historys.length - 1 ? index + 1 : 0];
+      const searchHistorys = getSearchHistory();
+      const index = searchHistorys.indexOf(selectedHistory);
+      const newSelectedHistory = searchHistorys[index < searchHistorys.length - 1 ? index + 1 : 0];
       setSelectedHistory(newSelectedHistory);
+    }
+  }
+  function handleInputKeyDown(e) {
+    e.persist();
+    if (e.key === 'Enter') {
+      handleInputEnter(e);
+    } else if (e.key === 'ArrowUp') {
+      handleInputArrowUp(e);
+    } else if (e.key === 'ArrowDown') {
+      handleInputArrowDown(e);
     }
   }
   return (
     <Container>
       <CustomHead
         left={<BackIcon small primary onClick={handleBack} />}
-        middle={
-          <InputText 
+        middle={(
+          <InputText
             autoFocus
-            placeholder="搜索 Twitter"
+            placeholder="杜索 Twitter"
             value={recommendQuery}
-            onChange={handleChange} 
+            onChange={handleChange}
             onKeyDown={handleInputKeyDown}
           />
-        }
-        right={ <RelateIcon small primary /> }
+)}
+        right={<RelateIcon small primary />}
       />
       {
         recommendQuery
-          ? <SearchRecommendPage 
+          ? (
+            <SearchRecommendPage
               query={recommendQuery}
-            /> 
-          : <HistoryPage 
+            />
+          )
+          : (
+            <HistoryPage
               selected={selectedHistory}
             />
+          )
       }
     </Container>
   );
 }
-export default  withRouter(HistoryNRecommendPage);
+HistoryNRecommendPage.propTypes = {
+  recommendQuery: PropTypes.string.isRequired,
+  setRecommendQuery: PropTypes.func.isRequired,
+  hide: PropTypes.func.isRequired,
+  setSearchQuery: PropTypes.func.isRequired,
+  history: ReactRouterPropTypes.history.isRequired,
+};
+export default withRouter(HistoryNRecommendPage);

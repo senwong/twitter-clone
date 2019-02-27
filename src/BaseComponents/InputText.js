@@ -1,7 +1,7 @@
-import React, { useState, useRef } from "react";
-import { ExploreIcon, FilledDeleteIcon } from "./SVGIcons";
-import PropTypes from "prop-types";
-import styled, { css } from 'styled-components'
+import React, { useState, useRef } from 'react';
+import PropTypes from 'prop-types';
+import styled, { css } from 'styled-components';
+import { ExploreIcon, FilledDeleteIcon } from './SVGIcons';
 
 const Container = styled.div`
   background: rgb(230, 236, 240);
@@ -32,37 +32,47 @@ const Input = styled.input`
 `;
 
 const THEME = {
-  primary: "primary",
-  secondary: "secondary",
-}
+  primary: 'primary',
+  secondary: 'secondary',
+};
 
-function InputText(props) {
-  const { onChange, onFocus, onKeyDown, placeholder, value, ...other } = props;
+function InputText({
+  onChange, onFocus, onKeyDown, placeholder, value, ...other
+}) {
   const [theme, setTheme] = useState(THEME.primary);
   const inputRef = useRef(null);
   function handleDelte() {
-    onChange({ target: { value: "" } });
-    inputRef && inputRef.current && inputRef.current.focus();
+    onChange({ target: { value: '' } });
+    if (inputRef && inputRef.current) {
+      inputRef.current.focus();
+    }
   }
   function handleFocus(e) {
     setTheme(THEME.primary);
-    onFocus && typeof onFocus === 'function' && onFocus(e);
+    if (onFocus && typeof onFocus === 'function') {
+      onFocus(e);
+    }
   }
-  function handleBlur(e) {
+  function handleBlur() {
     setTheme(THEME.secondary);
   }
   function handleKeyDown(e) {
     e.persist();
-    if (e.key === "Enter") {
+    if (e.key === 'Enter') {
       e.target.blur();
     }
-    onKeyDown && typeof onKeyDown === 'function' && onKeyDown(e);
-    console.log(e);
+    if (onKeyDown && typeof onKeyDown === 'function') {
+      onKeyDown(e);
+    }
   }
   return (
     <Container primary={theme === THEME.primary}>
-      <span style={{ paddingLeft: "9px", display: "flex" }}>
-        <ExploreIcon xsmall primary={theme === THEME.primary}  secondary={theme === THEME.secondary} />
+      <span style={{ paddingLeft: '9px', display: 'flex' }}>
+        <ExploreIcon
+          xsmall
+          primary={theme === THEME.primary}
+          secondary={theme === THEME.secondary}
+        />
       </span>
       <Input
         type="text"
@@ -77,18 +87,19 @@ function InputText(props) {
         {...other}
       />
       {value && value.length > 0 ? (
-        <span
+        <button
+          type="button"
           style={{
-            justifyContent: "center",
-            alignItems: "center",
-            minHeight: "32px",
-            minWidth: "32px",
-            display: "flex"
+            justifyContent: 'center',
+            alignItems: 'center',
+            minHeight: '32px',
+            minWidth: '32px',
+            display: 'flex',
           }}
           onClick={handleDelte}
         >
-          <FilledDeleteIcon small primary/>
-        </span>
+          <FilledDeleteIcon small primary />
+        </button>
       ) : (
         <div />
       )}
@@ -100,7 +111,15 @@ InputText.propTypes = {
   value: PropTypes.string,
   onChange: PropTypes.func,
   onFocus: PropTypes.func,
-  onKeyDown: PropTypes.func
+  onKeyDown: PropTypes.func,
+  placeholder: PropTypes.string,
+};
+InputText.defaultProps = {
+  value: '',
+  onChange: () => {},
+  onFocus: () => {},
+  onKeyDown: () => {},
+  placeholder: '',
 };
 
 export default InputText;
