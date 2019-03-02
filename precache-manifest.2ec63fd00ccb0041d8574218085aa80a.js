@@ -4,15 +4,15 @@ self.__precacheManifest = [
     "url": "/twitter-imitation/static/js/runtime~main.4e25b963.js"
   },
   {
-    "revision": "1c793f88d31944c61595",
-    "url": "/twitter-imitation/static/js/main.1c793f88.chunk.js"
+    "revision": "5b4595b782619aa20f8f",
+    "url": "/twitter-imitation/static/js/main.5b4595b7.chunk.js"
   },
   {
     "revision": "54718034ed056adde775",
     "url": "/twitter-imitation/static/js/2.54718034.chunk.js"
   },
   {
-    "revision": "7fd48ec0752b4ab2656d713e551aaa84",
+    "revision": "02bbc2f17122a8f95ddc226bcdbfed8b",
     "url": "/twitter-imitation/index.html"
   }
 ];
