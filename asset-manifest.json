@@ -1,11 +1,11 @@
 {
-  "main.js": "/twitter-imitation/static/js/main.5b4595b7.chunk.js",
-  "main.js.map": "/twitter-imitation/static/js/main.5b4595b7.chunk.js.map",
+  "main.js": "/twitter-imitation/static/js/main.6a5658f1.chunk.js",
+  "main.js.map": "/twitter-imitation/static/js/main.6a5658f1.chunk.js.map",
   "runtime~main.js": "/twitter-imitation/static/js/runtime~main.4e25b963.js",
   "runtime~main.js.map": "/twitter-imitation/static/js/runtime~main.4e25b963.js.map",
   "static/js/2.54718034.chunk.js": "/twitter-imitation/static/js/2.54718034.chunk.js",
   "static/js/2.54718034.chunk.js.map": "/twitter-imitation/static/js/2.54718034.chunk.js.map",
   "index.html": "/twitter-imitation/index.html",
-  "precache-manifest.2ec63fd00ccb0041d8574218085aa80a.js": "/twitter-imitation/precache-manifest.2ec63fd00ccb0041d8574218085aa80a.js",
+  "precache-manifest.d6201ed5149d7606e26c1a5962b720e0.js": "/twitter-imitation/precache-manifest.d6201ed5149d7606e26c1a5962b720e0.js",
   "service-worker.js": "/twitter-imitation/service-worker.js"
 }
