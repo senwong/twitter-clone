@@ -251,11 +251,12 @@ function ListHead({ title, subTitle }) {
   );
 }
 ListHead.propTypes = {
-  title: PropTypes.string.isRequired,
+  title: PropTypes.string,
   subTitle: PropTypes.string,
 };
 ListHead.defaultProps = {
-  subTitle: '',
+  title: '',
+  subTitle: ''
 };
 
 const ShowMoreWrapper = styled(Link)`

@@ -1,17 +1,12 @@
 import { connect } from 'react-redux';
 import Home from '../Home';
-import {
-  toggleModal,
-  setModal,
-  setModalOnConfirm,
-  setModalOnCancel,
-} from '../actions';
+import actionCreators from 'actionCreators';
 
 const mapDispatchToProps = dispatch => ({
-  toggleModal: () => dispatch(toggleModal()),
-  setModal: modalConfig => dispatch(setModal(modalConfig)),
-  setModalOnConfirm: onConfirm => dispatch(setModalOnConfirm(onConfirm)),
-  setModalOnCancel: onCancel => dispatch(setModalOnCancel(onCancel)),
+  toggleModal: () => dispatch(actionCreators.modal.toggleModal()),
+  setModal: modalConfig => dispatch(actionCreators.modal.setModal(modalConfig)),
+  setModalOnConfirm: onConfirm => dispatch(actionCreators.modal.setModalOnConfirm(onConfirm)),
+  setModalOnCancel: onCancel => dispatch(actionCreators.modal.setModalOnCancel(onCancel)),
 });
 export default connect(
   null,

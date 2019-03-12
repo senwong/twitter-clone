@@ -92,7 +92,7 @@ function HistorysPage({ selected }) {
                 <DeleteIcon small primary onClick={handleDeleteAll} />
               </HeadRight>
             </HeadContainer>
-            {historys.map(h => (
+            {historys && historys.map(h => (
               <Item selected={selected === h} tabIndex="0" key={h}>
                 <ItemLeft>
                   <ExploreIcon xsmall />

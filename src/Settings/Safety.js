@@ -22,7 +22,7 @@ generateLinkItem.defaultProps = {
   subTitle: '',
 };
 
-export default function Safety({ user, personalization }) {
+export default function Safety({ user }) {
   return (
     <SettingsContainer>
       <Head title="隐私和安全" />
@@ -67,7 +67,7 @@ export default function Safety({ user, personalization }) {
       }
 
       <SubTitle>个性化与数据</SubTitle>
-      <LinkItem to="/settings/personalization" title="个性化与数据" subTitle={personalizationLabels[personalization]} />
+      <LinkItem to="/settings/personalization" title="个性化与数据" subTitle={personalizationLabels[user.personalization]} />
 
       <SubTitle>Twitter团队版</SubTitle>
       <LinkItem to="/settings/teams" title="Twitter团队版" />
@@ -77,6 +77,6 @@ export default function Safety({ user, personalization }) {
 Safety.propTypes = {
   user: PropTypes.shape({
     name: PropTypes.string.isRequired,
+    personalization: PropTypes.oneOf([0, 1, 2]).isRequired,
   }).isRequired,
-  personalization: PropTypes.oneOf([0, 1, 2]).isRequired,
 };

@@ -85,7 +85,7 @@ function HistoryNRecommendPage({
         middle={(
           <InputText
             autoFocus
-            placeholder="杜索 Twitter"
+            placeholder="搜索 Twitter"
             value={recommendQuery}
             onChange={handleChange}
             onKeyDown={handleInputKeyDown}

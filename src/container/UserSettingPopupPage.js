@@ -1,19 +1,13 @@
 import { connect } from 'react-redux';
 import UserSettingPopupPage from '../User/UserSettingPopupPage';
-import {
-  setUserSettingPopupPage,
-  toggleModal,
-  setModal,
-  setModalOnConfirm,
-  setModalOnCancel,
-} from '../actions';
-
+import actionCreators from 'actionCreators';
+const { modal, userSettingPopup } = actionCreators;
 const mapDispatchToProps = dispatch => ({
-  toggle: show => dispatch(setUserSettingPopupPage(show)),
-  toggleModal: () => dispatch(toggleModal()),
-  setModal: modalConfig => dispatch(setModal(modalConfig)),
-  setModalOnConfirm: onConfirm => dispatch(setModalOnConfirm(onConfirm)),
-  setModalOnCancel: onCancel => dispatch(setModalOnCancel(onCancel)),
+  toggle: show => dispatch(userSettingPopup.setUserSettingPopupPage(show)),
+  toggleModal: () => dispatch(modal.toggleModal()),
+  setModal: modalConfig => dispatch(modal.setModal(modalConfig)),
+  setModalOnConfirm: onConfirm => dispatch(modal.setModalOnConfirm(onConfirm)),
+  setModalOnCancel: onCancel => dispatch(modal.setModalOnCancel(onCancel)),
 });
 export default connect(
   null,

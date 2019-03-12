@@ -1,6 +1,11 @@
 import axios from 'axios';
-
-const url = 'http://localhost:3000';
+import "./data-mock/data-mock";
+const server = 'http://localhost:3000';
+const api = axios.create({
+  baseURL: server,
+  timeout: 1000,
+  headers: {'X-Custom-Header': 'foobar'}
+});
 
 function makeCancelable(promise) {
   let hasCanceled = false;
@@ -19,11 +24,11 @@ function makeCancelable(promise) {
 }
 // get all tweets
 export function getTweets() {
-  return makeCancelable(axios.get(`${url}/tweets`));
+  return makeCancelable(api.get('/tweets'));
 }
 
 export function getUserById(userId) {
-  return makeCancelable(axios.get(`${url}/user?id=${userId}`));
+  return makeCancelable(api.get(`/user?id=${userId}`));
 }
 
 /**
@@ -32,16 +37,16 @@ export function getUserById(userId) {
  */
 export function getUserByName(name) {
   return new Promise((resolve, reject) => {
-    axios.get(`${url}/user?name=${name}`)
+    api.get(`/user?name=${name}`)
       .then(user => resolve(user.data))
       .catch(err => reject(err));
   });
 }
 // explore page, get global trendings
 export function getGlobalTrends() {
-  return makeCancelable(axios.get(`${url}/trends?limit=5`));
+  return makeCancelable(api.get('/trends?limit=5'));
 }
 // get all trends
 export function getTrends() {
-  return makeCancelable(axios.get(`${url}/trends`));
+  return makeCancelable(api.get('/trends'));
 }

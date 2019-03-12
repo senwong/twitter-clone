@@ -27,5 +27,8 @@ export default function ContentPreferences({ personalization }) {
   );
 }
 ContentPreferences.propTypes = {
-  personalization: PropTypes.oneOf([0, 1, 2]).isRequired,
+  personalization: PropTypes.oneOf([0, 1, 2]),
+};
+ContentPreferences.defaultProps = {
+  personalization: 0,
 };

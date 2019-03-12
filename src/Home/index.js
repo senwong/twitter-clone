@@ -37,7 +37,7 @@ function Home(props) {
   function handleRefresh() {
     return new Promise((resolve) => {
       getTweets().promise.then((newTweets) => {
-        setTweets(newTweets);
+        setTweets(newTweets.data.tweets);
         resolve();
       });
     });

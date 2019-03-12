@@ -3,6 +3,7 @@ import { withRouter } from 'react-router-dom';
 import styled from 'styled-components';
 import PropTypes from 'prop-types';
 import ReactRouterPropTypes from 'react-router-prop-types';
+import { Transition } from 'react-transition-group';
 import Avatar from '../BaseComponents/Avatar';
 import CustomHr from '../BaseComponents/CustomHr';
 import {
@@ -20,17 +21,74 @@ const SidePage = styled.div`
   bottom: 0;
   display: flex;
   z-index: 2;
+  animation-duration: ${props => props.timeout + 'ms'};
+  animation-timing-function: ease;
+  animation-fill-mode: forwards;
+  animation-name: ${props => {
+    if(props.state === 'entering') return 'fadeIn';
+    if(props.state === 'exiting') return 'fadeOut';
+  }};
+  @keyframes fadeIn {
+    from {
+      opacity: 0;
+    }
+    to {
+      opacity: 1;
+    }
+  };
+  @keyframes fadeOut {
+    from {
+      opacity: 1;
+    }
+    to {
+      opacity: 0;
+    }
+  };
 `;
 const SideMenu = styled.div`
   background-color: rgb(255, 255, 255);
   height: 100%;
+  min-width: 280px;
   align-self: flex-start;
   display: flex;
   flex-direction: column;
   box-shadow: rgba(0, 0, 0, 0.19) 0px 10px 20px, rgba(0, 0, 0, 0.22) 0px 6px 6px;
+  animation-duration: ${props => props.timeout + 'ms'};
+  animation-timing-function: ease;
+  animation-fill-mode: forwards;
+  animation-name: ${props => {
+    if(props.state === 'entering') return 'fadeInLeft';
+    if(props.state === 'exiting') return 'fadeOutLeft';
+  }};
+  @keyframes fadeInLeft {
+    from {
+      transform: translateX(-280px);
+    }
+    to {
+      transform: translateX(0px);
+    }
+  };
+  @keyframes fadeOutLeft {
+    from {
+      transform: translateX(0px);
+    }
+    to {
+      transform: translateX(-280px);
+    }
+  };
 `;
-
-function ProfilePage({ user, toggle, history }) {
+const WrapperButton = styled.button`
+  background-color: white;
+  border: none;
+  margin: 0;
+  padding: 0;
+  font-size: inherit;
+  :focus {
+    outline: none;
+  }
+`;
+const timeout = 250;
+function ProfilePage({ user, toggle, history, show, }) {
   const [isDataSaver, setIsDataSaver] = useState(false);
   const [isDarkMode, setIsDarkMode] = useState(false);
   let menu = null;
@@ -54,82 +112,93 @@ function ProfilePage({ user, toggle, history }) {
     setIsDarkMode(!isDarkMode);
   }
   return (
-    <SidePage onClick={handleClick}>
-      <SideMenu ref={(el) => { menu = el; }}>
-        <button
-          type="button"
-          style={{ padding: '9px 18px 0' }}
-          onClick={handleUserClick}
-        >
-          <Avatar user={user} />
-        </button>
-        <button
-          type="button"
-          style={{ padding: '9px 18px 0' }}
-          onClick={handleUserClick}
-        >
-          <Text bold>{user.nickName}</Text>
-          <br />
-          <Text secondary>
-@
-            {user.name}
-          </Text>
-        </button>
-        <div style={{ padding: '9px 18px' }}>
-          <div style={{ display: 'inline-block', marginRight: '9px' }}>
-            <Text bold>
-              {user.following}
-              {' '}
-            </Text>
-正在关注
-          </div>
-          <div style={{ display: 'inline-block' }}>
-            <Text bold>
-              {user.followers}
-              {' '}
-            </Text>
-关注者
-          </div>
-        </div>
-        <ListItem left={<Person xsmall secondary />} middle={<div>个人资料</div>} />
-        <ListItem left={<List xsmall secondary />} middle={<div>列表</div>} />
-        <ListItem left={<BookMark xsmall secondary />} middle={<div>书签</div>} />
-        <ListItem left={<Momments xsmall secondary />} middle={<div>瞬间</div>} />
-        <CustomHr />
-        <ListItem middle={<button type="button" onClick={handleSettingClick}>设置和隐私</button>} />
-        <ListItem middle={<div>帮助中心</div>} />
-        <ListItem middle={<div>登出</div>} />
-        <CustomHr />
-        <ListItem
-          middle={
-            <div style={{ marginRight: '55px' }}>流量节省程序</div>
-          }
-          right={(
-            <div style={{ margin: '0 9px' }}>
-              <ToggleButton checked={isDataSaver} onClick={handleDataSaverClick} />
-            </div>
-)}
-        />
-        <ListItem
-          middle={
-            <div style={{ marginRight: '55px' }}>夜间模式</div>
-          }
-          right={(
-            <div style={{ margin: '0 9px' }}>
-              <ToggleButton checked={isDarkMode} onClick={handleDarkModeClick} />
-            </div>
-)}
-        />
-      </SideMenu>
-    </SidePage>
+    <Transition in={show} timeout={timeout} unmountOnExit appear>
+      {
+        state => {
+          return (
+            <SidePage onClick={handleClick} state={state} timeout={timeout}>
+              <SideMenu ref={(el) => { menu = el; }} state={state} timeout={timeout}>
+                <WrapperButton
+                  type="button"
+                  style={{ padding: '9px 18px 0' }}
+                  onClick={handleUserClick}
+                >
+                  <Avatar user={user} />
+                </WrapperButton>
+                <WrapperButton
+                  type="button"
+                  style={{ padding: '9px 18px 0' }}
+                  onClick={handleUserClick}
+                >
+                  <Text bold>{user.nickName}</Text>
+                  <br />
+                  <Text secondary>
+                    @
+                    {user.name}
+                  </Text>
+                </WrapperButton>
+                <div style={{ padding: '9px 18px' }}>
+                  <div style={{ display: 'inline-block', marginRight: '9px' }}>
+                    <Text bold>
+                      {user.following}
+                      {' '}
+                    </Text>
+                    正在关注
+                  </div>
+                  <div style={{ display: 'inline-block' }}>
+                    <Text bold>
+                      {user.followers}
+                      {' '}
+                    </Text>
+                    关注者
+                  </div>
+                </div>
+                <ListItem left={<Person xsmall secondary />} middle={<div>个人资料</div>} />
+                <ListItem left={<List xsmall secondary />} middle={<div>列表</div>} />
+                <ListItem left={<BookMark xsmall secondary />} middle={<div>书签</div>} />
+                <ListItem left={<Momments xsmall secondary />} middle={<div>瞬间</div>} />
+                <CustomHr />
+                <WrapperButton type="button" onClick={handleSettingClick}>
+                  <ListItem middle={<div>设置和隐私</div>} />
+                </WrapperButton>
+                <ListItem middle={<div>帮助中心</div>} />
+                <ListItem middle={<div>登出</div>} />
+                <CustomHr />
+                <ListItem
+                  middle={
+                    <div style={{ marginRight: '55px' }}>流量节省程序</div>
+                  }
+                  right={(
+                    <div style={{ margin: '0 9px' }}>
+                      <ToggleButton checked={isDataSaver} onClick={handleDataSaverClick} />
+                    </div>
+                  )}
+                />
+                <ListItem
+                  middle={
+                    <div style={{ marginRight: '55px' }}>夜间模式</div>
+                  }
+                  right={(
+                    <div style={{ margin: '0 9px' }}>
+                      <ToggleButton checked={isDarkMode} onClick={handleDarkModeClick} />
+                    </div>
+                  )}
+                />
+              </SideMenu>
+            </SidePage>
+          );
+        }
+      }
+
+    </Transition>
   );
 }
 ProfilePage.propTypes = {
   user: PropTypes.shape({
-    name: PropTypes.string.isRequired,
-    nickName: PropTypes.string.isRequired,
-    followers: PropTypes.number.isRequired,
-    following: PropTypes.number.isRequired,
+    name: PropTypes.string,
+    nickName: PropTypes.string,
+    followers: PropTypes.number,
+    following: PropTypes.number,
   }).isRequired,
   toggle: PropTypes.func.isRequired,
   history: ReactRouterPropTypes.history.isRequired,

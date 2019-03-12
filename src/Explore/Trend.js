@@ -13,7 +13,7 @@ export default function () {
     return () => {
       promise.cancel();
     };
-  });
+  }, []);
   return (
     <React.Fragment>
       <Head title="趋势" />

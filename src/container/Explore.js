@@ -1,11 +1,9 @@
 import { connect } from 'react-redux';
 import Explore from '../Explore';
-import {
-  setHistoryNRecPage,
-} from '../actions';
+import actionCreators from 'actionCreators';
 
 const mapDispatchToProps = dispatch => ({
-  setHistoryNRecPage: show => dispatch(setHistoryNRecPage(show)),
+  setHistoryNRecPage: show => dispatch(actionCreators.recommendPage.setHistoryNRecPage(show)),
 });
 export default connect(
   null,

@@ -11,7 +11,7 @@ import Search from './container/Search';
 import Home from './container/Home';
 import Notifications from './Notifications';
 import Message from './Message';
-import reducer from './reducer';
+import reducer from './reducers';
 import ProfilePage from './container/ProfilePage';
 import TweetCardPopupPage from './container/TweetCardPopupPage';
 import HistoryNRecommendPage from './container/HistoryNRecommendPage';
@@ -51,6 +51,8 @@ const store = createStore(
   reducer,
   window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__(),
 );
+// host at github page
+const HOST = '';
 
 export default function App({
   showTweetCardPop,
@@ -64,42 +66,43 @@ export default function App({
       <Router>
         <React.Fragment>
           <Switch>
-            <Route path="/" exact render={() => <Redirect to="/home" />} />
-            <Route path="/home" component={Home} />
-            <Route path="/explore" component={Explore} />
-            <Route path="/notifications" component={Notifications} />
-            <Route path="/messages" component={Message} />
-            <Route path="/search" component={Search} />
-            <Route path="/related" component={Related} />
+            <Route path={HOST + "/"} exact render={() => <Redirect to={HOST + "/home"} />} />
+            <Route path={HOST + "/home"} component={Home} />
+            <Route path={HOST + "/explore"} component={Explore} />
+            <Route path={HOST + "/notifications"} component={Notifications} />
+            <Route path={HOST + "/messages"} component={Message} />
+            <Route path={HOST + "/search"} component={Search} />
+            <Route path={HOST + "/related"} component={Related} />
 
-            <Route path="/settings" exact component={Settings} />
-            <Route path="/settings/account/login_verification" component={LoginVerification} />
-            <Route path="/settings/account" component={Account} />
-            <Route path="/settings/safety" component={Safety} />
-            <Route path="/settings/notifications" component={NotificationsSetting} />
-            <Route path="/settings/content_preferences" component={ContentPreferences} />
+            <Route path={HOST + "/settings"} exact component={Settings} />
+            <Route path={HOST + "/settings/account/login_verification"} component={LoginVerification} />
+            <Route path={HOST + "/settings/account"} component={Account} />
+            <Route path={HOST + "/settings/safety"} component={Safety} />
+            <Route path={HOST + "/settings/notifications"} component={NotificationsSetting} />
+            <Route path={HOST + "/settings/content_preferences"} component={ContentPreferences} />
 
-            <Route path="/settings/data" component={Data} />
-            <Route path="/settings/accessibility" component={Accessibility} />
-            <Route path="/settings/about" component={About} />
-            <Route path="/settings/screen_name" component={ScreenName} />
-            <Route path="/settings/phone" component={Phone} />
-            <Route path="/settings/email" component={Email} />
-            <Route path="/settings/password" component={Password} />
-            <Route path="/settings/security" component={Security} />
+            <Route path={HOST + "/settings/data"} component={Data} />
+            <Route path={HOST + "/settings/accessibility"} component={Accessibility} />
+            <Route path={HOST + "/settings/about"} component={About} />
+            <Route path={HOST + "/settings/screen_name"} component={ScreenName} />
+            <Route path={HOST + "/settings/phone"} component={Phone} />
+            <Route path={HOST + "/settings/email"} component={Email} />
+            <Route path={HOST + "/settings/password"} component={Password} />
+            <Route path={HOST + "/settings/security"} component={Security} />
 
-            <Route path="/settings/language" component={Language} />
-            <Route path="/settings/country" component={Country} />
-            <Route path="/settings/your_data" component={YourData} />
-            <Route path="/settings/applications" component={Applications} />
+            <Route path={HOST + "/settings/language"} component={Language} />
+            <Route path={HOST + "/settings/country"} component={Country} />
+            <Route path={HOST + "/settings/your_data"} component={YourData} />
+            <Route path={HOST + "/settings/applications"} component={Applications} />
 
-            <Route path="/settings/deactivate" component={Deactivate} />
-            <Route path="/i/trends" component={Trend} />
+            <Route path={HOST + "/settings/deactivate"} component={Deactivate} />
+            <Route path={HOST + "/i/trends"} component={Trend} />
 
-            <Route path="/:userName" component={User} />
+            <Route path={HOST + "/:userName"} component={User} />
 
           </Switch>
-          { showProfilePage && <ProfilePage /> }
+          {/* { showProfilePage && <ProfilePage /> } */}
+          <ProfilePage />
           { showTweetCardPop && <TweetCardPopupPage /> }
           { showHistoryNRecPage && <HistoryNRecommendPage />}
           <SlideUpTransition inSlide={showUserSettingPopupPage}>
@@ -119,6 +122,9 @@ App.propTypes = {
   showUserSettingPopupPage: PropTypes.bool.isRequired,
   showModal: PropTypes.bool.isRequired,
 };
+App.defaultProps = {
+  
+}
 ReactDOM.render(
   <Provider store={store}>
     <AppC />

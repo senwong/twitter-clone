@@ -1,15 +1,14 @@
 import { connect } from 'react-redux';
 import Modal from '../middleComponents/Modal';
-import { toggleModal } from '../actions';
+import actionCreators from 'actionCreators';
 
 const mapStateToProps = state => ({
-  title: state.modalTitle,
-  onConfirm: state.modalOnConfirm,
-  onCancel: state.modalOnCancel,
-  config: state.modalConfig,
+  onConfirm: state.modal.onConfirm,
+  onCancel: state.modal.onCancel,
+  config: state.modal.config,
 });
 const mapDispathcToProps = dispatch => ({
-  toggle: () => dispatch(toggleModal()),
+  toggle: () => dispatch(actionCreators.modal.toggleModal()),
 });
 export default connect(
   mapStateToProps,

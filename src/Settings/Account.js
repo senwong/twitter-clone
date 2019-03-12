@@ -70,7 +70,7 @@ Account.propTypes = {
     name: PropTypes.string.isRequired,
     phone: PropTypes.number.isRequired,
     email: PropTypes.string.isRequired,
+    language: PropTypes.string.isRequired,
+    country: PropTypes.string.isRequired,
   }).isRequired,
-  language: PropTypes.string.isRequired,
-  country: PropTypes.string.isRequired,
 };
