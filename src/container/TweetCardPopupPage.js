@@ -1,6 +1,6 @@
 import { connect } from 'react-redux';
 import TweetCardPopupPage from '../middleComponents/TweetCardPopupPage';
-import actionCreators from 'actionCreators';
+import actionCreators from '../actionCreators';
 
 const mapStateToProps = state => ({
   user: state.tweetCardUser,

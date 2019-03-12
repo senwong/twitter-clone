@@ -19,7 +19,7 @@ genLinkItem.defaultProps = {
   subTitle: '',
 };
 
-export default function Account({ user, language, country }) {
+export default function Account({ user }) {
   return (
     <SettingsContainer>
       <Head title="账号" />
@@ -47,10 +47,10 @@ export default function Account({ user, language, country }) {
       {
         [
           {
-            key: 1, to: '/settings/language', title: '语言', subTitle: language,
+            key: 1, to: '/settings/language', title: '语言', subTitle: user.language,
           },
           {
-            key: 2, to: '/settings/country', title: '国家/地区', subTitle: country,
+            key: 2, to: '/settings/country', title: '国家/地区', subTitle: user.country,
           },
           {
             key: 3, to: '/settings/your_data', title: '你的数据',

@@ -1,5 +1,5 @@
 import { connect } from 'react-redux';
-import Settings from 'Settings';
+import Settings from '../../Settings';
 
 const mapStateToProps = state => ({
   user: state.currentUser,

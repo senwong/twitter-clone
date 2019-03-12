@@ -3,7 +3,6 @@ import PropTypes from 'prop-types';
 import PopupPage from '../middleComponents/PopupPage';
 
 export default function UserSettingPopupPage({ toggle, toggleModal, setModal }) {
-  console.log({toggle});
   function handleBlockClick() {
     toggle();
     toggleModal();

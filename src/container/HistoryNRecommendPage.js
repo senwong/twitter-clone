@@ -1,6 +1,6 @@
 import { connect } from 'react-redux';
 import HistoryNRecommendPage from '../InputPage/HistoryNRecommendPage';
-import actionCreators from 'actionCreators';
+import actionCreators from '../actionCreators';
 
 const mapStateToProps = state => ({
   recommendQuery: state.recommendPage.recommendQuery,

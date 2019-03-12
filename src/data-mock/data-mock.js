@@ -1,4 +1,5 @@
 import Mock from 'mockjs';
+
 const { Random } = Mock;
 // mock getTweets()
 export function getTweet() {
@@ -23,7 +24,7 @@ export function getUserInfo() {
     id: Random.natural(),
     avatarSrc: Random.dataImage('100x100'),
     name: Random.first(),
-    // name: "ShaosenWong",
+    // name: 'ShaosenWong',
     nickName: Random.cname(),
     isV: Random.boolean(),
     desc: Random.cparagraph(),
@@ -36,17 +37,17 @@ export function getUserInfo() {
     registerTime: '2005年1月',
   };
 }
-Mock.mock(/user\?id=*/, options => {
-  const userId = parseInt(options.url.split("user?id=")[1]);
+Mock.mock(/user\?id=*/, (options) => {
+  const userId = parseInt(options.url.split('user?id=')[1], 10);
   const userData = getUserInfo();
-  userData.id=userId;
+  userData.id = userId;
   return userData;
 });
 // getUserByName()
-Mock.mock(/user\?name=*/, options => {
-  const name = options.url.split("user?name=")[1];
+Mock.mock(/user\?name=*/, (options) => {
+  const name = options.url.split('user?name=')[1];
   const userData = getUserInfo();
-  userData.name=name;
+  userData.name = name;
   return userData;
 });
 
@@ -55,11 +56,11 @@ function generateTrend() {
   return {
     id: Random.natural(),
     title: Random.sentence(4, 10),
-    tweetNum: Math.round(Math.random() * 1000)
+    tweetNum: Math.round(Math.random() * 1000),
   };
 }
-Mock.mock(/trends\?limit=*/, options => {
-  const limit = parseInt(options.url.split("trends?limit=")[1]);
+Mock.mock(/trends\?limit=*/, (options) => {
+  const limit = parseInt(options.url.split('trends?limit=')[1], 10);
   return Array(limit).fill(null).map(() => generateTrend());
 });
 Mock.mock(/trends/, () => {

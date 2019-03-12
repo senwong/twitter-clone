@@ -1,10 +1,12 @@
 import axios from 'axios';
-import "./data-mock/data-mock";
+
+import './data-mock/data-mock';
+
 const server = 'http://localhost:3000';
 const api = axios.create({
   baseURL: server,
   timeout: 1000,
-  headers: {'X-Custom-Header': 'foobar'}
+  headers: { 'X-Custom-Header': 'foobar' },
 });
 
 function makeCancelable(promise) {

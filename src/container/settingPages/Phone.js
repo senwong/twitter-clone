@@ -1,6 +1,6 @@
 import { connect } from 'react-redux';
-import Phone from 'Settings/Phone';
-import actionCreators from 'actionCreators';
+import Phone from '../../Settings/Phone';
+import actionCreators from '../../actionCreators';
 
 const mapStateToProps = state => ({
   phone: state.currentUser && state.currentUser.phone,

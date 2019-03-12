@@ -1,5 +1,5 @@
 import { connect } from 'react-redux';
-import BackHeadWithRouter from 'middleComponents/BackHead';
+import BackHeadWithRouter from '../../middleComponents/BackHead';
 
 const mapStateToProps = state => ({
   subtitle: state.currentUser && (`@${state.currentUser.name}`),

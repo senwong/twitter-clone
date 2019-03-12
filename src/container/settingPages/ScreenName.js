@@ -1,6 +1,6 @@
 import { connect } from 'react-redux';
-import ScreenName from 'Settings/ScreenName';
-import actioinCreators from 'actionCreators';
+import ScreenName from '../../Settings/ScreenName';
+import actioinCreators from '../../actionCreators';
 
 const mapStateToProps = state => ({
   globalStateName: state.currentUser && state.currentUser.name,

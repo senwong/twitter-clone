@@ -1,6 +1,6 @@
 import { connect } from 'react-redux';
 import Search from '../Search';
-import actionCreators from 'actionCreators';
+import actionCreators from '../actionCreators';
 
 const mapStateToProps = state => ({
   searchQuery: state.recommendPage.searchQuery,

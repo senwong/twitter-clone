@@ -1,6 +1,6 @@
 import { connect } from 'react-redux';
 import Modal from '../middleComponents/Modal';
-import actionCreators from 'actionCreators';
+import actionCreators from '../actionCreators';
 
 const mapStateToProps = state => ({
   onConfirm: state.modal.onConfirm,

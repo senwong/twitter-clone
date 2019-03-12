@@ -1,6 +1,7 @@
 import { connect } from 'react-redux';
 import UserSettingPopupPage from '../User/UserSettingPopupPage';
-import actionCreators from 'actionCreators';
+import actionCreators from '../actionCreators';
+
 const { modal, userSettingPopup } = actionCreators;
 const mapDispatchToProps = dispatch => ({
   toggle: show => dispatch(userSettingPopup.setUserSettingPopupPage(show)),

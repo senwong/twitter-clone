@@ -256,7 +256,7 @@ ListHead.propTypes = {
 };
 ListHead.defaultProps = {
   title: '',
-  subTitle: ''
+  subTitle: '',
 };
 
 const ShowMoreWrapper = styled(Link)`

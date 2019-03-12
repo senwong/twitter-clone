@@ -1,4 +1,5 @@
 import Mock from 'mockjs';
+
 const { Random } = Mock;
 const initState = {
   id: Random.natural(),

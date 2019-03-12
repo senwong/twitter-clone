@@ -1,6 +1,6 @@
 import { connect } from 'react-redux';
-import Email from 'Settings/Email';
-import actionCreators from 'actionCreators';
+import actionCreators from '../../actionCreators';
+import Email from '../../Settings/Email';
 
 const mapStateToProps = state => ({
   email: state.currentUser && state.currentUser.email,

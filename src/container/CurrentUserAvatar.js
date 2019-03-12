@@ -1,6 +1,6 @@
 import { connect } from 'react-redux';
 import Avatar from '../BaseComponents/Avatar';
-import actionCreators from 'actionCreators';
+import actionCreators from '../actionCreators';
 
 const mapStateToProps = state => ({
   user: state.currentUser,
