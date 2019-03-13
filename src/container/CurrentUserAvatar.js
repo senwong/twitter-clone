@@ -3,10 +3,10 @@ import Avatar from '../BaseComponents/Avatar';
 import { show } from '../actionCreators/profilePage';
 
 const mapStateToProps = state => ({
-  user: state.currentUser,
+  src: state.currentUser && state.currentUser.avatarSrc,
 });
 const mapDispatchToProps = dispatch => ({
-  showProfilePage: () => dispatch(show()),
+  onClick: () => dispatch(show()),
 });
 export default connect(
   mapStateToProps,

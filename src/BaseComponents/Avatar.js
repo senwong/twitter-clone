@@ -17,27 +17,30 @@ const StyledImg = styled.img`
     return '46px';
   }};
 `;
-export default function Avatar({ showProfilePage, user, ...props }) {
+export default function Avatar({
+  src, onClick, xsmall, small, large,
+}) {
   return (
     <StyledImg
-      src={user.avatarSrc}
-      alt={user.name}
-      onClick={() => showProfilePage && showProfilePage()}
-      {...props}
+      src={src}
+      alt="user avatar"
+      onClick={onClick}
+      xsmall={xsmall}
+      small={small}
+      large={large}
     />
   );
 }
 Avatar.propTypes = {
-  showProfilePage: PropTypes.func,
-  user: PropTypes.shape({
-    avatarSrc: PropTypes.string.isRequired,
-    name: PropTypes.string.isRequired,
-  }),
+  src: PropTypes.string.isRequired,
+  onClick: PropTypes.func,
+  xsmall: PropTypes.bool,
+  small: PropTypes.bool,
+  large: PropTypes.bool,
 };
 Avatar.defaultProps = {
-  showProfilePage: () => {},
-  user: {
-    avatarSrc: '',
-    name: '',
-  },
+  onClick: null,
+  xsmall: false,
+  small: false,
+  large: false,
 };

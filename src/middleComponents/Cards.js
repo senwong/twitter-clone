@@ -160,7 +160,7 @@ export function TweetCard({ showPopup, tweet }) {
         && user.name
         && (
           <Link to={{ pathname: `/${user.name}` }}>
-            <Avatar user={user} />
+            <Avatar src={user.avatarSrc} />
           </Link>
         )
       }
@@ -268,7 +268,7 @@ UserName.propTypes = {
 };
 
 export function UserCard({ user }) {
-  const left = <Avatar user={user} />;
+  const left = <Avatar src={user.avatarSrc} />;
   const headLeft = (
     <React.Fragment>
       <Text bold>{user.nickName}</Text>
@@ -300,7 +300,7 @@ UserCard.propTypes = {
 };
 
 export function UserBar({ user }) {
-  const left = <Avatar user={user} />;
+  const left = <Avatar src={user.avatarSrc} />;
   const headLeft = <UserName user={user} />;
   const p = { left, headLeft };
   return (
@@ -326,7 +326,7 @@ export function NotifyCard({ notification }) {
       <PurpleStar large />
     </NotifyCardLeft>
   );
-  const headLeft = <Avatar user={notification.user} small />;
+  const headLeft = <Avatar src={notification.user && notification.user.avatarSrc} small />;
   const content = (
     <div>
       <div>
