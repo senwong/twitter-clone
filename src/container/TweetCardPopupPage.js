@@ -1,12 +1,12 @@
 import { connect } from 'react-redux';
 import TweetCardPopupPage from '../middleComponents/TweetCardPopupPage';
-import { tweetCardPopup } from '../actionCreators';
+import { hide } from '../actionCreators/tweetCardPopup';
 
 const mapStateToProps = state => ({
   user: state.tweetCardUser,
 });
 const mapDispatchToProps = dispatch => ({
-  hide: user => dispatch(tweetCardPopup.hide(user)),
+  hide: user => dispatch(hide(user)),
 });
 export default connect(
   mapStateToProps,

@@ -1,19 +1,6 @@
 import { currentUser } from '../actionTypes';
+import makeActionCreator from './makeActionCreator';
 
-const setScreenName = name => ({
-  type: currentUser.setScreenName,
-  name,
-});
-const setPhone = phone => ({
-  type: currentUser.setPhone,
-  phone,
-});
-const setEmail = email => ({
-  type: currentUser.setEmail,
-  email,
-});
-export default {
-  setScreenName,
-  setPhone,
-  setEmail,
-};
+export const setScreenName = makeActionCreator(currentUser.setScreenName, 'name');
+export const setPhone = makeActionCreator(currentUser.setPhone, 'phone');
+export const setEmail = makeActionCreator(currentUser.setEmail, 'email');

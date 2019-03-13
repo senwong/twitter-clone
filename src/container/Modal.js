@@ -1,6 +1,6 @@
 import { connect } from 'react-redux';
 import Modal from '../middleComponents/Modal';
-import { modal } from '../actionCreators';
+import { hide } from '../actionCreators/modal';
 
 const mapStateToProps = state => ({
   type: state.modal.type,
@@ -9,7 +9,7 @@ const mapStateToProps = state => ({
   onCancel: state.modal.onCancel,
 });
 const mapDispathcToProps = dispatch => ({
-  hide: () => dispatch(modal.hide()),
+  hide: () => dispatch(hide()),
 });
 export default connect(
   mapStateToProps,

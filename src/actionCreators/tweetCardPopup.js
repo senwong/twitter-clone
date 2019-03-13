@@ -1,14 +1,5 @@
 import { tweetCardPopup } from '../actionTypes';
+import makeActionCreator from './makeActionCreator';
 
-const show = user => ({
-  type: tweetCardPopup.show,
-  user,
-});
-const hide = user => ({
-  type: tweetCardPopup.hide,
-  user,
-});
-export default {
-  show,
-  hide,
-};
+export const show = makeActionCreator(tweetCardPopup.show, 'user');
+export const hide = makeActionCreator(tweetCardPopup.hide, 'user');

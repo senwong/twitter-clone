@@ -1,12 +1,12 @@
 import { connect } from 'react-redux';
 import ScreenName from '../../Settings/ScreenName';
-import { currentUser } from '../../actionCreators';
+import { setScreenName } from '../../actionCreators/currentUser';
 
 const mapStateToProps = state => ({
   globalStateName: state.currentUser && state.currentUser.name,
 });
 const mapDispathToProps = dispatch => ({
-  setGlobalStateName: name => dispatch(currentUser.setScreenName(name)),
+  setGlobalStateName: name => dispatch(setScreenName(name)),
 });
 export default connect(
   mapStateToProps,

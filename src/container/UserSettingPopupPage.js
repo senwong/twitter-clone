@@ -1,11 +1,12 @@
 import { connect } from 'react-redux';
 import UserSettingPopupPage from '../User/UserSettingPopupPage';
-import { modal, userSettingPopup } from '../actionCreators';
+import { hide } from '../actionCreators/userSettingPopup';
+import { show as showModal, setup as setupModal } from '../actionCreators/modal';
 
 const mapDispatchToProps = dispatch => ({
-  hidePopup: () => dispatch(userSettingPopup.hide()),
-  setModal: config => dispatch(modal.setup(config)),
-  showModal: () => dispatch(modal.show()),
+  hidePopup: () => dispatch(hide()),
+  setModal: config => dispatch(setupModal(config)),
+  showModal: () => dispatch(showModal()),
 });
 export default connect(
   null,

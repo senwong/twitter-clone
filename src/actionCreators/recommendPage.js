@@ -1,19 +1,6 @@
 import { recommendPage } from '../actionTypes';
+import makeActionCreator from './makeActionCreator';
 
-const setHistoryNRecPage = show => ({
-  type: recommendPage.setHistoryNRecPage,
-  show,
-});
-const setRecommendQuery = query => ({
-  type: recommendPage.setRecommendQuery,
-  query,
-});
-const setSearchQuery = query => ({
-  type: recommendPage.setSearchQuery,
-  query,
-});
-export default {
-  setHistoryNRecPage,
-  setRecommendQuery,
-  setSearchQuery,
-};
+export const setHistoryNRecPage = makeActionCreator(recommendPage.setHistoryNRecPage, 'show');
+export const setRecommendQuery = makeActionCreator(recommendPage.setRecommendQuery, 'query');
+export const setSearchQuery = makeActionCreator(recommendPage.setSearchQuery, 'query');

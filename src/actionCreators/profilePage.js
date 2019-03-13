@@ -1,13 +1,5 @@
 import { profilePage } from '../actionTypes';
+import makeActionCreator from './makeActionCreator';
 
-const show = () => ({
-  type: profilePage.show,
-});
-const hide = () => ({
-  type: profilePage.hide,
-});
-
-export default {
-  show,
-  hide,
-};
+export const show = makeActionCreator(profilePage.show);
+export const hide = makeActionCreator(profilePage.hide);

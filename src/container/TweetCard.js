@@ -1,9 +1,9 @@
 import { connect } from 'react-redux';
 import { TweetCard } from '../middleComponents/Cards';
-import { tweetCardPopup } from '../actionCreators';
+import { show } from '../actionCreators/tweetCardPopup';
 
 const mapDispatchToProps = dispatch => ({
-  showPopup: user => dispatch(tweetCardPopup.show(user)),
+  showPopup: user => dispatch(show(user)),
 });
 export default connect(
   null,

@@ -1,13 +1,6 @@
 import { modal } from '../actionTypes';
+import makeActionCreator from './makeActionCreator';
 
-const show = () => ({ type: modal.show });
-const hide = () => ({ type: modal.hide });
-const setup = config => ({
-  type: modal.setup,
-  config,
-});
-export default {
-  show,
-  hide,
-  setup,
-};
+export const show = makeActionCreator(modal.show);
+export const hide = makeActionCreator(modal.hide);
+export const setup = makeActionCreator(modal.setup, 'config');
