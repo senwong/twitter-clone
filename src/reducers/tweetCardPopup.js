@@ -7,15 +7,17 @@ const initState = {
 export default (state = initState, action) => {
   switch (action.type) {
     case tweetCardPopup.show:
-      return Object.assign({}, state, {
+      return {
+        ...state,
         show: true,
         user: action.user,
-      });
+      };
     case tweetCardPopup.hide:
-      return Object.assign({}, state, {
+      return {
+        ...state,
         show: false,
         user: action.user,
-      });
+      };
     default:
       return state;
   }

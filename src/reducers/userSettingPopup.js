@@ -6,14 +6,10 @@ const initState = {
 export default (state = initState, action) => {
   switch (action.type) {
     case userSettingPopup.show: {
-      return Object.assign({}, state, {
-        show: true,
-      });
+      return { ...state, show: true };
     }
     case userSettingPopup.hide: {
-      return Object.assign({}, state, {
-        show: false,
-      });
+      return { ...state, show: false };
     }
     default:
       return state;

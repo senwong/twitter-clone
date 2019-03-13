@@ -23,13 +23,13 @@ const initState = {
 export default (state = initState, action) => {
   switch (action.type) {
     case currentUser.setScreenName: {
-      return Object.assign({}, state, { name: action.name });
+      return { ...state, name: action.name };
     }
     case currentUser.setPhone: {
-      return Object.assign({}, state, { phone: action.phone });
+      return { ...state, phone: action.phone };
     }
     case currentUser.setEmail: {
-      return Object.assign({}, state, { email: action.email });
+      return { ...state, email: action.email };
     }
     default:
       return state;

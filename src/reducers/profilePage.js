@@ -6,13 +6,9 @@ const initState = {
 export default (state = initState, action) => {
   switch (action.type) {
     case profilePage.show:
-      return Object.assign({}, state, {
-        show: true,
-      });
+      return { ...state, show: true };
     case profilePage.hide:
-      return Object.assign({}, state, {
-        show: false,
-      });
+      return { ...state, show: false };
     default:
       return state;
   }

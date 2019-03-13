@@ -10,23 +10,19 @@ const initState = {
 export default (state = initState, action) => {
   switch (action.type) {
     case modal.show: {
-      return Object.assign({}, state, {
-        show: true,
-      });
+      return { ...state, show: true };
     }
     case modal.hide: {
-      return Object.assign({}, state, {
-        show: false,
-      });
+      return { ...state, show: false };
     }
     case modal.setup: {
-      console.log({ action });
-      return Object.assign({}, state, {
+      return {
+        ...state,
         type: action.config && action.config.type,
         title: action.config && action.config.title,
         onConfirm: action.config && action.config.onConfirm,
         onCancel: action.config && action.config.onCancel,
-      });
+      };
     }
     default:
       return state;
