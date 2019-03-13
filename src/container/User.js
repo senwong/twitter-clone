@@ -1,14 +1,13 @@
 import { connect } from 'react-redux';
 import User from '../User';
-import actionCreators from '../actionCreators';
+import { userSettingPopup } from '../actionCreators';
 
-const { userSettingPopup } = actionCreators;
 const mapStateToProps = state => ({
   currentUser: state.currentUser,
 });
 
 const mapDispatchToProps = dispatch => ({
-  toggleUserSettingPopupPage: show => dispatch(userSettingPopup.setUserSettingPopupPage(show)),
+  showUserSettingPopupPage: () => dispatch(userSettingPopup.show()),
 });
 export default connect(
   mapStateToProps,

@@ -1,12 +1,19 @@
-export const setScreenName = name => ({
-  type: 'SET_SCREEN_NAME',
+import { currentUser } from '../actionTypes';
+
+const setScreenName = name => ({
+  type: currentUser.setScreenName,
   name,
 });
-export const setPhone = phone => ({
-  type: 'SET_PHONE',
+const setPhone = phone => ({
+  type: currentUser.setPhone,
   phone,
 });
-export const setEmail = email => ({
-  type: 'SET_EMAIL',
+const setEmail = email => ({
+  type: currentUser.setEmail,
   email,
 });
+export default {
+  setScreenName,
+  setPhone,
+  setEmail,
+};

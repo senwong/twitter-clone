@@ -1,12 +1,12 @@
 import { connect } from 'react-redux';
 import Avatar from '../BaseComponents/Avatar';
-import actionCreators from '../actionCreators';
+import { profilePage } from '../actionCreators';
 
 const mapStateToProps = state => ({
   user: state.currentUser,
 });
 const mapDispatchToProps = dispatch => ({
-  toggle: () => dispatch(actionCreators.profilePage.toggleProfilePage()),
+  showProfilePage: () => dispatch(profilePage.show()),
 });
 export default connect(
   mapStateToProps,

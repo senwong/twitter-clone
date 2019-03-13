@@ -143,7 +143,7 @@ const FakeSvgBtn = styled.div`
   margin: -6px;
 `;
 // component TweetCard, a card to show tweet content and user info
-export function TweetCard({ togglePop, tweet }) {
+export function TweetCard({ showPopup, tweet }) {
   const [user, setUser] = useState();
   useEffect(() => {
     const { userId } = tweet;
@@ -201,7 +201,7 @@ export function TweetCard({ togglePop, tweet }) {
   );
   const headRight = (
     <SvgBtnContainer>
-      <FakeSvgBtn onClick={() => togglePop(user)} />
+      <FakeSvgBtn onClick={() => showPopup(user)} />
       <ArrowDown xsmall secondary />
     </SvgBtnContainer>
   );
@@ -226,7 +226,7 @@ export function TweetCard({ togglePop, tweet }) {
   );
 }
 TweetCard.propTypes = {
-  togglePop: PropTypes.func.isRequired,
+  showPopup: PropTypes.func.isRequired,
   tweet: PropTypes.shape({
     userId: PropTypes.number.isRequired,
     createdTime: PropTypes.string.isRequired,

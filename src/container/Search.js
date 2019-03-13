@@ -1,13 +1,13 @@
 import { connect } from 'react-redux';
 import Search from '../Search';
-import actionCreators from '../actionCreators';
+import { recommendPage } from '../actionCreators';
 
 const mapStateToProps = state => ({
   searchQuery: state.recommendPage.searchQuery,
 });
 const mapDispatchToProps = dispatch => ({
-  setHistoryNRecPage: show => dispatch(actionCreators.recommendPage.setHistoryNRecPage(show)),
-  setSearchQuery: query => dispatch(actionCreators.recommendPage.setSearchQuery(query)),
+  setHistoryNRecPage: show => dispatch(recommendPage.setHistoryNRecPage(show)),
+  setSearchQuery: query => dispatch(recommendPage.setSearchQuery(query)),
 });
 export default connect(
   mapStateToProps,

@@ -1,15 +1,19 @@
+import { profilePage } from '../actionTypes';
+
 const initState = {
   show: false,
 };
-
-const profilePage = (state = initState, action) => {
+export default (state = initState, action) => {
   switch (action.type) {
-    case 'TOGGLE_PROFILE_PAGE':
+    case profilePage.show:
       return Object.assign({}, state, {
-        show: !state.show,
+        show: true,
+      });
+    case profilePage.hide:
+      return Object.assign({}, state, {
+        show: false,
       });
     default:
       return state;
   }
 };
-export default profilePage;

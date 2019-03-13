@@ -69,7 +69,7 @@ const SettingButton = styled.button`
   margin-right: 9px;
   background-color: white;
 `;
-export default function User({ match, currentUser, toggleUserSettingPopupPage }) {
+export default function User({ match, currentUser, showUserSettingPopupPage }) {
   const [user, setUser] = useState();
   function handleRefresh() {
     return new Promise((resolve) => {
@@ -102,7 +102,7 @@ export default function User({ match, currentUser, toggleUserSettingPopupPage })
                     <div style={{ display: 'flex' }}>
                       <SettingButton
                         type="button"
-                        onClick={() => toggleUserSettingPopupPage(true)}
+                        onClick={() => showUserSettingPopupPage()}
                       >
                         <SettingIcon middle primary />
                       </SettingButton>
@@ -167,7 +167,7 @@ export default function User({ match, currentUser, toggleUserSettingPopupPage })
 }
 User.propTypes = {
   match: ReactRouterPropTypes.match.isRequired,
-  toggleUserSettingPopupPage: PropTypes.func.isRequired,
+  showUserSettingPopupPage: PropTypes.func.isRequired,
   currentUser: PropTypes.shape({
     name: PropTypes.string.isRequired,
   }).isRequired,

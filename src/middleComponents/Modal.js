@@ -27,26 +27,23 @@ const Content = styled.div`
   align-items: center;
 `;
 export default function Modal({
-  toggle, onConfirm, onCancel, config,
+  hide, type, title, onConfirm, onCancel,
 }) {
   const contentRef = null;
-  const {
-    title, type, hasConfirm, hasCancel,
-  } = config;
   function handleContainerClick(e) {
     if (e.target !== contentRef.current && !contentRef.current.contains(e.target)) {
-      toggle();
+      hide();
     }
   }
   function handleConfirm(e) {
-    toggle();
+    hide();
     if (onConfirm && typeof onConfirm === 'function') {
       onConfirm();
     }
     e.stopPropagation();
   }
   function handleCancel(e) {
-    toggle();
+    hide();
     if (onCancel && typeof onCancel === 'function') {
       onCancel();
     }
@@ -66,16 +63,16 @@ export default function Modal({
           </Text>
         </div>
         {
-          hasConfirm && (
+          onConfirm && (
             <div style={{ marginTop: '18px', minWidth: '58px' }}>
-              <CustomizedButton filled onClick={handleConfirm}>确定</CustomizedButton>
+              <CustomizedButton filled onClick={handleConfirm}>确认</CustomizedButton>
             </div>
           )
         }
         {
-          hasCancel && (
+          onCancel && (
             <div style={{ marginTop: '9px', minWidth: '58px' }}>
-              <CustomizedButton onClick={handleCancel}>坖消</CustomizedButton>
+              <CustomizedButton onClick={handleCancel}>取消</CustomizedButton>
             </div>
           )
         }
@@ -85,13 +82,13 @@ export default function Modal({
 }
 
 Modal.propTypes = {
-  toggle: PropTypes.func.isRequired,
-  onConfirm: PropTypes.func.isRequired,
-  onCancel: PropTypes.func.isRequired,
-  config: PropTypes.shape({
-    title: PropTypes.string.isRequired,
-    type: PropTypes.oneOf(['primary', 'secondary', 'warning']).isRequired,
-    hasConfirm: PropTypes.bool.isRequired,
-    hasCancel: PropTypes.bool.isRequired,
-  }).isRequired,
+  hide: PropTypes.func.isRequired,
+  title: PropTypes.string.isRequired,
+  type: PropTypes.oneOf(['primary', 'secondary', 'warning']).isRequired,
+  onConfirm: PropTypes.func,
+  onCancel: PropTypes.func,
+};
+Modal.defaultProps = {
+  onConfirm: () => {},
+  onCancel: () => {},
 };

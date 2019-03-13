@@ -1,15 +1,13 @@
-export const toggleModal = () => ({
-  type: 'TOGGLE_MODAL',
+import { modal } from '../actionTypes';
+
+const show = () => ({ type: modal.show });
+const hide = () => ({ type: modal.hide });
+const setup = config => ({
+  type: modal.setup,
+  config,
 });
-export const setModal = modalConfig => ({
-  type: 'SET_MODAL',
-  modalConfig,
-});
-export const setModalOnConfirm = onConfirm => ({
-  type: 'SET_MODAL_ON_CONFIRM',
-  onConfirm,
-});
-export const setModalOnCancel = onCancel => ({
-  type: 'SET_MODAL_ON_CANCEL',
-  onCancel,
-});
+export default {
+  show,
+  hide,
+  setup,
+};

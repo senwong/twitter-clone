@@ -1,17 +1,22 @@
+import { tweetCardPopup } from '../actionTypes';
+
 const initState = {
   show: false,
   user: null,
 };
-
-const tweetCardPopup = (state = initState, action) => {
+export default (state = initState, action) => {
   switch (action.type) {
-    case 'TOGGLE_TWEET_CARD_POP':
+    case tweetCardPopup.show:
       return Object.assign({}, state, {
-        show: !state.show,
+        show: true,
+        user: action.user,
+      });
+    case tweetCardPopup.hide:
+      return Object.assign({}, state, {
+        show: false,
         user: action.user,
       });
     default:
       return state;
   }
 };
-export default tweetCardPopup;

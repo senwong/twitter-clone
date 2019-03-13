@@ -17,25 +17,25 @@ const StyledImg = styled.img`
     return '46px';
   }};
 `;
-export default function Avatar({ toggle, user, ...props }) {
+export default function Avatar({ showProfilePage, user, ...props }) {
   return (
     <StyledImg
       src={user.avatarSrc}
       alt={user.name}
-      onClick={() => toggle && toggle()}
+      onClick={() => showProfilePage && showProfilePage()}
       {...props}
     />
   );
 }
 Avatar.propTypes = {
-  toggle: PropTypes.func,
+  showProfilePage: PropTypes.func,
   user: PropTypes.shape({
     avatarSrc: PropTypes.string.isRequired,
     name: PropTypes.string.isRequired,
   }),
 };
 Avatar.defaultProps = {
-  toggle: () => {},
+  showProfilePage: () => {},
   user: {
     avatarSrc: '',
     name: '',

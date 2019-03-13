@@ -91,23 +91,23 @@ const WrapperButton = styled.button`
 `;
 const timeout = 250;
 function ProfilePage({
-  user, toggle, history, show,
+  user, hide, history, show,
 }) {
   const [isDataSaver, setIsDataSaver] = useState(false);
   const [isDarkMode, setIsDarkMode] = useState(false);
   let menu = null;
   function handleClick(e) {
     if (menu && e.target !== menu && !menu.contains(e.target)) {
-      toggle();
+      hide();
     }
   }
   function handleSettingClick() {
     history.push('/settings');
-    toggle();
+    hide();
   }
   function handleUserClick() {
     history.push(`/${user.name}`);
-    toggle();
+    hide();
   }
   function handleDataSaverClick() {
     setIsDataSaver(!isDataSaver);
@@ -202,7 +202,7 @@ ProfilePage.propTypes = {
     followers: PropTypes.number,
     following: PropTypes.number,
   }).isRequired,
-  toggle: PropTypes.func.isRequired,
+  hide: PropTypes.func.isRequired,
   history: ReactRouterPropTypes.history.isRequired,
   show: PropTypes.bool.isRequired,
 };

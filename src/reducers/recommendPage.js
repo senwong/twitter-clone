@@ -1,22 +1,23 @@
+import { recommendPage } from '../actionTypes';
+
 const initState = {
   show: false,
   recommendQuery: '',
   searchQuery: '',
 };
-
-const recommendPage = (state = initState, action) => {
+export default (state = initState, action) => {
   switch (action.type) {
-    case 'SET_HISTORY_REM_PAGE_VISIBILITY': {
+    case recommendPage.setHistoryNRecPage: {
       return Object.assign({}, state, {
         show: action.show,
       });
     }
-    case 'SET_RECOMMEND_QUERY': {
+    case recommendPage.setRecommendQuery: {
       return Object.assign({}, state, {
         recommendQuery: action.query,
       });
     }
-    case 'SET_SEARCH_QUERY': {
+    case recommendPage.setSearchQuery: {
       return Object.assign({}, state, {
         searchQuery: action.query,
       });
@@ -25,4 +26,3 @@ const recommendPage = (state = initState, action) => {
       return state;
   }
 };
-export default recommendPage;

@@ -29,21 +29,18 @@ const Cancel = styled.div`
 `;
 
 function PopupPage({
-  history, location, toggle, items,
+  history, location, items, hide,
 }) {
   const contentRef = useRef();
-  function hide() {
-    history.goBack();
-    toggle(false);
-  }
   function handleWrapperClick(e) {
     if (e.target !== contentRef.current && !contentRef.current.contains(e.target)) {
       hide();
+      history.goBack();
     }
   }
   function handlePopstate() {
     // 安卓返回键
-    toggle(false);
+    hide();
   }
   useEffect(() => {
     history.push(location.pathname);
@@ -60,7 +57,15 @@ function PopupPage({
         ref={contentRef}
       >
         {
-          items.map(({ title, warning }) => <Item key={title} warning={warning}>{title}</Item>)
+          items.map(({ title, warning, onClick }) => (
+            <Item
+              key={title}
+              warning={warning}
+              onClick={onClick}
+            >
+              {title}
+            </Item>
+          ))
         }
         <Cancel onClick={() => hide()}>取消</Cancel>
       </ContentWrapper>
@@ -69,11 +74,11 @@ function PopupPage({
 }
 export default withRouter(PopupPage);
 PopupPage.propTypes = {
-  toggle: PropTypes.func.isRequired,
   items: PropTypes.arrayOf(PropTypes.shape({
     title: PropTypes.string.isRequired,
     warning: PropTypes.bool,
   })).isRequired,
+  hide: PropTypes.func.isRequired,
   history: ReactRouterPropTypes.history.isRequired,
   location: ReactRouterPropTypes.location.isRequired,
 };

@@ -1,15 +1,21 @@
+import { userSettingPopup } from '../actionTypes';
+
 const initState = {
   show: false,
 };
-const userSettingPopup = (state = initState, action) => {
+export default (state = initState, action) => {
   switch (action.type) {
-    case 'SET_USER_SETTING_POPUP_PAGE': {
+    case userSettingPopup.show: {
       return Object.assign({}, state, {
-        show: action.show,
+        show: true,
+      });
+    }
+    case userSettingPopup.hide: {
+      return Object.assign({}, state, {
+        show: false,
       });
     }
     default:
       return state;
   }
 };
-export default userSettingPopup;

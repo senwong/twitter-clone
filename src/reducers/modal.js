@@ -1,34 +1,34 @@
+import { modal } from '../actionTypes';
+
 const initState = {
   show: false,
-  config: {},
-  onConfirm: () => {}, // confirm callback
-  onCancel: () => {}, // cancel callback
+  title: '',
+  type: 'primary',
+  onConfirm: null, // confirm callback
+  onCancel: null, // cancel callback
 };
-
-const modal = (state = initState, action) => {
+export default (state = initState, action) => {
   switch (action.type) {
-    case 'TOGGLE_MODAL': {
+    case modal.show: {
       return Object.assign({}, state, {
-        show: !state.show,
+        show: true,
       });
     }
-    case 'SET_MODAL': {
+    case modal.hide: {
       return Object.assign({}, state, {
-        config: action.config,
+        show: false,
       });
     }
-    case 'SET_MODAL_ON_CONFIRM': {
+    case modal.setup: {
+      console.log({ action });
       return Object.assign({}, state, {
-        onConfirm: action.onConfirm,
-      });
-    }
-    case 'SET_MODAL_ON_CANCEL': {
-      return Object.assign({}, state, {
-        onCancel: action.onCancel,
+        type: action.config && action.config.type,
+        title: action.config && action.config.title,
+        onConfirm: action.config && action.config.onConfirm,
+        onCancel: action.config && action.config.onCancel,
       });
     }
     default:
       return state;
   }
 };
-export default modal;

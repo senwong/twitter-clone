@@ -1,12 +1,19 @@
-export const setHistoryNRecPage = show => ({
-  type: 'SET_HISTORY_REM_PAGE_VISIBILITY',
+import { recommendPage } from '../actionTypes';
+
+const setHistoryNRecPage = show => ({
+  type: recommendPage.setHistoryNRecPage,
   show,
 });
-export const setRecommendQuery = query => ({
-  type: 'SET_RECOMMEND_QUERY',
+const setRecommendQuery = query => ({
+  type: recommendPage.setRecommendQuery,
   query,
 });
-export const setSearchQuery = query => ({
-  type: 'SET_SEARCH_QUERY',
+const setSearchQuery = query => ({
+  type: recommendPage.setSearchQuery,
   query,
 });
+export default {
+  setHistoryNRecPage,
+  setRecommendQuery,
+  setSearchQuery,
+};

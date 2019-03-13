@@ -100,10 +100,12 @@ export default function App({
             <Route path="/:userName" component={User} />
 
           </Switch>
-          {/* { showProfilePage && <ProfilePage /> } */}
+
           <ProfilePage />
-          { showTweetCardPop && <TweetCardPopupPage /> }
           { showHistoryNRecPage && <HistoryNRecommendPage />}
+          <SlideUpTransition inSlide={showTweetCardPop}>
+            <TweetCardPopupPage />
+          </SlideUpTransition>
           <SlideUpTransition inSlide={showUserSettingPopupPage}>
             <UserSettingPopupPage />
           </SlideUpTransition>

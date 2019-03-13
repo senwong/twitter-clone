@@ -1,4 +1,5 @@
 import Mock from 'mockjs';
+import { currentUser } from '../actionTypes';
 
 const { Random } = Mock;
 const initState = {
@@ -19,19 +20,18 @@ const initState = {
   language: null,
   country: null,
 };
-const currentUser = (state = initState, action) => {
+export default (state = initState, action) => {
   switch (action.type) {
-    case 'SET_SCREEN_NAME': {
+    case currentUser.setScreenName: {
       return Object.assign({}, state, { name: action.name });
     }
-    case 'SET_PHONE': {
+    case currentUser.setPhone: {
       return Object.assign({}, state, { phone: action.phone });
     }
-    case 'SET_EMAIL': {
+    case currentUser.setEmail: {
       return Object.assign({}, state, { email: action.email });
     }
     default:
       return state;
   }
 };
-export default currentUser;

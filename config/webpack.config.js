@@ -336,6 +336,7 @@ module.exports = function(webpackEnv) {
                 ),
                 
                 plugins: [
+                  '@babel/plugin-proposal-export-default-from',
                   [
                     require.resolve('babel-plugin-named-asset-import'),
                     {

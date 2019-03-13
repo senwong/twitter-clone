@@ -1,6 +1,13 @@
-const toggleProfilePage = () => ({
-  type: 'TOGGLE_PROFILE_PAGE',
+import { profilePage } from '../actionTypes';
+
+const show = () => ({
+  type: profilePage.show,
 });
+const hide = () => ({
+  type: profilePage.hide,
+});
+
 export default {
-  toggleProfilePage,
+  show,
+  hide,
 };
