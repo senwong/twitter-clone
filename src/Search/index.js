@@ -14,7 +14,7 @@ import CustomHead from '../middleComponents/CustomHead';
 import InputText from '../BaseComponents/InputText';
 
 export default function Search({
-  history, setHistoryNRecPage, searchQuery, setSearchQuery,
+  history, showHistoryNRecPage, searchQuery, setSearchQuery,
 }) {
   return (
     <div style={{ width: '100%', height: '100%' }}>
@@ -23,7 +23,7 @@ export default function Search({
         middle={(
           <InputText
             placeholder="搜索 Twitter"
-            onFocus={() => setHistoryNRecPage(true)}
+            onFocus={() => showHistoryNRecPage()}
             value={searchQuery}
             onChange={e => setSearchQuery(e.target.value)}
           />
@@ -37,7 +37,7 @@ export default function Search({
 }
 Search.propTypes = {
   history: ReactRouterPropTypes.history.isRequired,
-  setHistoryNRecPage: PropTypes.func.isRequired,
+  showHistoryNRecPage: PropTypes.func.isRequired,
   searchQuery: PropTypes.string.isRequired,
   setSearchQuery: PropTypes.func.isRequired,
 };

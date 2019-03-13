@@ -1,6 +1,6 @@
 import { connect } from 'react-redux';
 import HistoryNRecommendPage from '../InputPage/HistoryNRecommendPage';
-import { setRecommendQuery, setSearchQuery, setHistoryNRecPage } from '../actionCreators/recommendPage';
+import { setRecommendQuery, setSearchQuery, hide } from '../actionCreators/recommendPage';
 
 const mapStateToProps = state => ({
   recommendQuery: state.recommendPage.recommendQuery,
@@ -9,7 +9,7 @@ const mapStateToProps = state => ({
 const mapDispatchToProps = dispatch => ({
   setRecommendQuery: query => dispatch(setRecommendQuery(query)),
   setSearchQuery: query => dispatch(setSearchQuery(query)),
-  hide: () => dispatch(setHistoryNRecPage(false)),
+  hide: () => dispatch(hide()),
 });
 export default connect(
   mapStateToProps,

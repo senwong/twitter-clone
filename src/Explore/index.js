@@ -19,7 +19,7 @@ import ScrollToggleHead from '../middleComponents/ScrollToggleHead';
 import { getGlobalTrends } from '../Api';
 import Text from '../BaseComponents/Text';
 
-export default function Explore(props) {
+export default function Explore({ showHistoryNRecPage }) {
   // todo refresh data
   function handleRefresh() {
     return new Promise((resolve) => {
@@ -28,7 +28,6 @@ export default function Explore(props) {
       }, 1000);
     });
   }
-  const { setHistoryNRecPage } = props;
   return (
     <ScrollToggleHead
       head={(
@@ -38,7 +37,7 @@ export default function Explore(props) {
             middle={(
               <InputText
                 placeholder="搜索 Twitter"
-                onFocus={() => setHistoryNRecPage(true)}
+                onFocus={() => showHistoryNRecPage()}
               />
             )}
             right={(
@@ -60,7 +59,7 @@ export default function Explore(props) {
 }
 
 Explore.propTypes = {
-  setHistoryNRecPage: PropTypes.func.isRequired,
+  showHistoryNRecPage: PropTypes.func.isRequired,
 };
 
 // Explore page body styles

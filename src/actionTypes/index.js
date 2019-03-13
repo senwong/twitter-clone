@@ -13,7 +13,8 @@ export const profilePage = {
   hide: 'PROFILEPAGE_HIDE',
 };
 export const recommendPage = {
-  setHistoryNRecPage: 'RECOMMENDPAGE_SET_HISTORY_REM_PAGE_VISIBILITY',
+  show: 'RECOMMENDPAGE_SHOW',
+  hide: 'RECOMMENDPAGE_HIDE',
   setRecommendQuery: 'RECOMMENDPAGE_SET_RECOMMEND_QUERY',
   setSearchQuery: 'RECOMMENDPAGE_SET_SEARCH_QUERY',
 };

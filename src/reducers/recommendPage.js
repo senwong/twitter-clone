@@ -7,8 +7,11 @@ const initState = {
 };
 export default (state = initState, action) => {
   switch (action.type) {
-    case recommendPage.setHistoryNRecPage: {
-      return { ...state, show: action.show };
+    case recommendPage.show: {
+      return { ...state, show: true };
+    }
+    case recommendPage.hide: {
+      return { ...state, show: false };
     }
     case recommendPage.setRecommendQuery: {
       return { ...state, recommendQuery: action.query };
