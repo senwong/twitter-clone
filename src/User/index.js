@@ -93,7 +93,11 @@ export default function User({ match, currentUser, showUserSettingPopupPage }) {
           <div style={{ padding: '9px 9px 0', marginBottom: '14px' }}>
             <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start' }}>
               <UserAvaterWrapper>
-                <Avatar large src={user.avatarSrc} />
+                {
+                  user
+                  && user.avatarSrc
+                  && <Avatar large src={user.avatarSrc} />
+                }
               </UserAvaterWrapper>
               {
                 currentUser && currentUser.name === userName

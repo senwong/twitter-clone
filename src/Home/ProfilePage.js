@@ -126,7 +126,11 @@ function ProfilePage({
                 style={{ padding: '9px 18px 0' }}
                 onClick={handleUserClick}
               >
-                <Avatar src={user.avatarSrc} />
+                {
+                  user
+                  && user.avatarSrc
+                  && <Avatar src={user.avatarSrc} />
+                }
               </WrapperButton>
               <WrapperButton
                 type="button"
