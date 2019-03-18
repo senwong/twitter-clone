@@ -1,6 +1,6 @@
-import { modal } from '../actionTypes';
+import actionTypes from '../actionTypes';
 import makeActionCreator from './makeActionCreator';
 
-export const show = makeActionCreator(modal.show);
-export const hide = makeActionCreator(modal.hide);
-export const setup = makeActionCreator(modal.setup, 'config');
+export const setup = makeActionCreator(actionTypes.SET_UP_MODAL, 'config');
+export const show = () => ({ name: 'modal', type: 'SHOW' });
+export const hide = () => ({ name: 'modal', type: 'HIDE' });

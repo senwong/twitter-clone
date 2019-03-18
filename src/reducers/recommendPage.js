@@ -1,25 +1,32 @@
-import { recommendPage } from '../actionTypes';
+import { combineReducers } from 'redux';
+import actionTypes from '../actionTypes';
+import { createFilteredReducer } from './reducerUtilitys';
+import displayReducer from './displayReducer';
 
-const initState = {
-  show: false,
-  recommendQuery: '',
-  searchQuery: '',
-};
-export default (state = initState, action) => {
+const showReducer = createFilteredReducer(displayReducer, action => action.name === 'recommendPage');
+
+const recommendQueryReducer = (state = '', action) => {
   switch (action.type) {
-    case recommendPage.show: {
-      return { ...state, show: true };
-    }
-    case recommendPage.hide: {
-      return { ...state, show: false };
-    }
-    case recommendPage.setRecommendQuery: {
-      return { ...state, recommendQuery: action.query };
-    }
-    case recommendPage.setSearchQuery: {
-      return { ...state, searchQuery: action.query };
+    case actionTypes.SET_RECOMMENDPAGE_RECOMMEND_QUERY: {
+      return action.query;
     }
     default:
       return state;
   }
 };
+
+const searchQueryReducer = (state = '', action) => {
+  switch (action.type) {
+    case actionTypes.SET_RECOMMENDPAGE_SEARCH_QUERY: {
+      return action.query;
+    }
+    default:
+      return state;
+  }
+};
+
+export default combineReducers({
+  show: showReducer,
+  recommendQuery: recommendQueryReducer,
+  searchQuery: searchQueryReducer,
+});

@@ -1,6 +1,6 @@
-import { currentUser } from '../actionTypes';
+import actionTypes from '../actionTypes';
 import makeActionCreator from './makeActionCreator';
 
-export const setScreenName = makeActionCreator(currentUser.setScreenName, 'name');
-export const setPhone = makeActionCreator(currentUser.setPhone, 'phone');
-export const setEmail = makeActionCreator(currentUser.setEmail, 'email');
+export const setScreenName = makeActionCreator(actionTypes.SET_CURRENTUSER_SCREEN_NAME, 'name');
+export const setPhone = makeActionCreator(actionTypes.SET_CURRENTUSER_PHONE, 'phone');
+export const setEmail = makeActionCreator(actionTypes.SET_CURRENTUSER_EMAIL, 'email');

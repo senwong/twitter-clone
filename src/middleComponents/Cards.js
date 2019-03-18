@@ -143,8 +143,14 @@ const FakeSvgBtn = styled.div`
   margin: -6px;
 `;
 // component TweetCard, a card to show tweet content and user info
-export function TweetCard({ showPopup, tweet }) {
+export function TweetCard({ showPopup, setPopupUser, tweet }) {
   const [user, setUser] = useState();
+
+  function handleHeadRightClick() {
+    setPopupUser(user);
+    showPopup();
+  }
+
   useEffect(() => {
     const { userId } = tweet;
     const p = getUserById(userId);
@@ -205,7 +211,7 @@ export function TweetCard({ showPopup, tweet }) {
   );
   const headRight = (
     <SvgBtnContainer>
-      <FakeSvgBtn onClick={() => showPopup(user)} />
+      <FakeSvgBtn onClick={() => handleHeadRightClick()} />
       <ArrowDown xsmall secondary />
     </SvgBtnContainer>
   );
@@ -231,6 +237,7 @@ export function TweetCard({ showPopup, tweet }) {
 }
 TweetCard.propTypes = {
   showPopup: PropTypes.func.isRequired,
+  setPopupUser: PropTypes.func.isRequired,
   tweet: PropTypes.shape({
     userId: PropTypes.number.isRequired,
     createdTime: PropTypes.string.isRequired,

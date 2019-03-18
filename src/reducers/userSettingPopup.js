@@ -1,17 +1,8 @@
-import { userSettingPopup } from '../actionTypes';
+import { combineReducers } from 'redux';
+import { createFilteredReducer } from './reducerUtilitys';
+import displayReducer from './displayReducer';
 
-const initState = {
-  show: false,
-};
-export default (state = initState, action) => {
-  switch (action.type) {
-    case userSettingPopup.show: {
-      return { ...state, show: true };
-    }
-    case userSettingPopup.hide: {
-      return { ...state, show: false };
-    }
-    default:
-      return state;
-  }
-};
+const reducer = createFilteredReducer(displayReducer, action => action.name === 'userSettingPopup');
+export default combineReducers({
+  show: reducer,
+});

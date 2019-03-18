@@ -1,15 +1,8 @@
-import { profilePage } from '../actionTypes';
+import { combineReducers } from 'redux';
+import { createFilteredReducer } from './reducerUtilitys';
+import displayReducer from './displayReducer';
 
-const initState = {
-  show: false,
-};
-export default (state = initState, action) => {
-  switch (action.type) {
-    case profilePage.show:
-      return { ...state, show: true };
-    case profilePage.hide:
-      return { ...state, show: false };
-    default:
-      return state;
-  }
-};
+const showReducer = createFilteredReducer(displayReducer, action => action.name === 'profilePage');
+export default combineReducers({
+  show: showReducer,
+});

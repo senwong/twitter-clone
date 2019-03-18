@@ -1,24 +1,22 @@
-import { tweetCardPopup } from '../actionTypes';
+import { combineReducers } from 'redux';
+import { createFilteredReducer } from './reducerUtilitys';
+import displayReducer from './displayReducer';
+
+const showReducer = createFilteredReducer(displayReducer, action => action.name === 'tweetCardPopup');
 
 const initState = {
-  show: false,
-  user: null,
+  name: '',
 };
-export default (state = initState, action) => {
+function userReducer(state = initState, action) {
   switch (action.type) {
-    case tweetCardPopup.show:
-      return {
-        ...state,
-        show: true,
-        user: action.user,
-      };
-    case tweetCardPopup.hide:
-      return {
-        ...state,
-        show: false,
-        user: action.user,
-      };
+    case 'TWEETCARD_POPUP_SET_USER':
+      return action.user;
     default:
       return state;
   }
-};
+}
+
+export default combineReducers({
+  show: showReducer,
+  user: userReducer,
+});

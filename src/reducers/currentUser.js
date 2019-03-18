@@ -1,18 +1,16 @@
-import Mock from 'mockjs';
-import { currentUser } from '../actionTypes';
+import actionTypes from '../actionTypes';
 
-const { Random } = Mock;
 const initState = {
-  id: Random.natural(),
-  avatarSrc: Random.dataImage('100x100'),
-  name: Random.first(),
-  nickName: Random.cname(),
-  isV: Random.boolean(),
-  desc: Random.cparagraph(),
-  followers: Math.round(Math.random() * 10),
-  following: Math.round(Math.random() * 100),
-  phone: Random.integer(10000000000, 99999999999),
-  email: Random.email(),
+  id: 1,
+  name: 'Kenneth',
+  avatarSrc: 'http://dummyimage.com/100x100/79f2d9',
+  nickName: '黎勇',
+  isV: false,
+  desc: '亲个本细照北地于集须老市。被该除温局活及理度部且习当。真所周者又内始叫备政确离型天方段决。土复又政布系战造用列道名工才。片而受装阶理该电进行了相立从精。',
+  followers: 1,
+  following: 15,
+  phone: 38425393360,
+  email: 'v.hfoess@qckax.mq',
   location: 'United States',
   birthday: '1995年1月22日',
   registerTime: '2005年1月',
@@ -22,13 +20,13 @@ const initState = {
 };
 export default (state = initState, action) => {
   switch (action.type) {
-    case currentUser.setScreenName: {
+    case actionTypes.SET_CURRENTUSER_SCREEN_NAME: {
       return { ...state, name: action.name };
     }
-    case currentUser.setPhone: {
+    case actionTypes.SET_CURRENTUSER_PHONE: {
       return { ...state, phone: action.phone };
     }
-    case currentUser.setEmail: {
+    case actionTypes.SET_CURRENTUSER_EMAIL: {
       return { ...state, email: action.email };
     }
     default:

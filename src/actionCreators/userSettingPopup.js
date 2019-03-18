@@ -1,5 +1,2 @@
-import { userSettingPopup } from '../actionTypes';
-import makeActionCreator from './makeActionCreator';
-
-export const show = makeActionCreator(userSettingPopup.show, 'user');
-export const hide = makeActionCreator(userSettingPopup.hide, 'user');
+export const show = () => ({ name: 'userSettingPopup', type: 'SHOW' });
+export const hide = () => ({ name: 'userSettingPopup', type: 'HIDE' });
