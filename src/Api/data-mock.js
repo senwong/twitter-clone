@@ -67,3 +67,8 @@ Mock.mock(/trends/, () => {
   const limit = 20;
   return Array(limit).fill(null).map(() => generateTrend());
 });
+Mock.mock(/relatedusers/, (options) => {
+  const limit = parseInt(options.url.split('relatedusers?limit=')[1], 10);
+  const userNum = limit || 20;
+  return Array(userNum).fill(null).map(getUserInfo);
+});

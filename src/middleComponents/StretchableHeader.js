@@ -2,6 +2,9 @@ import React, { useState, useEffect } from 'react';
 import styled from 'styled-components';
 import PropTypes from 'prop-types';
 
+const HeaderContainer = styled.header`
+  background-color: rgb(255, 255, 255);
+`;
 const FakeHeader = styled.div`
   height: 98px;
 `;
@@ -16,13 +19,29 @@ const Header = styled.div`
   z-index: 2;
   transform: ${props => props.isShort && 'translateY(-49px)'};
 `;
-export default function ScrollToggleHead({ head, main }) {
+const ContentWrapper = styled.div`
+  max-width: 600px;
+  margin: 0 auto;
+`;
+export default function StretchableHeader({ children }) {
   const [lastWindowScrollTop, setLastWindowScrollTop] = useState(null);
   const [isHeadShort, setIsHeadShort] = useState(false);
-
+  let isInOneSecond = false;
   function handleWindowScroll(e) {
+    isInOneSecond = true;
+    setTimeout(() => {
+      isInOneSecond = false;
+    }, 1000);
+
     if (lastWindowScrollTop) {
-      setIsHeadShort(e.target.scrollingElement.scrollTop > lastWindowScrollTop);
+      // in one second scroll over than 50px
+      const dis = e.target.scrollingElement.scrollTop - lastWindowScrollTop;
+      if (dis > 30 && isInOneSecond) {
+        setIsHeadShort(true);
+      }
+      if (dis < 0) {
+        setIsHeadShort(false);
+      }
     }
     setLastWindowScrollTop(e.target.scrollingElement.scrollTop);
   }
@@ -33,18 +52,16 @@ export default function ScrollToggleHead({ head, main }) {
     };
   });
   return (
-    <div>
+    <HeaderContainer>
       <FakeHeader />
       <Header isShort={isHeadShort}>
-        {head}
+        <ContentWrapper>
+          {children}
+        </ContentWrapper>
       </Header>
-      <div>
-        {main}
-      </div>
-    </div>
+    </HeaderContainer>
   );
 }
-ScrollToggleHead.propTypes = {
-  head: PropTypes.node.isRequired,
-  main: PropTypes.node.isRequired,
+StretchableHeader.propTypes = {
+  children: PropTypes.node.isRequired,
 };

@@ -1,36 +1,49 @@
 import React, { useState, useEffect } from 'react';
-import styled from 'styled-components';
-import ReactRouterPropTypes from 'react-router-prop-types';
-import { BackIcon } from '../BaseComponents/SVGIcons';
-import Text from '../BaseComponents/Text';
-import { UserCard } from '../middleComponents/Cards';
-import { getRelatedUser } from '../dataMock';
+import PropTypes from 'prop-types';
+import { connect } from 'react-redux';
+import { setup, show } from '../actionCreators/modal';
+import { getRelatedUsers } from '../Api';
+import RelatedUsersList from './RelatedUsersList';
+import BackHead from '../middleComponents/BackHead';
 
-const Header = styled.div`
-  padding: 14px 9px;
-  display: flex;
-  align-Items: center;
-  border-bottom: 1px solid rgb(101, 119, 134);
-`;
-export default function Related({ history }) {
+function Related({ setModal, showModal }) {
   const [users, setUsers] = useState();
   useEffect(() => {
-    setUsers(getRelatedUser());
-  });
+    const cancelablePromise = getRelatedUsers();
+    cancelablePromise.promise
+      .then(
+        res => setUsers(res.data),
+        () => {
+          setModal({
+            title: 'Network error',
+            type: 'warning',
+            onConfirm: null,
+            onCancel: null,
+          });
+          showModal();
+        },
+      );
+    return () => {
+      cancelablePromise.cancel();
+    };
+  }, []);
   return (
     <div>
-      <Header>
-        <BackIcon middle primary style={{ marginRight: '36.5px' }} onClick={() => history.goBack()} />
-        <Text large bold>推荐关注</Text>
-      </Header>
-      {
-        users && users.length > 0
-          ? users.map(u => <UserCard key={u.id} user={u} />)
-          : <h1>没有推荐的用户</h1>
-      }
+      <BackHead title="推荐关注" />
+      <RelatedUsersList users={users} />
     </div>
   );
 }
 Related.propTypes = {
-  history: ReactRouterPropTypes.history.isRequired,
+  setModal: PropTypes.func.isRequired,
+  showModal: PropTypes.func.isRequired,
 };
+
+const mapDispatchToProps = dispatch => ({
+  setModal: modalConfig => dispatch(setup(modalConfig)),
+  showModal: () => dispatch(show()),
+});
+export default connect(
+  null,
+  mapDispatchToProps,
+)(Related);

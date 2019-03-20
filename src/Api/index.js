@@ -1,6 +1,6 @@
 import axios from 'axios';
 
-import './data-mock/data-mock';
+import './data-mock';
 
 const server = 'http://localhost:3000';
 const api = axios.create({
@@ -51,4 +51,12 @@ export function getGlobalTrends() {
 // get all trends
 export function getTrends() {
   return makeCancelable(api.get('/trends'));
+}
+/**
+ * return recommending following users
+ * @param {number} limit the number of users of returned, default 20.
+ */
+export function getRelatedUsers(limit) {
+  const url = limit ? `/relatedusers?limit=${limit}` : '/relatedusers';
+  return makeCancelable(api.get(url));
 }

@@ -5,7 +5,7 @@ import PropTypes from 'prop-types';
 import ReactRouterPropTypes from 'react-router-prop-types';
 import Avatar from '../BaseComponents/Avatar';
 import Text from '../BaseComponents/Text';
-import { LinkList } from '../middleComponents/NavList';
+import { LinkList } from '../middleComponents/NavigationBar';
 import CustomizedButton from '../BaseComponents/CustomizedButton';
 import {
   LocationIcon, BirthdayIcon, CalendarIcon, SettingIcon,

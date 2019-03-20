@@ -5,7 +5,7 @@ import PropTypes from 'prop-types';
 import ReactRouterPropTypes from 'react-router-prop-types';
 import { BackIcon, RelateIcon } from '../BaseComponents/SVGIcons';
 import InputText from '../BaseComponents/InputText';
-import CustomHead from '../middleComponents/CustomHead';
+import HeadBarLayOut from '../middleComponents/HeadBarLayOut';
 import { getSearchHistory, addSearchHistory } from '../Api/SearchHistory';
 import HistoryPage from './HistoryPage';
 import SearchRecommendPage from './SearchRecommendPage';
@@ -80,12 +80,12 @@ function HistoryNRecommendPage({
   }
   return (
     <Container>
-      <CustomHead
+      <HeadBarLayOut
         left={<BackIcon small primary onClick={handleBack} />}
         middle={(
           <InputText
             autoFocus
-            placeholder="搜索 Twitter"
+            placeholder="杜索 Twitter"
             value={recommendQuery}
             onChange={handleChange}
             onKeyDown={handleInputKeyDown}

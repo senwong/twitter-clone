@@ -19,7 +19,7 @@ const Right = styled.div`
   margin-left: 18px;
   display: flex;
 `;
-const CustomHead = ({ left, middle, right }) => (
+const HeadBarLayOut = ({ left, middle, right }) => (
   <Container>
     <Left>
       {left}
@@ -32,12 +32,12 @@ const CustomHead = ({ left, middle, right }) => (
     </Right>
   </Container>
 );
-CustomHead.propTypes = {
+HeadBarLayOut.propTypes = {
   left: PropTypes.node.isRequired,
   middle: PropTypes.node.isRequired,
   right: PropTypes.node,
 };
-CustomHead.defaultProps = {
+HeadBarLayOut.defaultProps = {
   right: <></>,
 };
-export default CustomHead;
+export default HeadBarLayOut;

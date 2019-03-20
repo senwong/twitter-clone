@@ -8,7 +8,7 @@ const Container = styled.div`
   border-bottom: ${props => props.isRear && '1px solid rgb(230, 236, 240)'};
 `;
 
-export default function TitleItem({
+export default function TitleBar({
   title, subtitle, rear, primary,
 }) {
   return (
@@ -18,13 +18,13 @@ export default function TitleItem({
     </Container>
   );
 }
-TitleItem.propTypes = {
+TitleBar.propTypes = {
   title: PropTypes.string.isRequired,
   subtitle: PropTypes.string,
   rear: PropTypes.bool,
   primary: PropTypes.bool,
 };
-TitleItem.defaultProps = {
+TitleBar.defaultProps = {
   subtitle: '',
   rear: false,
   primary: false,

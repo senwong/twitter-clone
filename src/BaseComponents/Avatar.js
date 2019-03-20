@@ -7,18 +7,20 @@ const StyledImg = styled.img`
   width: ${(props) => {
     if (props.xsmall) return '24px';
     if (props.small) return '28px';
+    if (props.middle) return '33px';
     if (props.large) return '95px';
     return '46px';
   }};
   height: ${(props) => {
     if (props.xsmall) return '24px';
     if (props.small) return '28px';
+    if (props.middle) return '33px';
     if (props.large) return '95px';
     return '46px';
   }};
 `;
 export default function Avatar({
-  src, onClick, xsmall, small, large,
+  src, onClick, xsmall, small, middle, large,
 }) {
   return (
     <StyledImg
@@ -27,6 +29,7 @@ export default function Avatar({
       onClick={onClick}
       xsmall={xsmall}
       small={small}
+      middle={middle}
       large={large}
     />
   );
@@ -36,11 +39,13 @@ Avatar.propTypes = {
   onClick: PropTypes.func,
   xsmall: PropTypes.bool,
   small: PropTypes.bool,
+  middle: PropTypes.bool,
   large: PropTypes.bool,
 };
 Avatar.defaultProps = {
   onClick: null,
   xsmall: false,
   small: false,
+  middle: false,
   large: false,
 };

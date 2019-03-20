@@ -13,10 +13,10 @@ const Wrapper = styled.ul`
   flex-direction: row;
   padding: 0;
   margin: 0;
-  border-bottom: 1px solid rgb(230, 236, 240);
   position: relative;
   background-color: white;
   z-index: 1;
+  height: 100%;
 `;
 
 const StyledNavLink = styled(NavLink)`
@@ -31,7 +31,7 @@ const StyledNavLink = styled(NavLink)`
     color: rgb(29, 161, 242);
   }
 `;
-export default function NavList() {
+export default function NavigationBar() {
   const links = [
     { to: '/home', title: <HomeIcon middle /> },
     { to: '/explore', title: <ExploreIcon middle /> },

@@ -12,7 +12,7 @@ const Container = styled.div`
   `}
   display: flex;
   align-items: center;
-  border-radius: 16.5px;
+  border-radius: 9999px;
   overflow: hidden;
   border-width: 1px;
   border-style: solid;

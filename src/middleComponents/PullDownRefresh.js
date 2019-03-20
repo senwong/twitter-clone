@@ -28,8 +28,8 @@ export default function PullDownRefresh({ onRefresh, children }) {
   const [mainTranslateY, setMainTranslateY] = useState(0);
   const [isRefressWatting, setIsRefressWatting] = useState(false);
   const [firstTouchY, setFirstTouchY] = useState(0);
-  const RefreshHeight = 42;
-
+  const REFRESHHEIGHT = 42;
+  let isCando = true;
   function handleTouchStart(e) {
     setFirstTouchY(e.touches[0].clientY);
   }
@@ -40,18 +40,24 @@ export default function PullDownRefresh({ onRefresh, children }) {
     }
     const dis = e.touches[0].clientY - firstTouchY;
     if (dis > 0) {
-      setMainTranslateY(Math.round(dis / 2));
+      if (isCando) {
+        setMainTranslateY(Math.round(dis / 2));
+        isCando = false;
+        setTimeout(() => {
+          isCando = true;
+        }, 250);
+      }
     }
   }
   function handleTouchEnd() {
-    if (mainTranslateY > RefreshHeight) {
+    if (mainTranslateY > REFRESHHEIGHT) {
       window.requestAnimationFrame(() => {
         setIsRefressWatting(true);
         onRefresh().then(() => {
           setIsRefressWatting(false);
           setMainTranslateY(0);
         });
-        setMainTranslateY(RefreshHeight);
+        setMainTranslateY(REFRESHHEIGHT);
       });
     } else {
       setMainTranslateY(0);
@@ -66,7 +72,7 @@ export default function PullDownRefresh({ onRefresh, children }) {
       onTouchEnd={handleTouchEnd}
     >
       <ActionsContainer
-        isTurnUp={mainTranslateY > RefreshHeight}
+        isTurnUp={mainTranslateY > REFRESHHEIGHT}
       >
         {isRefressWatting ? <WattingIcon large /> : <PullDownIcon large secondary />}
       </ActionsContainer>

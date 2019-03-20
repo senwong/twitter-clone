@@ -10,7 +10,7 @@ import {
 import { searchHot } from '../dataMock';
 import { TweetCard, UserCard } from '../middleComponents/Cards';
 import PrimaryGap from '../BaseComponents/PrimaryGap';
-import CustomHead from '../middleComponents/CustomHead';
+import HeadBarLayOut from '../middleComponents/HeadBarLayOut';
 import InputText from '../BaseComponents/InputText';
 
 export default function Search({
@@ -18,7 +18,7 @@ export default function Search({
 }) {
   return (
     <div style={{ width: '100%', height: '100%' }}>
-      <CustomHead
+      <HeadBarLayOut
         left={<BackIcon small primary onClick={() => history.goBack()} />}
         middle={(
           <InputText
@@ -27,7 +27,7 @@ export default function Search({
             value={searchQuery}
             onChange={e => setSearchQuery(e.target.value)}
           />
-)}
+        )}
         right={<RelateIcon small primary />}
       />
       <SearchTypesHead query={searchQuery} />
@@ -54,7 +54,7 @@ const NavArrow = styled.div`
     display: none;
   }
 `;
-const NavListWrapper = styled.div`
+const NavigationBarWrapper = styled.div`
   flex: 1 1 0;
   overflow-y: hidden;
 `;
@@ -117,13 +117,13 @@ function SearchTypesHead({ query }) {
         <NavArrow onClick={moveLeft}>
           <PrevIcon xsmall primary={moveLeftCount > 0} secondary={moveLeftCount <= 0} />
         </NavArrow>
-        <NavListWrapper ref={(el) => { headMiddle = el; }}>
+        <NavigationBarWrapper ref={(el) => { headMiddle = el; }}>
           <SearchTypeList
             query={query}
             linkContainer={(el) => { linksContainer = el; }}
             linkRef={(el) => { linkEl = el; }}
           />
-        </NavListWrapper>
+        </NavigationBarWrapper>
         <NavArrow onClick={moveRight}>
           <NextIcon xsmall primary={moveRightCount > 0} secondary={moveRightCount <= 0} />
         </NavArrow>

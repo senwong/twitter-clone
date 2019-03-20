@@ -124,10 +124,11 @@ MediaCard.propTypes = {
   left: PropTypes.node.isRequired,
   headLeft: PropTypes.node.isRequired,
   headRight: PropTypes.element,
-  content: PropTypes.node.isRequired,
+  content: PropTypes.node,
 };
 MediaCard.defaultProps = {
-  headRight: <div />,
+  headRight: <></>,
+  content: <></>,
 };
 
 const SvgBtnContainer = styled.div`
@@ -319,6 +320,21 @@ export function UserBar({ user }) {
   );
 }
 UserBar.propTypes = {
+  user: UserType.isRequired,
+};
+
+export function UserCardWithoutDesc({ user }) {
+  const left = user && user.avatarSrc && <Avatar src={user.avatarSrc} />;
+  const headLeft = <UserName user={user} />;
+  const headRight = (
+    <CustomizedButton small>关注</CustomizedButton>
+  );
+  const p = { left, headLeft, headRight };
+  return (
+    <MediaCard {...p} />
+  );
+}
+UserCardWithoutDesc.propTypes = {
   user: UserType.isRequired,
 };
 

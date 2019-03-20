@@ -14,9 +14,9 @@ const initState = {
   location: 'United States',
   birthday: '1995年1月22日',
   registerTime: '2005年1月',
-  personalization: null,
-  language: null,
-  country: null,
+  personalization: 0,
+  language: '中文简体',
+  country: '中国',
 };
 export default (state = initState, action) => {
   switch (action.type) {

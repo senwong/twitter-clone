@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import ReactDOM from 'react-dom';
 import {
   BrowserRouter as Router, Route, Redirect, Switch,
@@ -60,47 +60,52 @@ export default function App({
   showUserSettingPopupPage,
   showModal,
 }) {
+  useEffect(() => {
+    const bodyScrollStyle = showTweetCardPop ? 'hidden' : 'scroll';
+    document.body.style.overflowY = bodyScrollStyle;
+  });
   return (
     <React.Fragment>
       <Router>
-        <React.Fragment>
-          <Switch>
-            <Route path="/" exact render={() => <Redirect to="/home" />} />
-            <Route path="/home" component={Home} />
-            <Route path="/explore" component={Explore} />
-            <Route path="/notifications" component={Notifications} />
-            <Route path="/messages" component={Message} />
-            <Route path="/search" component={Search} />
-            <Route path="/related" component={Related} />
+        <Switch>
+          <Route path="/" exact render={() => <Redirect to="/home" />} />
+          <Route path="/home" component={Home} />
+          <Route path="/explore" component={Explore} />
+          <Route path="/notifications" component={Notifications} />
+          <Route path="/messages" component={Message} />
+          <Route path="/search" component={Search} />
+          <Route path="/related" component={Related} />
 
-            <Route path="/settings" exact component={Settings} />
-            <Route path="/settings/account/login_verification" component={LoginVerification} />
-            <Route path="/settings/account" component={Account} />
-            <Route path="/settings/safety" component={Safety} />
-            <Route path="/settings/notifications" component={NotificationsSetting} />
-            <Route path="/settings/content_preferences" component={ContentPreferences} />
+          <Route path="/settings" exact component={Settings} />
+          <Route path="/settings/account/login_verification" component={LoginVerification} />
+          <Route path="/settings/account" component={Account} />
+          <Route path="/settings/safety" component={Safety} />
+          <Route path="/settings/notifications" component={NotificationsSetting} />
+          <Route path="/settings/content_preferences" component={ContentPreferences} />
 
-            <Route path="/settings/data" component={Data} />
-            <Route path="/settings/accessibility" component={Accessibility} />
-            <Route path="/settings/about" component={About} />
-            <Route path="/settings/screen_name" component={ScreenName} />
-            <Route path="/settings/phone" component={Phone} />
-            <Route path="/settings/email" component={Email} />
-            <Route path="/settings/password" component={Password} />
-            <Route path="/settings/security" component={Security} />
+          <Route path="/settings/data" component={Data} />
+          <Route path="/settings/accessibility" component={Accessibility} />
+          <Route path="/settings/about" component={About} />
+          <Route path="/settings/screen_name" component={ScreenName} />
+          <Route path="/settings/phone" component={Phone} />
+          <Route path="/settings/email" component={Email} />
+          <Route path="/settings/password" component={Password} />
+          <Route path="/settings/security" component={Security} />
 
-            <Route path="/settings/language" component={Language} />
-            <Route path="/settings/country" component={Country} />
-            <Route path="/settings/your_data" component={YourData} />
-            <Route path="/settings/applications" component={Applications} />
+          <Route path="/settings/language" component={Language} />
+          <Route path="/settings/country" component={Country} />
+          <Route path="/settings/your_data" component={YourData} />
+          <Route path="/settings/applications" component={Applications} />
 
-            <Route path="/settings/deactivate" component={Deactivate} />
-            <Route path="/i/trends" component={Trend} />
+          <Route path="/settings/deactivate" component={Deactivate} />
+          <Route path="/i/trends" component={Trend} />
 
-            <Route path="/:userName" component={User} />
+          <Route path="/:userName" component={User} />
 
-          </Switch>
-
+        </Switch>
+      </Router>
+      <Router>
+        <>
           <ProfilePage />
           { showHistoryNRecPage && <HistoryNRecommendPage />}
           <SlideUpTransition inSlide={showTweetCardPop}>
@@ -111,7 +116,7 @@ export default function App({
           </SlideUpTransition>
 
           { showModal && <Modal />}
-        </React.Fragment>
+        </>
       </Router>
     </React.Fragment>
   );
