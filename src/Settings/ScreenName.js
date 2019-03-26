@@ -3,6 +3,7 @@ import React, { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
 import styled from 'styled-components';
 import ReactRouterPropTypes from 'react-router-prop-types';
+import { connect } from 'react-redux';
 import PrimaryGap from '../BaseComponents/PrimaryGap';
 import { getRecommendScreenName } from '../Api';
 import CustomizedButton from '../BaseComponents/CustomizedButton';
@@ -11,6 +12,7 @@ import TextInput from './TextInput';
 import SubTitle from './SubTitle';
 import BackHeadWithUsername from '../middleComponents/BackHeadWithUsername';
 import LayOut from './LayOut';
+import { setScreenName } from '../actionCreators/currentUser';
 
 function Warning({ value }) {
   return (
@@ -39,7 +41,7 @@ const StyledButton = styled.button`
   }
 `;
 // setting name page
-export default function ScreenName({ history, globalStateName, setGlobalStateName }) {
+function ScreenName({ history, globalStateName, setGlobalStateName }) {
   const [name, setName] = useState(globalStateName);
   const [recommendNames, setRecommendNames] = useState();
   function handleChange(e) {
@@ -108,3 +110,14 @@ ScreenName.propTypes = {
   globalStateName: PropTypes.string.isRequired,
   setGlobalStateName: PropTypes.func.isRequired,
 };
+
+const mapStateToProps = state => ({
+  globalStateName: state.currentUser && state.currentUser.name,
+});
+const mapDispathToProps = dispatch => ({
+  setGlobalStateName: name => dispatch(setScreenName(name)),
+});
+export default connect(
+  mapStateToProps,
+  mapDispathToProps,
+)(ScreenName);

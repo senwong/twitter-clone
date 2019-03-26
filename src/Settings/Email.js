@@ -1,19 +1,21 @@
 import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 import ReactRouterPropTypes from 'react-router-prop-types';
+import { connect } from 'react-redux';
 import PrimaryGap from '../BaseComponents/PrimaryGap';
 import CustomizedButton from '../BaseComponents/CustomizedButton';
 import Text from '../BaseComponents/Text';
 import TextInput from './TextInput';
 import BackHeadWithUsername from '../middleComponents/BackHeadWithUsername';
 import LayOut from './LayOut';
+import { setEmail as setEmailActionCreator } from '../actionCreators/currentUser';
 
 function isEmail(value) {
   const reg = /^[a-zA-Z.]+@[a-zA-Z]+.[a-zA-Z]+$/;
   return reg.test(value);
 }
 
-export default function Email({ email, setEmail, history }) {
+function Email({ email, setEmail, history }) {
   const [newEmail, setNewEmail] = useState('');
   function handleChange(e) {
     setNewEmail(e.target.value);
@@ -72,3 +74,14 @@ Email.propTypes = {
   setEmail: PropTypes.func.isRequired,
   history: ReactRouterPropTypes.history.isRequired,
 };
+
+const mapStateToProps = state => ({
+  email: state.currentUser && state.currentUser.email,
+});
+const mapDispathToProps = dispatch => ({
+  setEmail: email => dispatch(setEmailActionCreator(email)),
+});
+export default connect(
+  mapStateToProps,
+  mapDispathToProps,
+)(Email);

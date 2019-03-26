@@ -1,5 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import { connect } from 'react-redux';
 import LayOut from './LayOut';
 import MakeSettingPanel from './MakeSettingPanel';
 import BackHeadWithUsername from '../middleComponents/BackHeadWithUsername';
@@ -43,7 +44,7 @@ const data = {
     },
   ],
 };
-export default function ContentPreferences({ personalization }) {
+function ContentPreferences({ personalization }) {
   console.log({ personalization });
   return (
     <LayOut
@@ -60,3 +61,9 @@ ContentPreferences.propTypes = {
 ContentPreferences.defaultProps = {
   personalization: 0,
 };
+const mapStateToProps = state => ({
+  personalization: state.currentUser && state.currentUser.personalization,
+});
+export default connect(
+  mapStateToProps,
+)(ContentPreferences);

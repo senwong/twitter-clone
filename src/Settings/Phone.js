@@ -1,12 +1,14 @@
 import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 import ReactRouterPropTypes from 'react-router-prop-types';
+import { connect } from 'react-redux';
 import PrimaryGap from '../BaseComponents/PrimaryGap';
 import CustomizedButton from '../BaseComponents/CustomizedButton';
 import Text from '../BaseComponents/Text';
 import TextInput from './TextInput';
 import BackHeadWithUsername from '../middleComponents/BackHeadWithUsername';
 import LayOut from './LayOut';
+import { setPhone as setPhoneActionCreator } from '../actionCreators/currentUser';
 
 function Warning({ validate }) {
   return (
@@ -27,7 +29,7 @@ function isPhone(value) {
   return reg.test(value);
 }
 
-export default function Phone({ phone, setPhone, history }) {
+function Phone({ phone, setPhone, history }) {
   const [newPhone, setNewPhone] = useState(0);
   function handleChange(e) {
     setNewPhone(e.target.value);
@@ -93,3 +95,14 @@ Phone.propTypes = {
   setPhone: PropTypes.func.isRequired,
   history: ReactRouterPropTypes.history.isRequired,
 };
+
+const mapStateToProps = state => ({
+  phone: state.currentUser && state.currentUser.phone,
+});
+const mapDispathToProps = dispatch => ({
+  setPhone: phone => dispatch(setPhoneActionCreator(phone)),
+});
+export default connect(
+  mapStateToProps,
+  mapDispathToProps,
+)(Phone);
