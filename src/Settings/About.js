@@ -1,35 +1,83 @@
 import React from 'react';
-import { SubTitle, LinkItem, SettingsContainer } from './index';
-import Head from '../container/settingPages/Head';
+import LayOut from './LayOut';
+import MakeSettingPanel from './MakeSettingPanel';
+import BackHeadWithUsername from '../middleComponents/BackHeadWithUsername';
 
+const data = {
+  title: '关于Twitter',
+  list: [
+    {
+      key: 1,
+      list: [
+        {
+          key: 1, type: 'link', title: '发布说明', to: '#',
+        },
+      ],
+    },
+    {
+      key: 2,
+      title: '法律',
+      list: [
+        {
+          key: 1, type: 'link', title: 'Cookie', to: '#',
+        },
+        {
+          key: 2, type: 'link', title: '广告信息', to: '#',
+        },
+        {
+          key: 3, type: 'link', title: '条款', to: '#',
+        },
+        {
+          key: 4, type: 'link', title: '隐私政策', to: '#',
+        },
+      ],
+    },
+    {
+      key: 3,
+      title: '其他',
+      list: [
+        {
+          key: 1, type: 'link', title: '业务', to: '#',
+        },
+        {
+          key: 2, type: 'link', title: '关于', to: '#',
+        },
+        {
+          key: 3, type: 'link', title: '博客', to: '#',
+        },
+        {
+          key: 4, type: 'link', title: '品牌', to: '#',
+        },
+        {
+          key: 5, type: 'link', title: '工作', to: '#',
+        },
+        {
+          key: 6, type: 'link', title: '市场营销', to: '#',
+        },
+        {
+          key: 7, type: 'link', title: '帮助中心', to: '#',
+        },
+        {
+          key: 8, type: 'link', title: '广告', to: '#',
+        },
+        {
+          key: 9, type: 'link', title: '开发者', to: '#',
+        },
+        {
+          key: 10, type: 'link', title: '状态', to: '#',
+        },
+        {
+          key: 11, type: 'link', title: '目录', to: '#',
+        },
+      ],
+    },
+  ],
+};
 export default function About() {
   return (
-    <SettingsContainer>
-      <Head title="关于Twitter" />
-      <LinkItem to="" title="发布说明" />
-
-      <SubTitle>法律</SubTitle>
-      <LinkItem to="" title="广告信息" />
-      <LinkItem to="" title="条款" />
-      <LinkItem to="" title="隐私政策" />
-      <LinkItem to="" title="Cookie" />
-
-      <SubTitle>其他</SubTitle>
-      {
-        [
-          { url: '', title: '帮助中心' },
-          { url: '', title: '博客' },
-          { url: '', title: '工作' },
-          { url: '', title: '关于' },
-          { url: '', title: '广告' },
-          { url: '', title: '开发者' },
-          { url: '', title: '目录' },
-          { url: '', title: '品牌' },
-          { url: '', title: '市场营销' },
-          { url: '', title: '业务' },
-          { url: '', title: '状态' },
-        ].map(({ url, title }) => <LinkItem key={title} to={url} title={title} />)
-      }
-    </SettingsContainer>
+    <LayOut
+      narrowHead={<BackHeadWithUsername title="关于Twitter" />}
+      rightAside={<MakeSettingPanel data={data} />}
+    />
   );
 }

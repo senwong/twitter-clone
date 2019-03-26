@@ -1,68 +1,71 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import PrimaryGap from '../BaseComponents/PrimaryGap';
-import { SettingsContainer, SubTitle, LinkItem } from './index';
-import Head from '../container/settingPages/Head';
+import { connect } from 'react-redux';
+import LayOut from './LayOut';
+import BackHeadWithUsername from '../middleComponents/BackHeadWithUsername';
+import MakeSettingPanel from './MakeSettingPanel';
 
-function genLinkItem({
-  key, title, to, subTitle,
-}) {
-  return <LinkItem key={key} to={to} title={title} subTitle={subTitle} />;
-}
-genLinkItem.propTypes = {
-  key: PropTypes.string.isRequired,
-  title: PropTypes.string.isRequired,
-  to: PropTypes.string.isRequired,
-  subTitle: PropTypes.string,
-};
-genLinkItem.defaultProps = {
-  subTitle: '',
-};
+const data = user => ({
+  title: '账号',
+  list: [
+    {
+      key: 1,
+      title: '登录和安全',
+      list: [
+        {
+          key: 1, type: 'link', to: '/settings/screen_name', title: '用户名', subTitle: user.name,
+        },
+        {
+          key: 2, type: 'link', to: '/settings/phone', title: '手机', subTitle: String(user.phone),
+        },
+        {
+          key: 3, type: 'link', to: '/settings/email', title: '电子邮件', subTitle: user.email,
+        },
+        {
+          key: 4, type: 'link', to: '/settings/password', title: '密码',
+        },
+        {
+          key: 5, type: 'link', to: '/settings/security', title: '安全',
+        },
+      ],
+    },
+    {
+      key: 2,
+      title: '数据和权限',
+      list: [
+        {
+          key: 1, type: 'link', to: '/settings/language', title: '语言', subTitle: user.language,
+        },
+        {
+          key: 2, type: 'link', to: '/settings/country', title: '国家/地区', subTitle: user.country,
+        },
+        {
+          key: 3, type: 'link', to: '/settings/your_data', title: '你的数据',
+        },
+        {
+          key: 4, type: 'link', to: '/settings/applications', title: '应用和会话',
+        },
+      ],
+    },
+    {
+      key: 3,
+      list: [
+        {
+          key: 1, type: 'link', to: '/settings/deactivate', title: '停用你的账号',
+        },
+      ],
+    },
+  ],
+});
 
-export default function Account({ user }) {
+function Account({ user }) {
   return (
-    <SettingsContainer>
-      <Head title="账号" />
-      <SubTitle>登录和安全</SubTitle>
-      {
-        [
-          {
-            key: 1, to: '/settings/screen_name', title: '用户名', subTitle: user.name,
-          },
-          {
-            key: 2, to: '/settings/phone', title: '手机', subTitle: String(user.phone),
-          },
-          {
-            key: 3, to: '/settings/email', title: '电子邮件', subTitle: user.email,
-          },
-          {
-            key: 4, to: '/settings/password', title: '密码',
-          },
-          {
-            key: 5, to: '/settings/security', title: '安全',
-          },
-        ].map(genLinkItem)
-      }
-      <SubTitle>数据和权限</SubTitle>
-      {
-        [
-          {
-            key: 1, to: '/settings/language', title: '语言', subTitle: user.language,
-          },
-          {
-            key: 2, to: '/settings/country', title: '国家/地区', subTitle: user.country,
-          },
-          {
-            key: 3, to: '/settings/your_data', title: '你的数据',
-          },
-          {
-            key: 4, to: '/settings/applications', title: '应用和会话',
-          },
-        ].map(genLinkItem)
-      }
-      <PrimaryGap />
-      <LinkItem to="/settings/deactivate" title="停用你的账号" />
-    </SettingsContainer>
+    <LayOut
+      narrowHead={<BackHeadWithUsername title="账号" />}
+      rightAside={(
+        <MakeSettingPanel data={data(user)} />
+      )}
+    />
   );
 }
 Account.propTypes = {
@@ -74,3 +77,7 @@ Account.propTypes = {
     country: PropTypes.string.isRequired,
   }).isRequired,
 };
+const mapStateToProps = state => ({
+  user: state.currentUser,
+});
+export default connect(mapStateToProps)(Account);

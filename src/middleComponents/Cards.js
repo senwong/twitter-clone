@@ -6,7 +6,7 @@ import DateTime from '../BaseComponents/DateTime';
 import Dot from '../BaseComponents/Dot';
 import CustomizedButton from '../BaseComponents/CustomizedButton';
 import {
-  ReplyIcon, ForewardIcon, LikeIcon, ShareIcon, BigVIcon, PurpleStar, ArrowDown,
+  ReplyIcon, ForewardIcon, LikeIcon, ShareIcon, BigVIcon, ArrowDown,
 } from '../BaseComponents/SVGIcons';
 import Avatar from '../BaseComponents/Avatar';
 import Text from '../BaseComponents/Text';
@@ -142,14 +142,32 @@ const FakeSvgBtn = styled.div`
   bottom: 0;
   right: 0;
   margin: -6px;
+  cursor: pointer;
+  border-radius: 9999px;
+  &:hover {
+    background-color: rgba(29, 161, 242, 0.1);
+  }
+`;
+const StyledArrowDown = styled(ArrowDown)`
+  ${FakeSvgBtn}:hover ~ & {
+    color: rgb(29, 161, 242);
+  }
 `;
 // component TweetCard, a card to show tweet content and user info
-export function TweetCard({ showPopup, setPopupUser, tweet }) {
+export function TweetCard({
+  showPopup, setPopupUser, setPopupPosition, tweet,
+}) {
   const [user, setUser] = useState();
 
-  function handleHeadRightClick() {
+  function handleHeadRightClick({ target }) {
     setPopupUser(user);
     showPopup();
+    if (window.matchMedia('(min-width: 1000px)').matches) {
+      const { left, top } = target.getBoundingClientRect();
+      setPopupPosition({
+        left, top, right: null, bottom: null,
+      });
+    }
   }
 
   useEffect(() => {
@@ -212,8 +230,8 @@ export function TweetCard({ showPopup, setPopupUser, tweet }) {
   );
   const headRight = (
     <SvgBtnContainer>
-      <FakeSvgBtn onClick={() => handleHeadRightClick()} />
-      <ArrowDown xsmall secondary />
+      <FakeSvgBtn onClick={e => handleHeadRightClick(e)} />
+      <StyledArrowDown xsmall secondary />
     </SvgBtnContainer>
   );
   const actions = {
@@ -239,6 +257,7 @@ export function TweetCard({ showPopup, setPopupUser, tweet }) {
 TweetCard.propTypes = {
   showPopup: PropTypes.func.isRequired,
   setPopupUser: PropTypes.func.isRequired,
+  setPopupPosition: PropTypes.func.isRequired,
   tweet: PropTypes.shape({
     userId: PropTypes.number.isRequired,
     createdTime: PropTypes.string.isRequired,
@@ -336,43 +355,4 @@ export function UserCardWithoutDesc({ user }) {
 }
 UserCardWithoutDesc.propTypes = {
   user: UserType.isRequired,
-};
-
-const NotifyCardLeft = styled.div`
-  display: flex;
-  justify-content: flex-end;
-  flex-direction: row;
-  width: 100%;
-`;
-const NotifyCardContent = styled.div`
-  margin-top: 9px;
-`;
-export function NotifyCard({ notification }) {
-  const left = (
-    <NotifyCardLeft>
-      <PurpleStar large />
-    </NotifyCardLeft>
-  );
-  const headLeft = notification.user
-    && notification.user.avatarSrc
-    && <Avatar src={notification.user.avatarSrc} small />;
-  const content = (
-    <div>
-      <div>
-        <Text>来自 </Text>
-        <Text bold>{notification.user.name}</Text>
-        <Text> 的推文</Text>
-      </div>
-      <NotifyCardContent>
-        <Text secondary>{notification.desc}</Text>
-      </NotifyCardContent>
-    </div>
-  );
-  const p = { left, headLeft, content };
-  return <MediaCard {...p} />;
-}
-NotifyCard.propTypes = {
-  notification: PropTypes.shape({
-    user: UserType.isRequired,
-  }).isRequired,
 };

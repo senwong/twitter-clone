@@ -1,7 +1,7 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import styled from 'styled-components';
 import PropTypes from 'prop-types';
-import { getSearchRecommend } from '../dataMock';
+import { getSearchRecommend } from '../Api';
 import { UserBar } from '../middleComponents/Cards';
 import PrimaryGap from '../BaseComponents/PrimaryGap';
 import Text from '../BaseComponents/Text';
@@ -26,7 +26,17 @@ const UserLink = styled.div`
 `;
 
 export default function SearchRecommendPage({ query }) {
-  const { topics, users, userLinked } = getSearchRecommend(query);
+  const [data, setData] = useState({});
+  useEffect(() => {
+    const p = getSearchRecommend(query);
+    p.promise.then(
+      res => setData(res.data),
+    );
+    return () => {
+      p.cancel();
+    };
+  });
+  const { topics, users, userLinked } = data;
   return (
     <Container>
       {topics.length > 0

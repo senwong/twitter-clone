@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import Head from '../container/settingPages/Head';
+import BackHeadWithUsername from '../middleComponents/BackHeadWithUsername';
 import { getTrends } from '../Api';
 import Dot from '../BaseComponents/Dot';
 import ListCard from './ListCard';
@@ -16,7 +16,7 @@ export default function () {
   }, []);
   return (
     <React.Fragment>
-      <Head title="趋势" />
+      <BackHeadWithUsername title="趋势" />
       {
         trends && trends.map((trend, i) => (
           <ListCard

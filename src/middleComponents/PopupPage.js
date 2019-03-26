@@ -15,21 +15,58 @@ const Wrapper = styled.div`
   justify-content: flex-end;
   background-color: rgba(0, 0, 0, 0.3);
   z-index: 2;
+  @media (min-width: 600px) and (max-width: 1000px) {
+    justify-content: center;
+  }
+  @media (min-width: 1000px) {
+    background-color: transparent;
+  }
 `;
 const ContentWrapper = styled.div`
   background-color: white;
+  margin: 0 auto;
+
+  @media (max-width: 600px) {
+    width: 100%;
+  }
+  @media (min-width: 600px) and (max-width: 1000px) {
+    width: 90vw;
+    max-width: 600px;
+  }
+  @media (min-width: 1000px) {
+    width: auto;
+    position: absolute;
+    top: ${props => `${props.position.top}px`};
+    right: ${props => `${props.position.right}px`};
+    left: ${props => `${props.position.left}px`};
+    bottom: ${props => `${props.position.bottom}px`};
+    box-shadow: rgba(0, 0, 0, 0.19) 0px 10px 20px, rgba(0, 0, 0, 0.22) 0px 6px 6px;
+  }
+
 `;
 const Item = styled.div`
   padding: 14px 18px;
   color: ${props => (props.warning ? 'rgb(224, 36, 94)' : 'inherit')};
+  cursor: pointer;
+  &:hover {
+    background-color: rgb(245, 248, 250);
+  }
+  transition-property: background-color;
+  transition-duration: 0.2s;
 `;
 const Cancel = styled.div`
+  cursor: pointer;
+  &:hover {
+    background-color: rgb(245, 248, 250);
+  }
+  transition-property: background-color;
+  transition-duration: 0.2s;
   padding: 14px 18px;
   border-top: 1px solid rgb(230, 236, 240);
 `;
 
 function PopupPage({
-  history, location, items, hide,
+  history, location, items, hide, position,
 }) {
   const contentRef = useRef();
   function handleWrapperClick(e) {
@@ -55,6 +92,7 @@ function PopupPage({
     >
       <ContentWrapper
         ref={contentRef}
+        position={position}
       >
         {
           items.map(({ title, warning, onClick }) => (
@@ -81,4 +119,18 @@ PopupPage.propTypes = {
   hide: PropTypes.func.isRequired,
   history: ReactRouterPropTypes.history.isRequired,
   location: ReactRouterPropTypes.location.isRequired,
+  position: PropTypes.shape({
+    left: PropTypes.number,
+    right: PropTypes.number,
+    top: PropTypes.number,
+    bottom: PropTypes.number,
+  }),
+};
+PopupPage.defaultProps = {
+  position: {
+    left: null,
+    right: null,
+    top: null,
+    bottom: null,
+  },
 };

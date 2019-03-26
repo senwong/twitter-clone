@@ -1,9 +1,10 @@
 import React, { useState, useEffect } from 'react';
 import styled from 'styled-components';
 import PropTypes from 'prop-types';
-import BodyAside from '../Home/BodyAside';
+import BodyAside from './BodyAside';
 import StretchableHeader from '../middleComponents/StretchableHeader';
 import WideHeader from './WideHeader';
+import PageFooter from './PageFooter';
 
 function useMediaQuery(query) {
   const [isWide, setIsWide] = useState(window.matchMedia(query).matches);
@@ -31,15 +32,18 @@ const BodyContainer = styled.div`
   }
 `;
 const Main = styled.main`
-  max-width: 600px;
+  width: 100%;
+  max-width: ${props => (props.reverse ? '360px' : '600px')};
   background-color: rgb(255, 255, 255);
 `;
 const RightAside = styled.aside`
-  width: 360px;
+  width: ${props => (props.reverse ? '600px' : '360px')};
   margin: 0 20px;
   align-self: flex-start;
 `;
-function LayOut({ head, main, rightAside }) {
+function LayOut({
+  head, main, rightAside, reverse,
+}) {
   const isWide = useMediaQuery('(min-width: 1000px)');
   return (
     <Container>
@@ -55,14 +59,15 @@ function LayOut({ head, main, rightAside }) {
           )
       }
       <BodyContainer>
-        <Main>
+        <Main reverse={reverse}>
           {main}
         </Main>
         {
           isWide
           && (
-            <RightAside>
+            <RightAside reverse={reverse}>
               {rightAside}
+              <PageFooter />
             </RightAside>
           )
         }
@@ -74,8 +79,10 @@ LayOut.propTypes = {
   head: PropTypes.node.isRequired,
   main: PropTypes.node.isRequired,
   rightAside: PropTypes.node,
+  reverse: PropTypes.bool,
 };
 LayOut.defaultProps = {
   rightAside: <BodyAside />,
+  reverse: false,
 };
 export default LayOut;

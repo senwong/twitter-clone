@@ -2,28 +2,34 @@ import React, { useState, useEffect } from 'react';
 import { Link, Switch, Route } from 'react-router-dom';
 import ReactRouterPropTypes from 'react-router-prop-types';
 import { SettingIcon } from '../BaseComponents/SVGIcons';
-import CustomHr from '../BaseComponents/CustomHr';
-import NavigationBar, { LinkList } from '../middleComponents/NavigationBar';
+import NavigationBar from '../middleComponents/NavigationBar';
 import HeadBarLayOut from '../middleComponents/HeadBarLayOut';
-import { NotifyCard } from '../middleComponents/Cards';
-import { getNotifications } from '../dataMock';
+import NotificationCard from './NotificationCard';
+import { getNotifications } from '../Api';
 import Text from '../BaseComponents/Text';
 import CurrentUserAvatar from '../container/CurrentUserAvatar';
 import PullDownRefresh from '../middleComponents/PullDownRefresh';
-import StretchableHeader from '../middleComponents/StretchableHeader';
+import LayOut from '../layout/LayOut';
+import NavigationList from '../middleComponents/NavigationList';
 
 function AllNotifications() {
   const [notifications, setNotifications] = useState();
   useEffect(() => {
-    setNotifications(getNotifications());
+    const p = getNotifications();
+    p.promise.then(
+      res => setNotifications(res.data),
+    );
+    return () => {
+      p.cancel();
+    };
   }, []);
   return (
-    <div>
+    <>
       {
         notifications
-        && notifications.map(n => <NotifyCard key={n.id} notification={n} />)
+        && notifications.map(n => <NotificationCard key={n.id} notification={n} />)
       }
-    </div>
+    </>
   );
 }
 
@@ -49,24 +55,29 @@ export default function Notifications({ match }) {
     });
   }
   return (
-    <>
-      <StretchableHeader>
-        <HeadBarLayOut
-          left={<CurrentUserAvatar xsmall />}
-          middle={<Text bold large>通知</Text>}
-          right={<Link to="/settings/notifications"><SettingIcon small primary /></Link>}
-        />
-        <NavigationBar />
-        <CustomHr />
-      </StretchableHeader>
-      <LinkList links={LINKS} />
-      <PullDownRefresh onRefresh={handleRefresh}>
-        <Switch>
-          <Route exact path={match.url} component={AllNotifications} />
-          <Route path={`${match.url}/mentions`} component={Mentions} />
-        </Switch>
-      </PullDownRefresh>
-    </>
+    <LayOut
+      head={(
+        <>
+          <HeadBarLayOut
+            left={<CurrentUserAvatar xsmall />}
+            middle={<Text bold large>通知</Text>}
+            right={<Link to="/settings/notifications"><SettingIcon small primary /></Link>}
+          />
+          <NavigationBar />
+        </>
+      )}
+      main={(
+        <>
+          <NavigationList links={LINKS} />
+          <PullDownRefresh onRefresh={handleRefresh}>
+            <Switch>
+              <Route exact path={match.url} component={AllNotifications} />
+              <Route path={`${match.url}/mentions`} component={Mentions} />
+            </Switch>
+          </PullDownRefresh>
+        </>
+      )}
+    />
   );
 }
 Notifications.propTypes = {

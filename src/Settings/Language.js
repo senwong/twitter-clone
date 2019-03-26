@@ -1,13 +1,17 @@
 import React from 'react';
-import PrimaryGap from '../BaseComponents/PrimaryGap';
-import { SettingsContainer } from './index';
-import Head from '../container/settingPages/Head';
+import LayOut from './LayOut';
+import BackHeadWithUsername from '../middleComponents/BackHeadWithUsername';
+import MakeSettingPanel from './MakeSettingPanel';
 
-export default function Language() {
+const data = {
+  title: '更改语言',
+};
+function Language() {
   return (
-    <SettingsContainer>
-      <Head title="更改语言" />
-      <PrimaryGap />
-    </SettingsContainer>
+    <LayOut
+      narrowHead={<BackHeadWithUsername title="更改语言" />}
+      rightAside={<MakeSettingPanel data={data} />}
+    />
   );
 }
+export default Language;

@@ -2,10 +2,11 @@ import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 import ReactRouterPropTypes from 'react-router-prop-types';
 import PrimaryGap from '../BaseComponents/PrimaryGap';
-import { SettingsContainer, CustomizedInput } from './index';
-import Head from '../container/settingPages/Head';
 import CustomizedButton from '../BaseComponents/CustomizedButton';
 import Text from '../BaseComponents/Text';
+import TextInput from './TextInput';
+import BackHeadWithUsername from '../middleComponents/BackHeadWithUsername';
+import LayOut from './LayOut';
 
 function Warning({ validate }) {
   return (
@@ -36,51 +37,55 @@ export default function Phone({ phone, setPhone, history }) {
     history.goBack();
   }
   return (
-    <SettingsContainer>
-      <Head title="更改手机" />
-      <CustomizedInput
-        labelText="现用"
-        value={phone}
-        readOnly
-        onChange={null}
-      />
-      <CustomizedInput
-        labelText="新"
-        value={newPhone}
-        onChange={handleChange}
-        autoFocus
-        WarningLabel={() => <Warning validate={isPhone(newPhone)} />}
-      />
-      <PrimaryGap />
-      <div style={{ padding: '9px', backgroundColor: 'white' }}>
-        <Text secondary>
-        我们将发送验证码到此手机号，可能收取标准短信费用。
-        其他人将能够通过你的电子邮件地址或手机号码找到你。你可以随时更改这些设置。
-        </Text>
-      </div>
-      <PrimaryGap />
-      <div style={{ padding: '14px 9px', backgroundColor: 'white', textAlign: 'center' }}>
-        <Text warning>
-          删除手机号码
-        </Text>
-      </div>
-      <PrimaryGap />
-      <div style={{
-        display: 'flex', justifyContent: 'flex-end', padding: '9px', backgroundColor: 'white',
-      }}
-      >
-        <CustomizedButton
-          filled
-          onClick={handleSave}
-          disabled={
-            newPhone === phone
-            || !isPhone(newPhone)
-          }
-        >
-保存
-        </CustomizedButton>
-      </div>
-    </SettingsContainer>
+    <LayOut
+      narrowHead={<BackHeadWithUsername title="更改手机" />}
+      rightAside={(
+        <>
+          <TextInput
+            labelText="现用"
+            value={phone}
+            readOnly
+            onChange={null}
+          />
+          <TextInput
+            labelText="新"
+            value={newPhone}
+            onChange={handleChange}
+            autoFocus
+            WarningLabel={() => <Warning validate={isPhone(newPhone)} />}
+          />
+          <PrimaryGap />
+          <div style={{ padding: '9px', backgroundColor: 'white' }}>
+            <Text secondary>
+            我们将发送验证码到此手机号，可能收取标准短信费用。
+            其他人将能够通过你的电子邮件地址或手机号码找到你。你可以随时更改这些设置。
+            </Text>
+          </div>
+          <PrimaryGap />
+          <div style={{ padding: '14px 9px', backgroundColor: 'white', textAlign: 'center' }}>
+            <Text warning>
+              删除手机号码
+            </Text>
+          </div>
+          <PrimaryGap />
+          <div style={{
+            display: 'flex', justifyContent: 'flex-end', padding: '9px', backgroundColor: 'white',
+          }}
+          >
+            <CustomizedButton
+              filled
+              onClick={handleSave}
+              disabled={
+                newPhone === phone
+                || !isPhone(newPhone)
+              }
+            >
+              保存
+            </CustomizedButton>
+          </div>
+        </>
+      )}
+    />
   );
 }
 Phone.propTypes = {

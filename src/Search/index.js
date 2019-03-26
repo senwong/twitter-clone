@@ -7,7 +7,7 @@ import CustomHr from '../BaseComponents/CustomHr';
 import {
   PrevIcon, NextIcon, RelateIcon, BackIcon,
 } from '../BaseComponents/SVGIcons';
-import { searchHot } from '../dataMock';
+import { searchHot } from '../Api';
 import { TweetCard, UserCard } from '../middleComponents/Cards';
 import PrimaryGap from '../BaseComponents/PrimaryGap';
 import HeadBarLayOut from '../middleComponents/HeadBarLayOut';
@@ -271,11 +271,16 @@ function HotPage({ query }) {
   const [tweets, setTweets] = useState();
 
   useEffect(() => {
-    const { newUsers, tweetsPromise } = searchHot(query);
-    setUsers(newUsers);
-    tweetsPromise.then((searchResult) => {
-      setTweets(searchResult);
-    });
+    const p = searchHot(query);
+    p.promise.then(
+      (res) => {
+        setUsers(res.data.newUsers);
+        setTweets(res.data.tweets);
+      },
+    );
+    return () => {
+      p.cancel();
+    };
   }, []);
   return (
     <div>

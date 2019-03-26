@@ -4,6 +4,7 @@ import { hide } from '../actionCreators/tweetCardPopup';
 
 const mapStateToProps = state => ({
   user: state.tweetCardPopup.user,
+  position: state.tweetCardPopup.position,
 });
 const mapDispatchToProps = dispatch => ({
   hide: user => dispatch(hide(user)),

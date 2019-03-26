@@ -1,13 +1,17 @@
 import React from 'react';
-import PrimaryGap from '../BaseComponents/PrimaryGap';
-import { SettingsContainer } from './index';
-import Head from '../container/settingPages/Head';
+import LayOut from './LayOut';
+import BackHeadWithUsername from '../middleComponents/BackHeadWithUsername';
+import MakeSettingPanel from './MakeSettingPanel';
 
-export default function YourData() {
+const data = {
+  title: '你的Twitter数据',
+};
+function YourData() {
   return (
-    <SettingsContainer>
-      <Head title="你的数杮" />
-      <PrimaryGap />
-    </SettingsContainer>
+    <LayOut
+      narrowHead={<BackHeadWithUsername title="你的Twitter数据" />}
+      rightAside={<MakeSettingPanel data={data} />}
+    />
   );
 }
+export default YourData;

@@ -60,3 +60,40 @@ export function getRelatedUsers(limit) {
   const url = limit ? `/relatedusers?limit=${limit}` : '/relatedusers';
   return makeCancelable(api.get(url));
 }
+
+export function getEvent() {
+  const url = '/bigevent';
+  return makeCancelable(api.get(url));
+}
+export function getNewEvents() {
+  const url = '/newevents';
+  return makeCancelable(api.get(url));
+}
+export function getRecommendUsers() {
+  const url = '/recommendusers';
+  return makeCancelable(api.get(url));
+}
+export function getPopularArticles() {
+  const url = '/populararticles';
+  return makeCancelable(api.get(url));
+}
+export function getSearchRecommend(query) {
+  const url = `/searchrecommend?query=${query}`;
+  return makeCancelable(api.get(url));
+}
+export function getNotifications() {
+  const url = '/notifications';
+  return makeCancelable(api.get(url));
+}
+export function searchHot() {
+  const url = '/searchhot';
+  return makeCancelable(api.get(url));
+}
+export function getRecommendScreenName() {
+  const url = '/recommendscreenname';
+  return makeCancelable(api.get(url));
+}
+export function getRecommendFollowings() {
+  const url = '/recommendfollowings';
+  return makeCancelable(api.get(url));
+}

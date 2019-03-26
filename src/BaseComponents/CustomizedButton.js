@@ -12,6 +12,7 @@ const Button = styled.div`
   justify-content: center;
   align-items: center;
   border: 1px solid rgb(29, 161, 242);
+  cursor: pointer;
   /* customize property */
   font-size: ${props => (props.large ? '18px' : '14px')};
   min-height: ${(props) => {

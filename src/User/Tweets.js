@@ -1,13 +1,19 @@
 import React, { useState, useEffect } from 'react';
 import TitleBar from '../middleComponents/TitleBar';
-import { getRecommendFollowings } from '../dataMock';
+import { getRecommendFollowings } from '../Api';
 import { UserCard } from '../middleComponents/Cards';
 import ShowMore from '../BaseComponents/ShowMore';
 
 export default function Tweets() {
   const [recommendFollowings, setRecommendFollowings] = useState();
   useEffect(() => {
-    setRecommendFollowings(getRecommendFollowings());
+    const p = getRecommendFollowings();
+    p.promise.then(
+      res => setRecommendFollowings(res.data),
+    );
+    return () => {
+      p.cancel();
+    };
   }, []);
   return (
     <div>

@@ -1,13 +1,16 @@
 import React from 'react';
-import PrimaryGap from '../BaseComponents/PrimaryGap';
-import { SettingsContainer } from './index';
-import Head from '../container/settingPages/Head';
+import BackHeadWithUsername from '../middleComponents/BackHeadWithUsername';
+import LayOut from './LayOut';
+import MakeSettingPanel from './MakeSettingPanel';
 
+const data = {
+  title: '停用账号',
+};
 export default function Deactivate() {
   return (
-    <SettingsContainer>
-      <Head title="坜用账坷" />
-      <PrimaryGap />
-    </SettingsContainer>
+    <LayOut
+      narrowHead={<BackHeadWithUsername title="停用账号" />}
+      rightAside={<MakeSettingPanel data={data} />}
+    />
   );
 }

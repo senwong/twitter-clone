@@ -1,13 +1,16 @@
 
 import React, { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
+import styled from 'styled-components';
 import ReactRouterPropTypes from 'react-router-prop-types';
 import PrimaryGap from '../BaseComponents/PrimaryGap';
-import { SettingsContainer, SubTitle, CustomizedInput } from './index';
-import Head from '../container/settingPages/Head';
-import { getRecommendScreenName } from '../dataMock';
+import { getRecommendScreenName } from '../Api';
 import CustomizedButton from '../BaseComponents/CustomizedButton';
 import Text from '../BaseComponents/Text';
+import TextInput from './TextInput';
+import SubTitle from './SubTitle';
+import BackHeadWithUsername from '../middleComponents/BackHeadWithUsername';
+import LayOut from './LayOut';
 
 function Warning({ value }) {
   return (
@@ -27,6 +30,14 @@ Warning.propTypes = {
   value: PropTypes.string.isRequired,
 };
 
+const StyledButton = styled.button`
+  border: none;
+  background: none;
+  display: block;
+  &:hover {
+    text-decoration: underline solid rgb(27,149,224);
+  }
+`;
 // setting name page
 export default function ScreenName({ history, globalStateName, setGlobalStateName }) {
   const [name, setName] = useState(globalStateName);
@@ -35,51 +46,61 @@ export default function ScreenName({ history, globalStateName, setGlobalStateNam
     setGlobalStateName(e.target.value);
   }
   useEffect(() => {
-    setRecommendNames(getRecommendScreenName());
+    const p = getRecommendScreenName();
+    p.promise.then(
+      res => setRecommendNames(res.data),
+    );
+    return () => {
+      p.cancel();
+    };
   }, []);
   function handleSave() {
     setGlobalStateName(name);
     history.goBack();
   }
   return (
-    <SettingsContainer>
-      <Head title="更改用户名" />
-      <CustomizedInput
-        labelText="用户名"
-        value={name}
-        placeholder="选择你的用户名"
-        onChange={handleChange}
-        WarningLabel={() => <Warning value={name} />}
-      />
-      <SubTitle>建议</SubTitle>
-      <div style={{ padding: '14px 9px', backgroundColor: 'white' }}>
-        {
-          recommendNames && recommendNames.map(recName => (
-            <button type="button" key={recName} onClick={() => setName(recName)} style={{ marginBottom: '9px' }}>
-              <Text primary>{recName}</Text>
-            </button>
-          ))
-        }
-      </div>
-      <PrimaryGap />
-      <div style={{
-        display: 'flex', justifyContent: 'flex-end', padding: '9px', backgroundColor: 'white',
-      }}
-      >
-        <CustomizedButton
-          filled
-          onClick={handleSave}
-          disabled={
-            !name
-            || name === globalStateName
-            || name.length <= 4
-            || name.length >= 15
-          }
-        >
-保存
-        </CustomizedButton>
-      </div>
-    </SettingsContainer>
+    <LayOut
+      narrowHead={<BackHeadWithUsername title="更改用户名" />}
+      rightAside={(
+        <>
+          <TextInput
+            labelText="用户名"
+            value={name}
+            placeholder="选择你的用户名"
+            onChange={handleChange}
+            WarningLabel={() => <Warning value={name} />}
+          />
+          <SubTitle>建议</SubTitle>
+          <div style={{ padding: '14px 9px', backgroundColor: 'white' }}>
+            {
+              recommendNames && recommendNames.map(recName => (
+                <StyledButton type="button" key={recName} onClick={() => setName(recName)} style={{ marginBottom: '9px' }}>
+                  <Text primary>{recName}</Text>
+                </StyledButton>
+              ))
+            }
+          </div>
+          <PrimaryGap />
+          <div style={{
+            display: 'flex', justifyContent: 'flex-end', padding: '9px', backgroundColor: 'white',
+          }}
+          >
+            <CustomizedButton
+              filled
+              onClick={handleSave}
+              disabled={
+                !name
+                || name === globalStateName
+                || name.length <= 4
+                || name.length >= 15
+              }
+            >
+              保存
+            </CustomizedButton>
+          </div>
+        </>
+      )}
+    />
   );
 }
 ScreenName.propTypes = {

@@ -1,22 +1,51 @@
 import React from 'react';
-import {
-  SettingsContainer, SubTitle, LinkItem, CheckBox,
-} from './index';
-import Head from '../container/settingPages/Head';
+import LayOut from './LayOut';
+import MakeSettingPanel from './MakeSettingPanel';
+import BackHeadWithUsername from '../middleComponents/BackHeadWithUsername';
+
+const data = {
+  title: '通知',
+  list: [
+    {
+      key: 1,
+      title: '过滤',
+      list: [
+        {
+          key: 1, type: 'checkbox', title: '质量过滤', subTitle: '从你的通知中过滤掉质量较低的内容。这不会过滤掉来自你关注的人或你近期互动过的账号的通知。',
+        },
+        {
+          key: 2, type: 'link', title: '高级过滤', to: '/settings/notifications/advanced_filters',
+        },
+        {
+          key: 3, type: 'link', title: '已隐藏', to: '/settings/mute',
+        },
+      ],
+    },
+    {
+      key: 2,
+      title: '偏好',
+      list: [
+        {
+          key: 1, type: 'link', title: '推送通知', to: '/settings/push_notifications',
+        },
+        {
+          key: 2, type: 'link', title: '短信通知', to: '/settings/sms_notifications',
+        },
+        {
+          key: 3, type: 'link', title: '电子邮件通知', to: '/settings/email_notifications',
+        },
+      ],
+    },
+  ],
+};
 
 export default function Notifications() {
   return (
-    <SettingsContainer>
-      <Head title="通知" />
-      <SubTitle>过滤</SubTitle>
-      <CheckBox title="质量过滤" subTitle="从你的通知中过滤掉质量较低的内容。这不会过滤掉来自你关注的人或你近期互动过的账号的通知。了解更多" />
-      <LinkItem to="/settings/notificatons/advanced_filters" title="高级过滤" />
-      <LinkItem to="/settings/mute" title="已隐藏" />
-
-      <SubTitle>偏好</SubTitle>
-      <LinkItem to="/settings/push_notificatons" title="推送通知" />
-      <LinkItem to="/settings/sms_notificatons" title="短信通知" />
-      <LinkItem to="/settings/email_notificatons" title="电子邮件通知" />
-    </SettingsContainer>
+    <LayOut
+      narrowHead={<BackHeadWithUsername title="通知" />}
+      rightAside={(
+        <MakeSettingPanel data={data} />
+      )}
+    />
   );
 }

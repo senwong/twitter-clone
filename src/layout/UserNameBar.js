@@ -5,6 +5,7 @@ import styled from 'styled-components';
 import Avatar from '../BaseComponents/Avatar';
 import Text from '../BaseComponents/Text';
 import { ArrowDown } from '../BaseComponents/SVGIcons';
+import { show } from '../actionCreators/profilePage';
 
 const Container = styled.div`
   display: flex;
@@ -30,10 +31,10 @@ const StyledArrowDown = styled(ArrowDown)`
   margin: 0px 5px;
 `;
 
-function UserNameBar({ user }) {
+function UserNameBar({ user, showProfiePage }) {
   const [isHover, setIsHover] = useState(false);
   return (
-    <Container>
+    <Container onClick={() => showProfiePage()}>
       <ContentWrapper onMouseEnter={() => setIsHover(true)} onMouseLeave={() => setIsHover(false)}>
         <Avatar src={user.avatarSrc} middle />
         <NameWrapper>
@@ -51,12 +52,16 @@ UserNameBar.propTypes = {
     avatarSrc: PropTypes.string.isRequired,
     name: PropTypes.string.isRequired,
   }).isRequired,
+  showProfiePage: PropTypes.func.isRequired,
 };
 
 const mapStateToProps = state => ({
   user: state.currentUser,
 });
-
+const mapDispatchToProps = dispatch => ({
+  showProfiePage: () => dispatch(show()),
+});
 export default connect(
   mapStateToProps,
+  mapDispatchToProps,
 )(UserNameBar);
