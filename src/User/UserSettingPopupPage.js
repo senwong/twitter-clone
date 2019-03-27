@@ -2,7 +2,9 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import PopupPage from '../middleComponents/PopupPage';
 
-export default function UserSettingPopupPage({ hidePopup, setModal, showModal }) {
+export default function UserSettingPopupPage({
+  hidePopup, setModal, showModal, position,
+}) {
   function handleBlockClick() {
     hidePopup();
     setModal({
@@ -21,10 +23,24 @@ export default function UserSettingPopupPage({ hidePopup, setModal, showModal })
     { title: '屏蔽', warning: true, onClick: handleBlockClick },
     { title: '举报' },
   ];
-  return <PopupPage hide={hidePopup} items={items} />;
+  return <PopupPage hide={hidePopup} items={items} position={position} />;
 }
 UserSettingPopupPage.propTypes = {
   hidePopup: PropTypes.func.isRequired,
   showModal: PropTypes.func.isRequired,
   setModal: PropTypes.func.isRequired,
+  position: PropTypes.shape({
+    left: PropTypes.number,
+    right: PropTypes.number,
+    top: PropTypes.number,
+    bottom: PropTypes.number,
+  }),
+};
+UserSettingPopupPage.defaultProps = {
+  position: {
+    left: null,
+    right: null,
+    top: null,
+    bottom: null,
+  },
 };

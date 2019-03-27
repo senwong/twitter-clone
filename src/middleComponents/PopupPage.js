@@ -3,6 +3,8 @@ import styled from 'styled-components';
 import { withRouter } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import ReactRouterPropTypes from 'react-router-prop-types';
+import { whiteBackgroud, grayHover, grayBorderTop } from '../themes';
+import Text from '../BaseComponents/Text';
 
 const Wrapper = styled.div`
   position: fixed;
@@ -23,7 +25,7 @@ const Wrapper = styled.div`
   }
 `;
 const ContentWrapper = styled.div`
-  background-color: white;
+  ${whiteBackgroud}
   margin: 0 auto;
 
   @media (max-width: 600px) {
@@ -46,23 +48,18 @@ const ContentWrapper = styled.div`
 `;
 const Item = styled.div`
   padding: 14px 18px;
-  color: ${props => (props.warning ? 'rgb(224, 36, 94)' : 'inherit')};
   cursor: pointer;
-  &:hover {
-    background-color: rgb(245, 248, 250);
-  }
+  ${grayHover}
   transition-property: background-color;
   transition-duration: 0.2s;
 `;
 const Cancel = styled.div`
   cursor: pointer;
-  &:hover {
-    background-color: rgb(245, 248, 250);
-  }
+  ${grayHover}
   transition-property: background-color;
   transition-duration: 0.2s;
   padding: 14px 18px;
-  border-top: 1px solid rgb(230, 236, 240);
+  ${grayBorderTop}
 `;
 
 function PopupPage({
@@ -98,14 +95,13 @@ function PopupPage({
           items.map(({ title, warning, onClick }) => (
             <Item
               key={title}
-              warning={warning}
               onClick={onClick}
             >
-              {title}
+              <Text warning={warning}>{title}</Text>
             </Item>
           ))
         }
-        <Cancel onClick={() => hide()}>取消</Cancel>
+        <Cancel onClick={() => hide()}><Text>取消</Text></Cancel>
       </ContentWrapper>
     </Wrapper>
   );

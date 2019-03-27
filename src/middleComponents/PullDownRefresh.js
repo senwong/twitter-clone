@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import styled from 'styled-components';
 import PropTypes from 'prop-types';
 import { PullDownIcon, WattingIcon } from '../BaseComponents/SVGIcons';
+import { grayBorderBottom } from '../themes';
 
 const Container = styled.div`
   position: relative;
@@ -22,7 +23,7 @@ const ActionsContainer = styled.div`
 `;
 const GreyHr = styled.div`
   height: 1px;
-  border-bottom: 1px solid rgb(230, 236, 240);
+  ${grayBorderBottom}
 `;
 export default function PullDownRefresh({ onRefresh, children }) {
   const [mainTranslateY, setMainTranslateY] = useState(0);

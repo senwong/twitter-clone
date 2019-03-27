@@ -5,6 +5,9 @@ import PropTypes from 'prop-types';
 import ReactRouterPropTypes from 'react-router-prop-types';
 import { ArrowRight } from '../BaseComponents/SVGIcons';
 import Text from '../BaseComponents/Text';
+import {
+  whiteBackgroud, grayHover, grayBorderBottom, lighterBlueBackground,
+} from '../themes';
 
 const Item = styled(Link)`
   display: flex;
@@ -12,23 +15,21 @@ const Item = styled(Link)`
   justify-content: space-between;
   align-Items: center;
   padding: 14px 9px;
-  background-color: rgb(255, 255, 255);
   font-size: 14px;
   color: rgb(20, 23, 26);
   line-height: 1.3125;
   text-decoration: none;
-  border-bottom: 1px solid rgb(230, 236, 240);
   cursor: pointer;
-  &:hover {
-    background-color: rgb(245, 248, 250);;
-  }
   transition-property: background-color;
   transition-duration: 0.2s;
+  ${whiteBackgroud};
+  ${grayHover};
+  ${grayBorderBottom}
 `;
 const StyledNavLink = styled(NavLink)`
   &.active {
     border-right: 2px solid rgb(29, 161, 242);
-    background-color: rgb(245, 248, 250);;
+    ${lighterBlueBackground}
   }
 `;
 function LinkItem({

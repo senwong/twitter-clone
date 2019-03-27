@@ -5,9 +5,11 @@ import TitleBar from '../middleComponents/TitleBar';
 import ListCard from './ListCard';
 import Dot from '../BaseComponents/Dot';
 import ShowMore from '../BaseComponents/ShowMore';
+import Text from '../BaseComponents/Text';
+import { whiteBackgroud } from '../themes';
 
 const Container = styled.div`
-  background-color: rgb(255, 255, 255);
+  ${whiteBackgroud}
 `;
 function GlobalTrends() {
   const [globalTrends, setGlobalTrends] = useState();
@@ -33,14 +35,14 @@ function GlobalTrends() {
           <ListCard
             key={globalTrend.id}
             head={(
-              <div>
+              <Text secondary small>
                 {i + 1}
                 <Dot />
                 全球趋势
-              </div>
+              </Text>
             )}
-            body={globalTrend.title}
-            foot={`${globalTrend.tweetNum} 推文`}
+            body={<Text>{globalTrend.title}</Text>}
+            foot={<Text secondary>{`${globalTrend.tweetNum} 推文`}</Text>}
           />
         ))
       }

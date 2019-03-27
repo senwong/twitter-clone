@@ -1,6 +1,5 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import Text from './Text';
 
 export default function DateTime({ dateTimeStr }) {
   const dateTime = Date.parse(dateTimeStr);
@@ -38,7 +37,7 @@ export default function DateTime({ dateTimeStr }) {
     }日`;
   }
 
-  return (<Text secondary>{timeDesc}</Text>);
+  return timeDesc;
 }
 DateTime.propTypes = {
   dateTimeStr: PropTypes.string.isRequired,

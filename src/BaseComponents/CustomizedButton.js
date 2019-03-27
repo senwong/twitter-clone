@@ -21,7 +21,12 @@ const Button = styled.div`
     return '37px';
   }};
   color: ${props => (props.filled ? 'white' : 'rgb(29, 161, 242)')};
-  background-color: ${props => (props.filled ? 'rgb(29, 161, 242)' : 'white')};
+  background-color: ${props => (props.filled ? 'rgb(29, 161, 242)' : 'transparent')};
+  transition-duration: 0.2s;
+  transition-property: background-color;
+  &:hover {
+    background-color: ${props => (props.filled ? 'rgb(26, 145, 218)' : 'rgba(29, 161, 242, 0.1)')};
+  }
 `;
 export default function CustomizedButton({
   disabled, onClick, children, ...otherProps

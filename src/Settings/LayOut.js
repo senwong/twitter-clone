@@ -4,11 +4,12 @@ import PropTypes from 'prop-types';
 import WideHeader from '../layout/WideHeader';
 import { useMediaQuery } from '../utilitys';
 import SettingPanel from './SettingPanel';
+import { lightBlueBackground } from '../themes';
 
 const Container = styled.div`
-  background-color: rgb(230, 236, 240);
   min-height: 100%;
   padding-bottom: 59px;
+  ${lightBlueBackground}
 `;
 const BodyContainer = styled.div`
   display: flex;

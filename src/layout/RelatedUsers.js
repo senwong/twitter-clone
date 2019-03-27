@@ -7,9 +7,10 @@ import { setup, show } from '../actionCreators/modal';
 import TitleBar from '../middleComponents/TitleBar';
 import RelatedUsersListWithoutDesc from '../Related/RelatedUsersListWithoutDesc';
 import ShowMore from '../BaseComponents/ShowMore';
+import { whiteBackgroud } from '../themes';
 
 const Container = styled.div`
-  background-color: rgb(255, 255, 255);
+  ${whiteBackgroud}
 `;
 function RelatedUsers({ setModal, showModal }) {
   const [relatedUsers, setRelatedUsers] = useState([]);

@@ -5,6 +5,7 @@ import ReactRouterPropTypes from 'react-router-prop-types';
 import { withRouter } from 'react-router-dom';
 import { BackIcon } from '../BaseComponents/SVGIcons';
 import Text from '../BaseComponents/Text';
+import { whiteBackgroud } from '../themes';
 
 const Filling = styled.div`
   height: 49px;
@@ -15,12 +16,12 @@ const Container = styled.div`
   display: flex;
   align-Items: stretch;
   border-bottom: 1px solid rgb(101, 119, 134);
-  background-color: rgb(255, 255, 255);
   z-index: 1;
   position: fixed;
   top: 0;
   left: 0;
   width: 100%;
+  ${whiteBackgroud}
 `;
 
 const BtnWrapper = styled.div`

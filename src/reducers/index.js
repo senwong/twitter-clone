@@ -5,6 +5,7 @@ import tweetCardPopup from './tweetCardPopup';
 import recommendPage from './recommendPage';
 import currentUser from './currentUser';
 import userSettingPopup from './userSettingPopup';
+import theme from './theme';
 
 export default combineReducers({
   modal,
@@ -13,4 +14,5 @@ export default combineReducers({
   recommendPage,
   currentUser,
   userSettingPopup,
+  theme,
 });

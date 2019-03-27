@@ -1,6 +1,7 @@
 import React from 'react';
 import styled from 'styled-components';
 import PropTypes from 'prop-types';
+import Text from '../BaseComponents/Text';
 
 const StyledLabel = styled.label`
   padding: 5px 0;
@@ -30,7 +31,6 @@ const FakeRadioButon = styled.div`
   position: relative;
   transition-property: border-color;
   transition-duration: 0.2s;
-  background-color: rgb(255, 255, 255);
 `;
 const Circle = styled.div`
   position: absolute;
@@ -58,7 +58,7 @@ function RadioInput({
 }) {
   return (
     <StyledLabel>
-      {title}
+      <Text>{title}</Text>
       <div style={{ position: 'relative' }}>
         <RadioButtonWrapper checked={checked}>
           <FakeRadioButon checked={checked}>

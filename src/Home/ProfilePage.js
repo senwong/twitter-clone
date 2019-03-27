@@ -14,6 +14,8 @@ import ToggleButton from '../BaseComponents/ToggleButton';
 import Text from '../BaseComponents/Text';
 import { useMediaQuery } from '../utilitys';
 import { hide } from '../actionCreators/profilePage';
+import { setLight, setDark } from '../actionCreators/theme';
+import { whiteBackgroud } from '../themes';
 
 const ListItemContainer = styled.div`
   display: flex;
@@ -101,7 +103,7 @@ const SidePage = styled.div`
   };
 `;
 const SideMenu = styled.div`
-  background-color: rgb(255, 255, 255);
+  ${whiteBackgroud};
   height: 100%;
   min-width: 280px;
   display: flex;
@@ -149,7 +151,7 @@ const SideMenu = styled.div`
   };
 `;
 const WrapperButton = styled.button`
-  background-color: white;
+  ${whiteBackgroud}
   border: none;
   margin: 0;
   padding: 0;
@@ -160,11 +162,10 @@ const WrapperButton = styled.button`
 `;
 const timeout = 250;
 function ProfilePage({
-  user, hideSelf, history, show,
+  user, hideSelf, history, show, themeMode, setLightTheme, setDarkTheme,
 }) {
   const isWide = useMediaQuery('(min-width: 1000px)');
   const [isDataSaver, setIsDataSaver] = useState(false);
-  const [isDarkMode, setIsDarkMode] = useState(false);
   let menu = null;
   function handleClick(e) {
     if (menu && e.target !== menu && !menu.contains(e.target)) {
@@ -183,7 +184,12 @@ function ProfilePage({
     setIsDataSaver(!isDataSaver);
   }
   function handleDarkModeClick() {
-    setIsDarkMode(!isDarkMode);
+    if (themeMode === 'dark') {
+      setLightTheme();
+    } else {
+      setDarkTheme();
+    }
+    hideSelf();
   }
   return (
     <Transition in={show} timeout={timeout} unmountOnExit appear>
@@ -219,31 +225,31 @@ function ProfilePage({
                   <Text bold>
                     {user.following}
                     {' '}
+                    正在关注
                   </Text>
-                  正在关注
                 </div>
                 <div style={{ display: 'inline-block' }}>
                   <Text bold>
                     {user.followers}
                     {' '}
+                    关注者
                   </Text>
-                  关注者
                 </div>
               </div>
-              <ListItem left={<Person xsmall secondary />} middle={<div>个人资料</div>} />
-              <ListItem left={<List xsmall secondary />} middle={<div>列表</div>} />
-              <ListItem left={<BookMark xsmall secondary />} middle={<div>书签</div>} />
-              <ListItem left={<Momments xsmall secondary />} middle={<div>瞬间</div>} />
+              <ListItem left={<Person xsmall secondary />} middle={<Text>个人资料</Text>} />
+              <ListItem left={<List xsmall secondary />} middle={<Text>列表</Text>} />
+              <ListItem left={<BookMark xsmall secondary />} middle={<Text>书签</Text>} />
+              <ListItem left={<Momments xsmall secondary />} middle={<Text>瞬间</Text>} />
               <CustomHr />
               <WrapperButton type="button" onClick={handleSettingClick}>
-                <ListItem middle={<div>设置和隐私</div>} />
+                <ListItem middle={<Text>设置和隐私</Text>} />
               </WrapperButton>
-              <ListItem middle={<div>帮助中心</div>} />
-              <ListItem middle={<div>登出</div>} />
+              <ListItem middle={<Text>帮助中心</Text>} />
+              <ListItem middle={<Text>登出</Text>} />
               <CustomHr />
               <ListItem
                 middle={
-                  <div style={{ marginRight: '55px' }}>流量节省程序</div>
+                  <div style={{ marginRight: '55px' }}><Text>流量节省程序</Text></div>
                 }
                 right={(
                   <div style={{ margin: '0 9px' }}>
@@ -253,11 +259,11 @@ function ProfilePage({
               />
               <ListItem
                 middle={
-                  <div style={{ marginRight: '55px' }}>夜间模式</div>
+                  <div style={{ marginRight: '55px' }}><Text>夜间模式</Text></div>
                 }
                 right={(
                   <div style={{ margin: '0 9px' }}>
-                    <ToggleButton checked={isDarkMode} onClick={handleDarkModeClick} />
+                    <ToggleButton checked={themeMode === 'dark'} onClick={handleDarkModeClick} />
                   </div>
                 )}
               />
@@ -279,14 +285,20 @@ ProfilePage.propTypes = {
   hideSelf: PropTypes.func.isRequired,
   history: ReactRouterPropTypes.history.isRequired,
   show: PropTypes.bool.isRequired,
+  themeMode: PropTypes.oneOf(['light', 'dark']).isRequired,
+  setLightTheme: PropTypes.func.isRequired,
+  setDarkTheme: PropTypes.func.isRequired,
 };
 
 const mapStateToProps = state => ({
   user: state.currentUser,
   show: state.profilePage.show,
+  themeMode: state.theme.mode,
 });
 const mapDispatchToProps = dispatch => ({
   hideSelf: () => dispatch(hide()),
+  setLightTheme: () => dispatch(setLight()),
+  setDarkTheme: () => dispatch(setDark()),
 });
 
 export default withRouter(connect(

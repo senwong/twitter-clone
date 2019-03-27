@@ -3,6 +3,7 @@ import styled from 'styled-components';
 import NavigationBar from '../middleComponents/NavigationBar';
 import InputText from '../BaseComponents/InputText';
 import UserNameBar from './UserNameBar';
+import { whiteBackgroud } from '../themes';
 
 const FakeHeader = styled.div`
   height: 53px;
@@ -13,8 +14,8 @@ const Content = styled.div`
   left: 0;
   right: 0;
   height: 53px;
-  background-color: rgb(255, 255, 255);
   z-index: 2;
+  ${whiteBackgroud}
 `;
 const ContentWrapper = styled.div`
   max-width: 1000px;

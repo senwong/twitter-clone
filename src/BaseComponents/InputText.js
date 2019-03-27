@@ -1,15 +1,12 @@
 import React, { useState, useRef } from 'react';
 import PropTypes from 'prop-types';
-import styled, { css } from 'styled-components';
+import styled from 'styled-components';
 import { ExploreIcon, FilledDeleteIcon } from './SVGIcons';
+import { lightBlueBackground, whiteBackgroud } from '../themes';
 
 const Container = styled.div`
-  background: rgb(230, 236, 240);
-  border-color: rgb(230, 236, 240);
-  ${props => props.primary && css`
-    background: #fff;
-    border-color: rgb(29, 161, 242);
-  `}
+  ${props => (props.primary ? whiteBackgroud : lightBlueBackground)};
+  border-color: ${props => (props.primary ? 'rgb(29, 161, 242)' : 'rgba(0, 0, 0, 0)')};
   display: flex;
   align-items: center;
   border-radius: 9999px;
@@ -39,7 +36,7 @@ const THEME = {
 function InputText({
   onChange, onFocus, onKeyDown, placeholder, value, ...other
 }) {
-  const [theme, setTheme] = useState(THEME.primary);
+  const [theme, setTheme] = useState(THEME.secondary);
   const inputRef = useRef(null);
   function handleDelte() {
     onChange({ target: { value: '' } });

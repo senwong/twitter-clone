@@ -2,10 +2,11 @@ import React from 'react';
 import styled from 'styled-components';
 import PropTypes from 'prop-types';
 import Text from '../BaseComponents/Text';
+import { grayBorderBottom } from '../themes';
 
 const Container = styled.div`
   padding: 9px;
-  border-bottom: ${props => props.isRear && '1px solid rgb(230, 236, 240)'};
+  ${grayBorderBottom}
 `;
 
 export default function TitleBar({

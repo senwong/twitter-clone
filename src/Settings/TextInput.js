@@ -2,18 +2,19 @@ import React from 'react';
 import styled from 'styled-components';
 import PropTypes from 'prop-types';
 import Text from '../BaseComponents/Text';
+import { whiteBackgroud, darkColor } from '../themes';
 
 const Container = styled.div`
   padding: 9px;
-  background-color: rgb(255, 255, 255);
+  ${whiteBackgroud}
 `;
 const StyledInput = styled.input`
   border: none;
+  background-color: transparent;
   border-bottom: 1px solid rgb(170, 184, 194);;
   margin-bottom: 1px;
   font-size: 18px;
   line-height: 1.3125;
-  color: rgb(20, 23, 26);
   display: block;
   width: 100%;
   padding: 9px 0;
@@ -25,6 +26,7 @@ const StyledInput = styled.input`
     margin-bottom: 0;
     outline: none;
   }
+  ${darkColor}
 `;
 function TextInput({ labelText, WarningLabel, ...otherProps }) {
   return (

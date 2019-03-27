@@ -1,9 +1,10 @@
 import React, { useState, useEffect } from 'react';
 import styled from 'styled-components';
 import PropTypes from 'prop-types';
+import { whiteBackgroud } from '../themes';
 
 const HeaderContainer = styled.header`
-  background-color: rgb(255, 255, 255);
+
 `;
 const FakeHeader = styled.div`
   height: 98px;
@@ -18,6 +19,7 @@ const Header = styled.div`
   transition-duration: 0.2s;
   z-index: 2;
   transform: ${props => props.isShort && 'translateY(-49px)'};
+  ${whiteBackgroud};
 `;
 const ContentWrapper = styled.div`
   max-width: 600px;

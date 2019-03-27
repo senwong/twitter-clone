@@ -6,6 +6,7 @@ import {
 import { createStore } from 'redux';
 import { Provider, connect } from 'react-redux';
 import PropTypes from 'prop-types';
+import { ThemeProvider } from 'styled-components';
 import reducer from './reducers';
 import ProfilePage from './Home/ProfilePage';
 import TweetCardPopupPage from './container/TweetCardPopupPage';
@@ -30,13 +31,14 @@ let App = ({
   showUserSettingPopupPage,
   showModal,
   showProfilePage,
+  themeMode,
 }) => {
   useEffect(() => {
     const bodyScrollStyle = showTweetCardPop ? 'hidden' : 'scroll';
     document.body.style.overflowY = bodyScrollStyle;
   });
   return (
-    <React.Fragment>
+    <ThemeProvider theme={{ mode: themeMode }}>
       <Router>
         <>
           <Switch>
@@ -58,7 +60,7 @@ let App = ({
           { showModal && <Modal />}
         </>
       </Router>
-    </React.Fragment>
+    </ThemeProvider>
   );
 };
 App.propTypes = {
@@ -67,18 +69,18 @@ App.propTypes = {
   showUserSettingPopupPage: PropTypes.bool.isRequired,
   showModal: PropTypes.bool.isRequired,
   showProfilePage: PropTypes.bool.isRequired,
+  themeMode: PropTypes.oneOf(['light', 'dark']).isRequired,
 };
 
-const mapStateToProps = state => (
-  {
-    currentUser: state.currentUser,
-    showTweetCardPop: state.tweetCardPopup.show,
-    showProfilePage: state.profilePage.show,
-    showHistoryNRecPage: state.recommendPage.show,
-    showUserSettingPopupPage: state.userSettingPopup.show,
-    showModal: state.modal.show,
-  }
-);
+const mapStateToProps = state => ({
+  currentUser: state.currentUser,
+  showTweetCardPop: state.tweetCardPopup.show,
+  showProfilePage: state.profilePage.show,
+  showHistoryNRecPage: state.recommendPage.show,
+  showUserSettingPopupPage: state.userSettingPopup.show,
+  showModal: state.modal.show,
+  themeMode: state.theme.mode,
+});
 App = connect(
   mapStateToProps,
 )(App);

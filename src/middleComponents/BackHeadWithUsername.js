@@ -1,14 +1,12 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import ReactRouterPropTypes from 'react-router-prop-types';
 import BackHead from './BackHead';
 
-function BackHeadWithUsername({ title, subTitle, history }) {
-  return <BackHead title={title} subTitle={subTitle} history={history} />;
+function BackHeadWithUsername({ title, subTitle }) {
+  return <BackHead title={title} subTitle={subTitle} />;
 }
 BackHeadWithUsername.propTypes = {
-  history: ReactRouterPropTypes.history.isRequired,
   title: PropTypes.string,
   subTitle: PropTypes.string,
 };

@@ -1,9 +1,10 @@
 import React from 'react';
 import styled from 'styled-components';
+import { lightBlueBackground } from '../themes';
 
 const Div = styled.div`
   height: 9px;
-  background-color: rgb(230, 236, 240);
+  ${lightBlueBackground}
 `;
 export default function CustomHr() {
   return <Div />;

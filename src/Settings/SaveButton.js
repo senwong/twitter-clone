@@ -1,12 +1,13 @@
 import React from 'react';
 import styled from 'styled-components';
 import CustomizedButton from '../BaseComponents/CustomizedButton';
+import { whiteBackgroud } from '../themes';
 
 const Container = styled.div`
-  padding: 9px 0;
+  padding: 9px 9px 9px 0;
   display: flex;
   justify-content: flex-end;
-  background-color: rgb(255, 255, 255);
+  ${whiteBackgroud}
 `;
 function SaveButton() {
   return (

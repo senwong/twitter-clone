@@ -6,13 +6,14 @@ import ReactRouterPropTypes from 'react-router-prop-types';
 import { connect } from 'react-redux';
 import PrimaryGap from '../BaseComponents/PrimaryGap';
 import { getRecommendScreenName } from '../Api';
-import CustomizedButton from '../BaseComponents/CustomizedButton';
 import Text from '../BaseComponents/Text';
 import TextInput from './TextInput';
 import SubTitle from './SubTitle';
 import BackHeadWithUsername from '../middleComponents/BackHeadWithUsername';
 import LayOut from './LayOut';
 import { setScreenName } from '../actionCreators/currentUser';
+import SaveButton from './SaveButton';
+import { whiteBackgroud } from '../themes';
 
 function Warning({ value }) {
   return (
@@ -32,6 +33,10 @@ Warning.propTypes = {
   value: PropTypes.string.isRequired,
 };
 
+const RecommendNamesWrapper = styled.div`
+  padding: 14px 9px;
+  ${whiteBackgroud}
+`;
 const StyledButton = styled.button`
   border: none;
   background: none;
@@ -40,6 +45,7 @@ const StyledButton = styled.button`
     text-decoration: underline solid rgb(27,149,224);
   }
 `;
+
 // setting name page
 function ScreenName({ history, globalStateName, setGlobalStateName }) {
   const [name, setName] = useState(globalStateName);
@@ -73,7 +79,7 @@ function ScreenName({ history, globalStateName, setGlobalStateName }) {
             WarningLabel={() => <Warning value={name} />}
           />
           <SubTitle>建议</SubTitle>
-          <div style={{ padding: '14px 9px', backgroundColor: 'white' }}>
+          <RecommendNamesWrapper>
             {
               recommendNames && recommendNames.map(recName => (
                 <StyledButton type="button" key={recName} onClick={() => setName(recName)} style={{ marginBottom: '9px' }}>
@@ -81,25 +87,17 @@ function ScreenName({ history, globalStateName, setGlobalStateName }) {
                 </StyledButton>
               ))
             }
-          </div>
+          </RecommendNamesWrapper>
           <PrimaryGap />
-          <div style={{
-            display: 'flex', justifyContent: 'flex-end', padding: '9px', backgroundColor: 'white',
-          }}
-          >
-            <CustomizedButton
-              filled
-              onClick={handleSave}
-              disabled={
-                !name
-                || name === globalStateName
-                || name.length <= 4
-                || name.length >= 15
-              }
-            >
-              保存
-            </CustomizedButton>
-          </div>
+          <SaveButton
+            onClick={handleSave}
+            disabled={
+              !name
+              || name === globalStateName
+              || name.length <= 4
+              || name.length >= 15
+            }
+          />
         </>
       )}
     />

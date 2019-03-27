@@ -3,10 +3,11 @@ import PropTypes from 'prop-types';
 import styled from 'styled-components';
 import Text from '../BaseComponents/Text';
 import RadioInput from './RadioInput';
+import { whiteBackgroud } from '../themes';
 
 const Container = styled.div`
-  background-color: rgb(255, 255, 255);
   padding: 14px 9px;
+  ${whiteBackgroud}
 `;
 const TitleWrapper = styled.div`
   padding: 9px 0 5px 0;

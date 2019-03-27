@@ -11,6 +11,7 @@ import {
 import Avatar from '../BaseComponents/Avatar';
 import Text from '../BaseComponents/Text';
 import { getUserById } from '../Api';
+import { grayBorderBottom, grayHover, whiteBackgroud } from '../themes';
 
 /*
 * actions at tweet card bottom
@@ -52,13 +53,18 @@ TweetCardActions.propTypes = {
   }).isRequired,
 };
 
-
 const MediaCardContainer = styled.div`
   display: flex;
   flex-direction: row;
   padding: 14px 9px;
-  border-bottom: 1px solid rgb(230, 236, 240);
   background-color: ${props => props.isTouching && 'rgba(230, 236, 240, 0.7)'};
+  border-bottom-width: 1px;
+  border-bottom-style: solid;
+  transition-duration: 0.2s;
+  transition-property: background-color;
+  ${whiteBackgroud}
+  ${grayHover}
+  ${grayBorderBottom}
 `;
 const MediaCardLeft = styled.div`
   display: flex;
@@ -225,7 +231,7 @@ export function TweetCard({
         )
       }
       <Dot />
-      <DateTime dateTimeStr={tweet.createdTime} />
+      <Text secondary><DateTime dateTimeStr={tweet.createdTime} /></Text>
     </div>
   );
   const headRight = (
@@ -241,7 +247,7 @@ export function TweetCard({
   };
   const content = (
     <div>
-      <div>{tweet.content}</div>
+      <Text>{tweet.content}</Text>
       <TweetCardActions actions={actions} />
     </div>
   );
@@ -316,7 +322,7 @@ export function UserCard({ user }) {
   );
   const content = (
     <div>
-      <div>{user.desc}</div>
+      <Text>{user.desc}</Text>
     </div>
   );
   const p = {

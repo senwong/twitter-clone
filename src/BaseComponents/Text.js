@@ -1,13 +1,30 @@
 import React from 'react';
 import styled from 'styled-components';
 import PropTypes from 'prop-types';
+import theme from 'styled-theming';
 
+const defaultColor = theme('mode', {
+  light: 'rgb(20, 23, 26)',
+  dark: 'rgb(255, 255, 255)',
+});
+// const primaryColor = theme('mode', {
+//   light: 'rgb(27, 149, 224)',
+//   dark: 'rgb(27, 149, 224)',
+// });
+const secondaryColor = theme('mode', {
+  light: 'rgb(101, 119, 134)',
+  dark: 'rgb(136, 153, 166)',
+});
+// const warningColor = theme('mode', {
+//   ligit: 'rgb(224, 36, 94);',
+//   dark: 'rgb(224, 36, 94)',
+// })
 const StyledText = styled.span`
   line-height: 1.3125;
   font-weight: ${props => (props.bold ? '700' : '400')};
   color: ${(props) => {
     if (props.secondary) {
-      return 'rgb(101, 119, 134)';
+      return secondaryColor;
     }
     if (props.primary) {
       return 'rgb(27, 149, 224)';
@@ -15,7 +32,7 @@ const StyledText = styled.span`
     if (props.warning) {
       return 'rgb(224, 36, 94)';
     }
-    return 'rgb(20, 23, 26)';
+    return defaultColor;
   }};
   font-size: ${(props) => {
     if (props.small) return '12px';

@@ -2,14 +2,21 @@ import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 import ReactRouterPropTypes from 'react-router-prop-types';
 import { connect } from 'react-redux';
+import styled from 'styled-components';
 import PrimaryGap from '../BaseComponents/PrimaryGap';
-import CustomizedButton from '../BaseComponents/CustomizedButton';
 import Text from '../BaseComponents/Text';
 import TextInput from './TextInput';
 import BackHeadWithUsername from '../middleComponents/BackHeadWithUsername';
 import LayOut from './LayOut';
 import { setPhone as setPhoneActionCreator } from '../actionCreators/currentUser';
+import SaveButton from './SaveButton';
+import DeleteButton from './DeleteButton';
+import { whiteBackgroud } from '../themes';
 
+const Wrapper = styled.div`
+  padding: 14px 9px;
+  ${whiteBackgroud}
+`;
 function Warning({ validate }) {
   return (
     <div>
@@ -57,34 +64,22 @@ function Phone({ phone, setPhone, history }) {
             WarningLabel={() => <Warning validate={isPhone(newPhone)} />}
           />
           <PrimaryGap />
-          <div style={{ padding: '9px', backgroundColor: 'white' }}>
+          <Wrapper>
             <Text secondary>
             我们将发送验证码到此手机号，可能收取标准短信费用。
             其他人将能够通过你的电子邮件地址或手机号码找到你。你可以随时更改这些设置。
             </Text>
-          </div>
+          </Wrapper>
           <PrimaryGap />
-          <div style={{ padding: '14px 9px', backgroundColor: 'white', textAlign: 'center' }}>
-            <Text warning>
-              删除手机号码
-            </Text>
-          </div>
+          <DeleteButton>删除手机号码</DeleteButton>
           <PrimaryGap />
-          <div style={{
-            display: 'flex', justifyContent: 'flex-end', padding: '9px', backgroundColor: 'white',
-          }}
-          >
-            <CustomizedButton
-              filled
-              onClick={handleSave}
-              disabled={
-                newPhone === phone
-                || !isPhone(newPhone)
-              }
-            >
-              保存
-            </CustomizedButton>
-          </div>
+          <SaveButton
+            onClick={handleSave}
+            disabled={
+              newPhone === phone
+              || !isPhone(newPhone)
+            }
+          />
         </>
       )}
     />

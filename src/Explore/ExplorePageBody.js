@@ -11,6 +11,7 @@ import ShowMore from '../BaseComponents/ShowMore';
 import GlobalTrends from './GlobalTrends';
 import TitleBar from '../middleComponents/TitleBar';
 import ListCard from './ListCard';
+import Text from '../BaseComponents/Text';
 
 // Explore page body styles
 const EventContainer = styled.div`
@@ -125,15 +126,15 @@ function ExplorePageBody() {
         <ListCard
           key={newEvent.id}
           head={(
-            <div>
+            <Text secondary small>
               {newEvent.subject}
               <Dot />
               {' '}
               <DateTime dateTimeStr={newEvent.time} />
-            </div>
+            </Text>
           )}
-          body={newEvent.title}
-          foot={`${newEvent.userNum} 人正在发布推文讨论此话题`}
+          body={<Text>{newEvent.title}</Text>}
+          foot={<Text secondary small>{`${newEvent.userNum} 人正在发布推文讨论此话题`}</Text>}
           right={newEvent.coverSrc}
         />
       ))}
@@ -161,9 +162,9 @@ function ExplorePageBody() {
         && popularArticles.map(article => (
           <ListCard
             key={article.id}
-            head={article.website}
-            body={article.title}
-            foot={`${article.author} 就此发推`}
+            head={<Text secondary>{ article.website }</Text>}
+            body={<Text>{article.title}</Text>}
+            foot={<Text secondary>{`${article.author} 就此发推`}</Text>}
             right={article.coverSrc}
           />
         ))

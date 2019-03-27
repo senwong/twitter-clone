@@ -4,13 +4,14 @@ import PropTypes from 'prop-types';
 import StretchableHeader from '../middleComponents/StretchableHeader';
 import WideHeader from '../layout/WideHeader';
 import { useMediaQuery } from '../utilitys';
+import { lightBlueBackground, whiteBackgroud } from '../themes';
 
 const Container = styled.div`
-  background-color: rgb(230, 236, 240);
   display: flex;
   height: 100%;
   min-height: 100%;
   flex-direction: column;
+  ${lightBlueBackground}
 `;
 const BodyContainer = styled.div`
   flex-grow: 1;
@@ -25,7 +26,7 @@ const BodyContainer = styled.div`
 const Main = styled.main`
   width: 100%;
   max-width: ${props => (props.reverse && props.isWide ? '360px' : '600px')};
-  background-color: rgb(255, 255, 255);
+  ${whiteBackgroud}
 `;
 const RightAside = styled.aside`
   width: ${props => (props.reverse ? '600px' : '360px')};

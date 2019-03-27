@@ -1,29 +1,21 @@
-import React, { useState, useEffect } from 'react';
+import React from 'react';
 import styled from 'styled-components';
 import PropTypes from 'prop-types';
 import BodyAside from './BodyAside';
 import StretchableHeader from '../middleComponents/StretchableHeader';
 import WideHeader from './WideHeader';
 import PageFooter from './PageFooter';
-
-function useMediaQuery(query) {
-  const [isWide, setIsWide] = useState(window.matchMedia(query).matches);
-  function handleResize() {
-    setIsWide(window.matchMedia(query).matches);
-  }
-  useEffect(() => {
-    window.addEventListener('resize', handleResize);
-    return () => {
-      window.removeEventListener('resize', handleResize);
-    };
-  });
-  return isWide;
-}
+import { useMediaQuery } from '../utilitys';
+import { lightBlueBackground, whiteBackgroud } from '../themes';
 
 const Container = styled.div`
-  background-color: rgb(230, 236, 240);
+  ${lightBlueBackground};
+  min-height: 100%;
+  display: flex;
+  flex-direction: column;
 `;
 const BodyContainer = styled.div`
+  flex-grow: 1;
   display: flex;
   flex-direction: row;
   justify-content: center;
@@ -34,7 +26,7 @@ const BodyContainer = styled.div`
 const Main = styled.main`
   width: 100%;
   max-width: ${props => (props.reverse ? '360px' : '600px')};
-  background-color: rgb(255, 255, 255);
+  ${whiteBackgroud}
 `;
 const RightAside = styled.aside`
   width: ${props => (props.reverse ? '600px' : '360px')};

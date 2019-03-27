@@ -21,7 +21,7 @@ function Message() {
         <>
           <HeadBarLayOut
             left={<CurrentUserAvatar xsmall />}
-            middle={<h2>私信</h2>}
+            middle={<Text large>私信</Text>}
           />
           <NavigationBar />
         </>
