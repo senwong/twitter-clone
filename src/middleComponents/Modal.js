@@ -1,6 +1,6 @@
 import React from 'react';
 import styled from 'styled-components';
-import PropTypes from 'prop-types';
+import { string, func, oneOf } from 'prop-types';
 import Text from '../BaseComponents/Text';
 import CustomizedButton from '../BaseComponents/CustomizedButton';
 
@@ -82,11 +82,11 @@ export default function Modal({
 }
 
 Modal.propTypes = {
-  hide: PropTypes.func.isRequired,
-  title: PropTypes.string.isRequired,
-  type: PropTypes.oneOf(['primary', 'secondary', 'warning']).isRequired,
-  onConfirm: PropTypes.func,
-  onCancel: PropTypes.func,
+  hide: func.isRequired,
+  title: string.isRequired,
+  type: oneOf(['primary', 'secondary', 'warning']).isRequired,
+  onConfirm: func,
+  onCancel: func,
 };
 Modal.defaultProps = {
   onConfirm: () => {},

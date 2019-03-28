@@ -1,8 +1,11 @@
 import React from 'react';
 import { NavLink } from 'react-router-dom';
 import styled, { css } from 'styled-components';
-import PropTypes from 'prop-types';
+import {
+  oneOf, oneOfType, string, node,
+} from 'prop-types';
 import { grayBorderBottom, whiteBackgroud } from '../themes';
+import { linkListType } from '../propTypes';
 
 const Wrapper = styled.ul`
   list-style: none;
@@ -64,11 +67,8 @@ function Content({ title, type }) {
   return <></>;
 }
 Content.propTypes = {
-  title: PropTypes.oneOfType([
-    PropTypes.string,
-    PropTypes.node,
-  ]).isRequired,
-  type: PropTypes.string.isRequired,
+  title: oneOfType([string, node]).isRequired,
+  type: string.isRequired,
 };
 function NavigationList({ links, type }) {
   return (
@@ -88,22 +88,11 @@ function NavigationList({ links, type }) {
     </Wrapper>
   );
 }
-const NavigationListType = PropTypes.arrayOf(
-  PropTypes.shape({
-    to: PropTypes.string.isRequired,
-    title: PropTypes.oneOfType([
-      PropTypes.string,
-      PropTypes.node,
-    ]).isRequired,
-    exact: PropTypes.bool,
-  }),
-);
 NavigationList.propTypes = {
-  links: NavigationListType.isRequired,
-  type: PropTypes.oneOf(['txt', 'icon']),
+  links: linkListType.isRequired,
+  type: oneOf(['txt', 'icon']),
 };
 NavigationList.defaultProps = {
   type: 'txt',
 };
-export { NavigationListType };
 export default NavigationList;

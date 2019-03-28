@@ -16,6 +16,7 @@ import { useMediaQuery } from '../utilitys';
 import { hide } from '../actionCreators/profilePage';
 import { setLight, setDark } from '../actionCreators/theme';
 import { whiteBackgroud } from '../themes';
+import { userType } from '../propTypes';
 
 const ListItemContainer = styled.div`
   display: flex;
@@ -276,12 +277,7 @@ function ProfilePage({
   );
 }
 ProfilePage.propTypes = {
-  user: PropTypes.shape({
-    name: PropTypes.string,
-    nickName: PropTypes.string,
-    followers: PropTypes.number,
-    following: PropTypes.number,
-  }).isRequired,
+  user: userType.isRequired,
   hideSelf: PropTypes.func.isRequired,
   history: ReactRouterPropTypes.history.isRequired,
   show: PropTypes.bool.isRequired,

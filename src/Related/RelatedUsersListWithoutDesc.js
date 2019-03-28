@@ -1,6 +1,7 @@
 import React from 'react';
-import PropTypes from 'prop-types';
+import { arrayOf } from 'prop-types';
 import UserCardWithoutDesc from '../middleComponents/UserCardWithoutDesc';
+import { userType } from '../propTypes';
 
 function RelatedUsersListWithoutDesc({ users }) {
   return (
@@ -14,12 +15,7 @@ function RelatedUsersListWithoutDesc({ users }) {
   );
 }
 RelatedUsersListWithoutDesc.propTypes = {
-  users: PropTypes.arrayOf(PropTypes.shape({
-    nickName: PropTypes.string.isRequired,
-    name: PropTypes.string.isRequired,
-    isV: PropTypes.bool.isRequired,
-    desc: PropTypes.string.isRequired,
-  })).isRequired,
+  users: arrayOf(userType).isRequired,
 };
 
 export default RelatedUsersListWithoutDesc;

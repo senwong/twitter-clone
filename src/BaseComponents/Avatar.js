@@ -2,6 +2,7 @@ import React from 'react';
 import styled from 'styled-components';
 import PropTypes from 'prop-types';
 import MakeHoverUserInfo from '../middleComponents/MakeHoverUserInfo';
+import { userType } from '../propTypes';
 
 const StyledImg = styled.img`
   border-radius: 50%;
@@ -44,14 +45,9 @@ export default function Avatar({
       : <Content />
   );
 }
-const UserType = PropTypes.shape({
-  nickName: PropTypes.string,
-  name: PropTypes.string,
-  isV: PropTypes.bool,
-  desc: PropTypes.string,
-});
+
 Avatar.propTypes = {
-  user: UserType,
+  user: userType,
   hoverable: PropTypes.bool,
   onClick: PropTypes.func,
   xsmall: PropTypes.bool,

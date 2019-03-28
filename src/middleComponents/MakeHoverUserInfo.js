@@ -5,6 +5,7 @@ import styled from 'styled-components';
 import {
   show, hide, setPosition, setHideTimerId as setHideTimer, setUser,
 } from '../actionCreators/userInfoPopover';
+import { userType } from '../propTypes';
 
 const Container = styled.div`
   display: flex;
@@ -53,15 +54,9 @@ function MakeHoverUserInfo({
     </Container>
   );
 }
-const UserType = PropTypes.shape({
-  nickName: PropTypes.string,
-  name: PropTypes.string,
-  isV: PropTypes.bool,
-  desc: PropTypes.string,
-});
 MakeHoverUserInfo.propTypes = {
+  user: userType,
   children: PropTypes.node.isRequired,
-  user: UserType,
   showPopover: PropTypes.func.isRequired,
   hidePopover: PropTypes.func.isRequired,
   hideTimerId: PropTypes.number,

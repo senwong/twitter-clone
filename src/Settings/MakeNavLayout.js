@@ -1,12 +1,13 @@
 import React from 'react';
-import PropTypes from 'prop-types';
+import { string } from 'prop-types';
 import styled from 'styled-components';
 import { Link } from 'react-router-dom';
 import LayOut from './LayOut';
 import BackHeadWithUsername from '../middleComponents/BackHeadWithUsername';
-import NavigationList, { NavigationListType } from '../middleComponents/NavigationList';
+import NavigationList from '../middleComponents/NavigationList';
 import MakeSettingPanel from './MakeSettingPanel';
 import Text from '../BaseComponents/Text';
+import { linkListType } from '../propTypes';
 
 const ContentWrapper = styled.div`
   background-color: rgb(255, 255, 255);
@@ -43,11 +44,11 @@ function RightAside({
   );
 }
 RightAside.propTypes = {
-  headTitle: PropTypes.string.isRequired,
-  contentTitle: PropTypes.string.isRequired,
-  contentSubTitle: PropTypes.string.isRequired,
-  href: PropTypes.string.isRequired,
-  navLinks: NavigationListType.isRequired,
+  headTitle: string.isRequired,
+  contentTitle: string.isRequired,
+  contentSubTitle: string.isRequired,
+  href: string.isRequired,
+  navLinks: linkListType.isRequired,
 };
 
 function MakeNavLayout(title, links) {
@@ -68,9 +69,9 @@ function MakeNavLayout(title, links) {
     );
   }
   LayoutComponent.propTypes = {
-    contentTitle: PropTypes.string.isRequired,
-    contentSubTitle: PropTypes.string,
-    href: PropTypes.string.isRequired,
+    contentTitle: string.isRequired,
+    contentSubTitle: string,
+    href: string.isRequired,
   };
   LayoutComponent.defaultProps = {
     contentSubTitle: null,

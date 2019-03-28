@@ -1,6 +1,6 @@
 import React from 'react';
 import styled from 'styled-components';
-import PropTypes from 'prop-types';
+import { node } from 'prop-types';
 
 const Container = styled.div`
   display: flex;
@@ -33,9 +33,9 @@ const HeadBarLayOut = ({ left, middle, right }) => (
   </Container>
 );
 HeadBarLayOut.propTypes = {
-  left: PropTypes.node.isRequired,
-  middle: PropTypes.node.isRequired,
-  right: PropTypes.node,
+  left: node.isRequired,
+  middle: node.isRequired,
+  right: node,
 };
 HeadBarLayOut.defaultProps = {
   right: <></>,

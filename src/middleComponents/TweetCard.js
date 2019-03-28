@@ -12,6 +12,7 @@ import {
   ReplyIcon, ForewardIcon, LikeIcon, ShareIcon, ArrowDown,
 } from '../BaseComponents/SVGIcons';
 import UserName from './UserName';
+import { tweetType } from '../propTypes';
 
 /**
  * -----—-----------------------------------------------------------------+
@@ -169,13 +170,6 @@ TweetCard.propTypes = {
   showPopup: PropTypes.func.isRequired,
   setPopupUser: PropTypes.func.isRequired,
   setPopupPosition: PropTypes.func.isRequired,
-  tweet: PropTypes.shape({
-    userId: PropTypes.number.isRequired,
-    createdTime: PropTypes.string.isRequired,
-    replayAmount: PropTypes.number.isRequired,
-    forewardAmount: PropTypes.number.isRequired,
-    likeAmount: PropTypes.number.isRequired,
-    content: PropTypes.string.isRequired,
-  }).isRequired,
+  tweet: tweetType.isRequired,
 };
 export default TweetCard;

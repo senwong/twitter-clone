@@ -1,10 +1,10 @@
 import React from 'react';
-import PropTypes from 'prop-types';
 import CustomizedButton from '../BaseComponents/CustomizedButton';
 import Avatar from '../BaseComponents/Avatar';
 import Text from '../BaseComponents/Text';
 import MediaCard from './MediaCard';
 import UserName from './UserName';
+import { userType } from '../propTypes';
 
 /**
  * -----—-----------------------------------------------------------------+
@@ -27,13 +27,7 @@ function UserCard({ user }) {
     <MediaCard {...p} />
   );
 }
-const UserType = PropTypes.shape({
-  nickName: PropTypes.string.isRequired,
-  name: PropTypes.string.isRequired,
-  isV: PropTypes.bool.isRequired,
-  desc: PropTypes.string.isRequired,
-});
 UserCard.propTypes = {
-  user: UserType.isRequired,
+  user: userType.isRequired,
 };
 export default UserCard;

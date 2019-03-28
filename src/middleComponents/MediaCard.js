@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import styled from 'styled-components';
-import PropTypes from 'prop-types';
+import { node } from 'prop-types';
 import { grayBorderBottom, grayHover, whiteBackgroud } from '../themes';
 
 const MediaCardContainer = styled.div`
@@ -88,10 +88,10 @@ export default function MediaCard({
   );
 }
 MediaCard.propTypes = {
-  left: PropTypes.node.isRequired,
-  headLeft: PropTypes.node.isRequired,
-  headRight: PropTypes.element,
-  content: PropTypes.node,
+  left: node.isRequired,
+  headLeft: node.isRequired,
+  headRight: node,
+  content: node,
 };
 MediaCard.defaultProps = {
   headRight: <></>,

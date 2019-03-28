@@ -1,6 +1,7 @@
 import React from 'react';
-import PropTypes from 'prop-types';
+import { arrayOf } from 'prop-types';
 import UserCard from '../middleComponents/UserCard';
+import { userType } from '../propTypes';
 
 function RelatedUsersList({ users }) {
   return (
@@ -14,12 +15,7 @@ function RelatedUsersList({ users }) {
   );
 }
 RelatedUsersList.propTypes = {
-  users: PropTypes.arrayOf(PropTypes.shape({
-    nickName: PropTypes.string.isRequired,
-    name: PropTypes.string.isRequired,
-    isV: PropTypes.bool.isRequired,
-    desc: PropTypes.string.isRequired,
-  })),
+  users: arrayOf(userType),
 };
 RelatedUsersList.defaultProps = {
   users: null,

@@ -1,13 +1,13 @@
 import React, { useState, useEffect } from 'react';
-import PropTypes from 'prop-types';
+import { arrayOf, func } from 'prop-types';
 import { getTweets } from '../Api';
 import TweetCard from '../container/TweetCard';
 import { WattingIcon } from '../BaseComponents/SVGIcons';
 import PullDownRefresh from '../middleComponents/PullDownRefresh';
 import Text from '../BaseComponents/Text';
 import HomePageNarrowHead from '../layout/HomePageNarrowHead';
-
 import Layout from '../layout/Layout';
+import { tweetType } from '../propTypes';
 
 function TweetList({ tweets }) {
   return (
@@ -17,14 +17,7 @@ function TweetList({ tweets }) {
   );
 }
 TweetList.propTypes = {
-  tweets: PropTypes.arrayOf(PropTypes.shape({
-    userId: PropTypes.number.isRequired,
-    createdTime: PropTypes.string.isRequired,
-    replayAmount: PropTypes.number.isRequired,
-    forewardAmount: PropTypes.number.isRequired,
-    likeAmount: PropTypes.number.isRequired,
-    content: PropTypes.string.isRequired,
-  })).isRequired,
+  tweets: arrayOf(tweetType).isRequired,
 };
 
 // const Container = styled.div`
@@ -101,7 +94,7 @@ function Home({ setModal, showModal }) {
   );
 }
 Home.propTypes = {
-  setModal: PropTypes.func.isRequired,
-  showModal: PropTypes.func.isRequired,
+  setModal: func.isRequired,
+  showModal: func.isRequired,
 };
 export default Home;

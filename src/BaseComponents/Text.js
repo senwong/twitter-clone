@@ -59,10 +59,7 @@ export default function Text({
   );
 }
 Text.propTypes = {
-  children: PropTypes.oneOfType([
-    PropTypes.node,
-    PropTypes.arrayOf(PropTypes.node),
-  ]),
+  children: PropTypes.node,
   bold: PropTypes.bool,
   secondary: PropTypes.bool,
   primary: PropTypes.bool,

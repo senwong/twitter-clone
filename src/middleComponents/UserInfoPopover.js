@@ -1,13 +1,14 @@
 import React from 'react';
 import styled from 'styled-components';
 import { connect } from 'react-redux';
-import PropTypes from 'prop-types';
+import { func, number } from 'prop-types';
 import { whiteBackgroud } from '../themes';
 import Avatar from '../BaseComponents/Avatar';
 import CustomizedButton from '../BaseComponents/CustomizedButton';
 import UserName from './UserName';
 import Text from '../BaseComponents/Text';
 import { hide, setHideTimerId as setHideTimer } from '../actionCreators/userInfoPopover';
+import { userType, positionType } from '../propTypes';
 
 const Container = styled.div`
   ${whiteBackgroud}
@@ -98,18 +99,11 @@ function UserInfoPopover({
   );
 }
 UserInfoPopover.propTypes = {
-  position: PropTypes.shape({
-    left: PropTypes.number,
-    top: PropTypes.number,
-    bottom: PropTypes.number,
-    right: PropTypes.number,
-  }).isRequired,
-  user: PropTypes.shape({
-
-  }),
-  hideSelf: PropTypes.func.isRequired,
-  hideTimerId: PropTypes.number,
-  setHideTimerId: PropTypes.func.isRequired,
+  position: positionType.isRequired,
+  user: userType,
+  hideSelf: func.isRequired,
+  hideTimerId: number,
+  setHideTimerId: func.isRequired,
 };
 UserInfoPopover.defaultProps = {
   user: null,

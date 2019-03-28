@@ -6,6 +6,7 @@ import Avatar from '../BaseComponents/Avatar';
 import Text from '../BaseComponents/Text';
 import { ArrowDown } from '../BaseComponents/SVGIcons';
 import { show } from '../actionCreators/profilePage';
+import { userType } from '../propTypes';
 
 const Container = styled.div`
   display: flex;
@@ -48,10 +49,7 @@ function UserNameBar({ user, showProfiePage }) {
   );
 }
 UserNameBar.propTypes = {
-  user: PropTypes.shape({
-    avatarSrc: PropTypes.string.isRequired,
-    name: PropTypes.string.isRequired,
-  }).isRequired,
+  user: userType.isRequired,
   showProfiePage: PropTypes.func.isRequired,
 };
 

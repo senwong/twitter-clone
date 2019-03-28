@@ -1,7 +1,7 @@
 import React from 'react';
 import styled from 'styled-components';
-import PropTypes from 'prop-types';
-import ReactRouterPropTypes from 'react-router-prop-types';
+import { string } from 'prop-types';
+import { history as historyType } from 'react-router-prop-types';
 import { withRouter } from 'react-router-dom';
 import { BackIcon } from '../BaseComponents/SVGIcons';
 import Text from '../BaseComponents/Text';
@@ -71,9 +71,9 @@ function BackHead({ history, title, subTitle }) {
   );
 }
 BackHead.propTypes = {
-  history: ReactRouterPropTypes.history.isRequired,
-  title: PropTypes.string,
-  subTitle: PropTypes.string,
+  history: historyType.isRequired,
+  title: string,
+  subTitle: string,
 };
 BackHead.defaultProps = {
   title: '',

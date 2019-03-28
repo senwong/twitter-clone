@@ -15,6 +15,7 @@ import PullDownRefresh from '../middleComponents/PullDownRefresh';
 import { getUserByName } from '../Api';
 import NavigationList from '../middleComponents/NavigationList';
 import LayOut from '../layout/Layout';
+import { userType } from '../propTypes';
 
 function WithReplies() {
   return (
@@ -198,7 +199,5 @@ User.propTypes = {
   match: ReactRouterPropTypes.match.isRequired,
   showUserSettingPopupMenu: PropTypes.func.isRequired,
   setPopupPosition: PropTypes.func.isRequired,
-  currentUser: PropTypes.shape({
-    name: PropTypes.string.isRequired,
-  }).isRequired,
+  currentUser: userType.isRequired,
 };

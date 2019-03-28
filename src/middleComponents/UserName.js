@@ -6,6 +6,7 @@ import { Link } from 'react-router-dom';
 import { BigVIcon } from '../BaseComponents/SVGIcons';
 import Text from '../BaseComponents/Text';
 import MakeHoverUserInfo from './MakeHoverUserInfo';
+import { userType } from '../propTypes';
 
 const Container = styled.div`
   display: flex;
@@ -70,14 +71,8 @@ function UserName({
       : <Content />
   );
 }
-const UserType = PropTypes.shape({
-  nickName: PropTypes.string,
-  name: PropTypes.string,
-  isV: PropTypes.bool,
-  desc: PropTypes.string,
-});
 UserName.propTypes = {
-  user: UserType,
+  user: userType,
   isTwoLine: PropTypes.bool,
   hoverable: PropTypes.bool,
 };

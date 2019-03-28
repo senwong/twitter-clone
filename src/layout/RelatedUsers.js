@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import styled from 'styled-components';
 import { connect } from 'react-redux';
-import PropTypes from 'prop-types';
+import { func } from 'prop-types';
 import { getRelatedUsers } from '../Api';
 import { setup, show } from '../actionCreators/modal';
 import TitleBar from '../middleComponents/TitleBar';
@@ -42,8 +42,8 @@ function RelatedUsers({ setModal, showModal }) {
   );
 }
 RelatedUsers.propTypes = {
-  setModal: PropTypes.func.isRequired,
-  showModal: PropTypes.func.isRequired,
+  setModal: func.isRequired,
+  showModal: func.isRequired,
 };
 const mapDispatchToProps = dispatch => ({
   setModal: modalConfig => dispatch(setup(modalConfig)),

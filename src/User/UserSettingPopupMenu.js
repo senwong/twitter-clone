@@ -1,6 +1,7 @@
 import React from 'react';
-import PropTypes from 'prop-types';
-import PopupMenu, { positionType, defaultPosition } from '../middleComponents/PopupMenu';
+import { func } from 'prop-types';
+import PopupMenu from '../middleComponents/PopupMenu';
+import { positionType, defaultPosition } from '../propTypes';
 
 export default function UserSettingPopupMenu({
   hidePopup, setModal, showModal, position,
@@ -26,9 +27,9 @@ export default function UserSettingPopupMenu({
   return <PopupMenu hide={hidePopup} items={items} position={position} />;
 }
 UserSettingPopupMenu.propTypes = {
-  hidePopup: PropTypes.func.isRequired,
-  showModal: PropTypes.func.isRequired,
-  setModal: PropTypes.func.isRequired,
+  hidePopup: func.isRequired,
+  showModal: func.isRequired,
+  setModal: func.isRequired,
   position: positionType,
 };
 UserSettingPopupMenu.defaultProps = {

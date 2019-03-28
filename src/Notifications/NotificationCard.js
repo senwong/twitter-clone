@@ -5,6 +5,7 @@ import MediaCard from '../middleComponents/MediaCard';
 import Avatar from '../BaseComponents/Avatar';
 import { PurpleStar } from '../BaseComponents/SVGIcons';
 import Text from '../BaseComponents/Text';
+import { userType } from '../propTypes';
 
 const NotifyCardLeft = styled.div`
   display: flex;
@@ -39,15 +40,9 @@ function NotificationCard({ notification }) {
   const p = { left, headLeft, content };
   return <MediaCard {...p} />;
 }
-const UserType = PropTypes.shape({
-  nickName: PropTypes.string.isRequired,
-  name: PropTypes.string.isRequired,
-  isV: PropTypes.bool.isRequired,
-  desc: PropTypes.string.isRequired,
-});
 NotificationCard.propTypes = {
   notification: PropTypes.shape({
-    user: UserType.isRequired,
+    user: userType.isRequired,
   }).isRequired,
 };
 export default NotificationCard;

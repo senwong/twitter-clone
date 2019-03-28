@@ -5,6 +5,7 @@ import PropTypes from 'prop-types';
 import ReactRouterPropTypes from 'react-router-prop-types';
 import { whiteBackgroud, grayHover, grayBorderTop } from '../themes';
 import Text from '../BaseComponents/Text';
+import { positionType, defaultPosition } from '../propTypes';
 
 const Wrapper = styled.div`
   position: fixed;
@@ -108,18 +109,6 @@ function PopupMenu({
 }
 
 // types
-const positionType = PropTypes.shape({
-  left: PropTypes.number,
-  right: PropTypes.number,
-  top: PropTypes.number,
-  bottom: PropTypes.number,
-});
-const defaultPosition = {
-  left: null,
-  right: null,
-  top: null,
-  bottom: null,
-};
 PopupMenu.propTypes = {
   items: PropTypes.arrayOf(PropTypes.shape({
     title: PropTypes.string.isRequired,
@@ -133,5 +122,4 @@ PopupMenu.propTypes = {
 PopupMenu.defaultProps = {
   position: defaultPosition,
 };
-export { positionType, defaultPosition };
 export default withRouter(PopupMenu);

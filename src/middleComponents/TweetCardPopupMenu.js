@@ -1,6 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import PopupMenu, { positionType, defaultPosition } from './PopupMenu';
+import PopupMenu from './PopupMenu';
+import { userType, positionType, defaultPosition } from '../propTypes';
 
 export default function TweetCardPopupMenu({
   user, hide, position, ...props
@@ -15,9 +16,7 @@ export default function TweetCardPopupMenu({
   return <PopupMenu items={items} hide={hide} position={position} {...props} />;
 }
 TweetCardPopupMenu.propTypes = {
-  user: PropTypes.shape({
-    name: PropTypes.string.isRequired,
-  }),
+  user: userType,
   hide: PropTypes.func.isRequired,
   position: positionType,
 };
