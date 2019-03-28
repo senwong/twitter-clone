@@ -14,7 +14,7 @@ import Tweets from './Tweets';
 import PullDownRefresh from '../middleComponents/PullDownRefresh';
 import { getUserByName } from '../Api';
 import NavigationList from '../middleComponents/NavigationList';
-import LayOut from '../layout/LayOut';
+import LayOut from '../layout/Layout';
 
 function WithReplies() {
   return (
@@ -103,7 +103,7 @@ export default function User({
   // console.log({ userName });
   return (
     <LayOut
-      head={<BackHeadWithRouter title={user && user.name} />}
+      narrowHead={<BackHeadWithRouter title={user && user.name} />}
       main={(
         <PullDownRefresh onRefresh={handleRefresh}>
           <Container>

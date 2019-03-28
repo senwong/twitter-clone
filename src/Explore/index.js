@@ -3,14 +3,12 @@ import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import styled from 'styled-components';
 import { RelateIcon } from '../BaseComponents/SVGIcons';
-import NavigationBar from '../middleComponents/NavigationBar';
-import HeadBarLayOut from '../middleComponents/HeadBarLayOut';
 import InputText from '../BaseComponents/InputText';
-import CurrentUserAvatar from '../container/CurrentUserAvatar';
 import PullDownRefresh from '../middleComponents/PullDownRefresh';
-import LayOut from '../layout/LayOut';
+import Layout from '../layout/Layout';
 import ExplorePageBody from './ExplorePageBody';
 import RelatedUsers from '../layout/RelatedUsers';
+import HomePageNarrowHead from '../layout/HomePageNarrowHead';
 
 const RightAside = styled.div`
   margin-bottom: 10px;
@@ -25,25 +23,21 @@ export default function Explore({ showHistoryNRecPage }) {
     });
   }
   return (
-    <LayOut
-      head={(
-        <>
-          <HeadBarLayOut
-            left={<CurrentUserAvatar xsmall />}
-            middle={(
-              <InputText
-                placeholder="搜索 Twitter"
-                onFocus={() => showHistoryNRecPage()}
-              />
-            )}
-            right={(
-              <Link to="/related">
-                <RelateIcon small primary />
-              </Link>
-            )}
-          />
-          <NavigationBar />
-        </>
+    <Layout
+      narrowHead={() => (
+        <HomePageNarrowHead
+          middle={(
+            <InputText
+              placeholder="搜索 Twitter"
+              onFocus={() => showHistoryNRecPage()}
+            />
+          )}
+          right={(
+            <Link to="/related">
+              <RelateIcon small primary />
+            </Link>
+          )}
+        />
       )}
       main={(
         <PullDownRefresh onRefresh={handleRefresh}>

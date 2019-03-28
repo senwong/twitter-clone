@@ -2,7 +2,7 @@ import React from 'react';
 import { NavLink } from 'react-router-dom';
 import styled, { css } from 'styled-components';
 import PropTypes from 'prop-types';
-import { grayBorderBottom } from '../themes';
+import { grayBorderBottom, whiteBackgroud } from '../themes';
 
 const Wrapper = styled.ul`
   list-style: none;
@@ -14,6 +14,7 @@ const Wrapper = styled.ul`
   position: relative;
   z-index: 1;
   ${grayBorderBottom}
+  ${whiteBackgroud}
 `;
 const StyledNavLinkWithHover = styled(NavLink)`
   flex: 1 1 0;

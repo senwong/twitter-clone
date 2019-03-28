@@ -2,15 +2,13 @@ import React, { useState, useEffect } from 'react';
 import { Link, Switch, Route } from 'react-router-dom';
 import ReactRouterPropTypes from 'react-router-prop-types';
 import { SettingIcon } from '../BaseComponents/SVGIcons';
-import NavigationBar from '../middleComponents/NavigationBar';
-import HeadBarLayOut from '../middleComponents/HeadBarLayOut';
 import NotificationCard from './NotificationCard';
 import { getNotifications } from '../Api';
 import Text from '../BaseComponents/Text';
-import CurrentUserAvatar from '../container/CurrentUserAvatar';
 import PullDownRefresh from '../middleComponents/PullDownRefresh';
-import LayOut from '../layout/LayOut';
+import Layout from '../layout/Layout';
 import NavigationList from '../middleComponents/NavigationList';
+import HomePageNarrowHead from '../layout/HomePageNarrowHead';
 
 function AllNotifications() {
   const [notifications, setNotifications] = useState();
@@ -43,7 +41,6 @@ function Mentions() {
     </div>
   );
 }
-
 export default function Notifications({ match }) {
   const LINKS = [
     { to: match.url, title: '全部', exact: true },
@@ -55,16 +52,12 @@ export default function Notifications({ match }) {
     });
   }
   return (
-    <LayOut
-      head={(
-        <>
-          <HeadBarLayOut
-            left={<CurrentUserAvatar xsmall />}
-            middle={<Text bold large>通知</Text>}
-            right={<Link to="/settings/notifications"><SettingIcon small primary /></Link>}
-          />
-          <NavigationBar />
-        </>
+    <Layout
+      narrowHead={() => (
+        <HomePageNarrowHead
+          middle={<Text bold large>通知</Text>}
+          right={<Link to="/settings/notifications"><SettingIcon small primary /></Link>}
+        />
       )}
       main={(
         <>

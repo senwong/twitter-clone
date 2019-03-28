@@ -2,7 +2,6 @@ import React from 'react';
 import styled from 'styled-components';
 import PropTypes from 'prop-types';
 import BodyAside from './BodyAside';
-import StretchableHeader from '../middleComponents/StretchableHeader';
 import WideHeader from './WideHeader';
 import PageFooter from './PageFooter';
 import { useMediaQuery } from '../utilitys';
@@ -20,37 +19,32 @@ const BodyContainer = styled.div`
   flex-direction: row;
   justify-content: center;
   @media (min-width: 1000px) {
-    margin-top: 10px;
+    margin: ${props => (props.reverse ? '10px' : '10px 0 0')};
   }
 `;
 const Main = styled.main`
   width: 100%;
-  max-width: ${props => (props.reverse ? '360px' : '600px')};
+  @media (min-width: 1000px) {
+    max-width: ${props => (props.reverse ? '360px' : '600px')};
+  }
+  max-width: 600px;
   ${whiteBackgroud}
 `;
 const RightAside = styled.aside`
   width: ${props => (props.reverse ? '600px' : '360px')};
   margin: 0 20px;
-  align-self: flex-start;
+  align-self: ${props => (props.reverse ? 'stretch' : 'flex-start')};
 `;
-function LayOut({
-  head, main, rightAside, reverse,
+function Layout({
+  narrowHead: NarrowHead, main, rightAside, reverse,
 }) {
   const isWide = useMediaQuery('(min-width: 1000px)');
   return (
     <Container>
       {
-        isWide
-          ? (
-            <WideHeader />
-          )
-          : (
-            <StretchableHeader>
-              {head}
-            </StretchableHeader>
-          )
+        isWide ? <WideHeader /> : <NarrowHead />
       }
-      <BodyContainer>
+      <BodyContainer reverse={reverse}>
         <Main reverse={reverse}>
           {main}
         </Main>
@@ -59,7 +53,7 @@ function LayOut({
           && (
             <RightAside reverse={reverse}>
               {rightAside}
-              <PageFooter />
+              {!reverse && <PageFooter />}
             </RightAside>
           )
         }
@@ -67,14 +61,14 @@ function LayOut({
     </Container>
   );
 }
-LayOut.propTypes = {
-  head: PropTypes.node.isRequired,
+Layout.propTypes = {
+  narrowHead: PropTypes.func.isRequired,
   main: PropTypes.node.isRequired,
   rightAside: PropTypes.node,
   reverse: PropTypes.bool,
 };
-LayOut.defaultProps = {
+Layout.defaultProps = {
   rightAside: <BodyAside />,
   reverse: false,
 };
-export default LayOut;
+export default Layout;

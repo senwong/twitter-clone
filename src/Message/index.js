@@ -1,12 +1,10 @@
 import React from 'react';
-import NavigationBar from '../middleComponents/NavigationBar';
-import HeadBarLayOut from '../middleComponents/HeadBarLayOut';
 import Text from '../BaseComponents/Text';
 import CustomizedButton from '../BaseComponents/CustomizedButton';
-import CurrentUserAvatar from '../container/CurrentUserAvatar';
 import PullDownRefresh from '../middleComponents/PullDownRefresh';
-import LayOut from './LayOut';
+import Layout from '../layout/Layout';
 import RightAside from './RightAside';
+import HomePageNarrowHead from '../layout/HomePageNarrowHead';
 
 function Message() {
   function handlRefresh() {
@@ -15,16 +13,12 @@ function Message() {
     });
   }
   return (
-    <LayOut
+    <Layout
       reverse
-      head={(
-        <>
-          <HeadBarLayOut
-            left={<CurrentUserAvatar xsmall />}
-            middle={<Text large>私信</Text>}
-          />
-          <NavigationBar />
-        </>
+      narrowHead={() => (
+        <HomePageNarrowHead
+          middle={<Text large>私信</Text>}
+        />
       )}
       main={(
         <PullDownRefresh onRefresh={handlRefresh}>

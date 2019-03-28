@@ -1,18 +1,13 @@
 import React, { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
-// import styled from 'styled-components';
 import { getTweets } from '../Api';
-// import CustomHr from '../BaseComponents/CustomHr';
-import CurrentUserAvatar from '../container/CurrentUserAvatar';
 import TweetCard from '../container/TweetCard';
-import NavigationBar from '../middleComponents/NavigationBar';
-import HeadBarLayOut from '../middleComponents/HeadBarLayOut';
 import { WattingIcon } from '../BaseComponents/SVGIcons';
 import PullDownRefresh from '../middleComponents/PullDownRefresh';
 import Text from '../BaseComponents/Text';
-// import BodyAside from './BodyAside';
+import HomePageNarrowHead from '../layout/HomePageNarrowHead';
 
-import LayOut from '../layout/LayOut';
+import Layout from '../layout/Layout';
 
 function TweetList({ tweets }) {
   return (
@@ -93,15 +88,9 @@ function Home({ setModal, showModal }) {
     });
   }
   return (
-    <LayOut
-      head={(
-        <>
-          <HeadBarLayOut
-            left={<CurrentUserAvatar xsmall />}
-            middle={<Text large bold>主页</Text>}
-          />
-          <NavigationBar />
-        </>
+    <Layout
+      narrowHead={() => (
+        <HomePageNarrowHead middle={<Text large bold>主页</Text>} />
       )}
       main={(
         <PullDownRefresh onRefresh={handleRefresh}>

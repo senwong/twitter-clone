@@ -1,3 +1,5 @@
+import React from 'react';
+import { Redirect } from 'react-router-dom';
 import Explore from './container/Explore';
 import Search from './container/Search';
 import Home from './container/Home';
@@ -52,7 +54,7 @@ const routes = [
   {
     path: '/',
     exact: true,
-    component: Home,
+    component: () => <Redirect to="/home" />,
   },
   {
     path: '/home',

@@ -6,7 +6,7 @@ import styled from 'styled-components';
 import PropTypes from 'prop-types';
 import ReactRouterPropTypes from 'react-router-prop-types';
 import { connect } from 'react-redux';
-import LayOut from '../layout/LayOut';
+import Layout from '../layout/Layout';
 import Account from './Account';
 import Safety from './Safety';
 import { useMediaQuery } from '../utilitys';
@@ -26,7 +26,7 @@ function Settings({ user, match, history }) {
   }
   return (
     <Router>
-      <LayOut
+      <Layout
         head={<></>}
         main={(
           <Container>
