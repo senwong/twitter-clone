@@ -1,6 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { UserCard } from '../middleComponents/Cards';
+import UserCard from '../middleComponents/UserCard';
 
 function RelatedUsersList({ users }) {
   return (

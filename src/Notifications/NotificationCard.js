@@ -1,7 +1,7 @@
 import React from 'react';
 import styled from 'styled-components';
 import PropTypes from 'prop-types';
-import { MediaCard } from '../middleComponents/Cards';
+import MediaCard from '../middleComponents/MediaCard';
 import Avatar from '../BaseComponents/Avatar';
 import { PurpleStar } from '../BaseComponents/SVGIcons';
 import Text from '../BaseComponents/Text';

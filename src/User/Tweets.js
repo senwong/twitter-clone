@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import TitleBar from '../middleComponents/TitleBar';
 import { getRecommendFollowings } from '../Api';
-import { UserCard } from '../middleComponents/Cards';
+import UserCard from '../middleComponents/UserCard';
 import ShowMore from '../BaseComponents/ShowMore';
 
 export default function Tweets() {

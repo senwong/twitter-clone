@@ -8,7 +8,8 @@ import {
   PrevIcon, NextIcon, RelateIcon, BackIcon,
 } from '../BaseComponents/SVGIcons';
 import { searchHot } from '../Api';
-import { TweetCard, UserCard } from '../middleComponents/Cards';
+import UserCard from '../middleComponents/UserCard';
+import TweetCard from '../container/TweetCard';
 import PrimaryGap from '../BaseComponents/PrimaryGap';
 import HeadBarLayOut from '../middleComponents/HeadBarLayOut';
 import InputText from '../BaseComponents/InputText';

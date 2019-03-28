@@ -1,6 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { UserCardWithoutDesc } from '../middleComponents/Cards';
+import UserCardWithoutDesc from '../middleComponents/UserCardWithoutDesc';
 
 function RelatedUsersListWithoutDesc({ users }) {
   return (

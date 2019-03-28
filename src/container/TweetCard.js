@@ -1,5 +1,5 @@
 import { connect } from 'react-redux';
-import { TweetCard } from '../middleComponents/Cards';
+import TweetCard from '../middleComponents/TweetCard';
 import { show, setUser, setPosition } from '../actionCreators/tweetCardPopup';
 
 const mapDispatchToProps = dispatch => ({

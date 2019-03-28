@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import styled from 'styled-components';
 import PropTypes from 'prop-types';
 import { getSearchRecommend } from '../Api';
-import { UserBar } from '../middleComponents/Cards';
+import UserBar from '../middleComponents/UserBar';
 import PrimaryGap from '../BaseComponents/PrimaryGap';
 import Text from '../BaseComponents/Text';
 
