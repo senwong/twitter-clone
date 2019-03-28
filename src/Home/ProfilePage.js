@@ -205,7 +205,7 @@ function ProfilePage({
                 {
                   user
                   && user.avatarSrc
-                  && <Avatar src={user.avatarSrc} />
+                  && <Avatar user={user} />
                 }
               </WrapperButton>
               <WrapperButton

@@ -13,7 +13,7 @@ import TweetCardPopupMenu from './container/TweetCardPopupMenu';
 import HistoryNRecommendPage from './container/HistoryNRecommendPage';
 import UserSettingPopupMenu from './container/UserSettingPopupMenu';
 import Modal from './container/Modal';
-
+import UserInfoPopover from './middleComponents/UserInfoPopover';
 import routes from './routes';
 // transition
 import SlideUpTransition from './middleComponents/SlideUpTransition';
@@ -32,6 +32,7 @@ let App = ({
   showModal,
   showProfilePage,
   themeMode,
+  showUserInofPopover,
 }) => {
   useEffect(() => {
     const bodyScrollStyle = showTweetCardPop ? 'hidden' : 'scroll';
@@ -57,7 +58,8 @@ let App = ({
             <UserSettingPopupMenu />
           </SlideUpTransition>
 
-          { showModal && <Modal />}
+          { showModal && <Modal /> }
+          { showUserInofPopover && <UserInfoPopover /> }
         </>
       </Router>
     </ThemeProvider>
@@ -70,6 +72,7 @@ App.propTypes = {
   showModal: PropTypes.bool.isRequired,
   showProfilePage: PropTypes.bool.isRequired,
   themeMode: PropTypes.oneOf(['light', 'dark']).isRequired,
+  showUserInofPopover: PropTypes.bool.isRequired,
 };
 
 const mapStateToProps = state => ({
@@ -80,6 +83,7 @@ const mapStateToProps = state => ({
   showUserSettingPopupMenu: state.userSettingPopup.show,
   showModal: state.modal.show,
   themeMode: state.theme.mode,
+  showUserInofPopover: state.userInfoPopover.show,
 });
 App = connect(
   mapStateToProps,

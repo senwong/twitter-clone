@@ -13,7 +13,7 @@ import UserName from './UserName';
  * ----------+----------+---------------------------------+-----------------+
  */
 function UserCardWithoutDesc({ user }) {
-  const left = user && user.avatarSrc && <Avatar src={user.avatarSrc} />;
+  const left = user && user.avatarSrc && <Avatar user={user} hoverable />;
   const headLeft = <UserName user={user} isTwoLine />;
   const headRight = (
     <CustomizedButton small>关注</CustomizedButton>

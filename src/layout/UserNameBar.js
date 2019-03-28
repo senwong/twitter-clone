@@ -36,7 +36,7 @@ function UserNameBar({ user, showProfiePage }) {
   return (
     <Container onClick={() => showProfiePage()}>
       <ContentWrapper onMouseEnter={() => setIsHover(true)} onMouseLeave={() => setIsHover(false)}>
-        <Avatar src={user.avatarSrc} middle />
+        <Avatar user={user} middle />
         <NameWrapper>
           <Text bold>
             {user.name}

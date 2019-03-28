@@ -1,0 +1,107 @@
+import React from 'react';
+import PropTypes from 'prop-types';
+import { connect } from 'react-redux';
+import styled from 'styled-components';
+import {
+  show, hide, setPosition, setHideTimerId as setHideTimer, setUser,
+} from '../actionCreators/userInfoPopover';
+
+const Container = styled.div`
+  display: flex;
+  width: fit-content;
+`;
+function MakeHoverUserInfo({
+  children,
+  user,
+  hideTimerId,
+  showPopover, hidePopover, setHideTimerId, setPopoverPosition, setPopoverUser,
+}) {
+  const delay = 300;
+  let showTimerId = null;
+  function handleMouseEnter({ target }) {
+    if (showTimerId) return;
+    if (hideTimerId) {
+      clearTimeout(hideTimerId);
+    }
+    showTimerId = setTimeout(() => {
+      showTimerId = null;
+      const {
+        left, top, height,
+      } = target.getBoundingClientRect();
+      setPopoverPosition({
+        left, top: top + height + 10, right: null, bottom: null,
+      });
+      setPopoverUser(user);
+      showPopover();
+    }, delay);
+  }
+  function handleMouseLeave() {
+    if (showTimerId) {
+      clearTimeout(showTimerId);
+    }
+    const timerId = setTimeout(() => {
+      hidePopover();
+    }, delay);
+    setHideTimerId(timerId);
+  }
+  return (
+    <Container
+      onMouseEnter={handleMouseEnter}
+      onMouseLeave={handleMouseLeave}
+    >
+      {children}
+    </Container>
+  );
+}
+const UserType = PropTypes.shape({
+  nickName: PropTypes.string,
+  name: PropTypes.string,
+  isV: PropTypes.bool,
+  desc: PropTypes.string,
+});
+MakeHoverUserInfo.propTypes = {
+  children: PropTypes.node.isRequired,
+  user: UserType,
+  showPopover: PropTypes.func.isRequired,
+  hidePopover: PropTypes.func.isRequired,
+  hideTimerId: PropTypes.number,
+  setHideTimerId: PropTypes.func.isRequired,
+  setPopoverPosition: PropTypes.func.isRequired,
+  setPopoverUser: PropTypes.func.isRequired,
+};
+MakeHoverUserInfo.defaultProps = {
+  user: null,
+  hideTimerId: null,
+};
+const mapStateToProps = state => ({
+  hideTimerId: state.userInfoPopover.hideTimerId,
+});
+const mapDispatchToProps = dispatch => ({
+  showPopover: () => dispatch(show()),
+  hidePopover: () => dispatch(hide()),
+  setHideTimerId: id => dispatch(setHideTimer(id)),
+  setPopoverPosition: position => dispatch(setPosition(position)),
+  setPopoverUser: user => dispatch(setUser(user)),
+});
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps,
+)(MakeHoverUserInfo);
+/*
+
+<MakeHoverUserInfo user={user}>
+  <UserName />
+</MakeHoverUserInfo>
+
+function UserName ({ hoverable }) {
+  return (
+    hoverable
+    ? (
+      <MakeHoverUserInfo user={user}>
+        <UserNameContent />
+      </MakeHoverUserInfo>
+    )
+    : <UserName />
+  );
+}
+*/

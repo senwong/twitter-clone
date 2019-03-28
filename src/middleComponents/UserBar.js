@@ -12,7 +12,7 @@ import UserName from './UserName';
  * -------+----------------------------------------------------------------+
  */
 function UserBar({ user }) {
-  const left = user && user.avatarSrc && <Avatar src={user.avatarSrc} />;
+  const left = user && user.avatarSrc && <Avatar user={user} hoverable />;
   const headLeft = <UserName user={user} />;
   const p = { left, headLeft };
   return (

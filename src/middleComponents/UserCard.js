@@ -16,7 +16,7 @@ import UserName from './UserName';
  * -------+---------------------------------------------------------------+
  */
 function UserCard({ user }) {
-  const left = user && user.avatarSrc && <Avatar src={user.avatarSrc} />;
+  const left = user && user.avatarSrc && <Avatar user={user} hoverable />;
   const headLeft = <UserName user={user} isTwoLine />;
   const headRight = <CustomizedButton small>关注</CustomizedButton>;
   const content = <Text>{user.desc}</Text>;

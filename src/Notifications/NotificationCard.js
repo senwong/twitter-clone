@@ -23,7 +23,7 @@ function NotificationCard({ notification }) {
   );
   const headLeft = notification.user
     && notification.user.avatarSrc
-    && <Avatar src={notification.user.avatarSrc} small />;
+    && <Avatar user={notification.user} hoverable small />;
   const content = (
     <>
       <div>

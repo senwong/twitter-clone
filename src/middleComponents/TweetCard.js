@@ -94,7 +94,7 @@ const StyledArrowDown = styled(ArrowDown)`
 function TweetCard({
   showPopup, setPopupUser, setPopupPosition, tweet,
 }) {
-  const [user, setUser] = useState();
+  const [user, setUser] = useState(null);
 
   function handleHeadRightClick({ target }) {
     setPopupUser(user);
@@ -125,7 +125,7 @@ function TweetCard({
             {
               user
               && user.avatarSrc
-              && <Avatar src={user.avatarSrc} />
+              && <Avatar user={user} hoverable />
             }
           </Link>
         )

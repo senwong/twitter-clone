@@ -114,7 +114,7 @@ export default function User({
                   {
                     user
                     && user.avatarSrc
-                    && <Avatar large src={user.avatarSrc} />
+                    && <Avatar user={user} large />
                   }
                 </UserAvaterWrapper>
                 {

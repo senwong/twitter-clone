@@ -6,6 +6,7 @@ import recommendPage from './recommendPage';
 import currentUser from './currentUser';
 import userSettingPopup from './userSettingPopup';
 import theme from './theme';
+import userInfoPopover from './userInfoPopover';
 
 export default combineReducers({
   modal,
@@ -15,4 +16,5 @@ export default combineReducers({
   currentUser,
   userSettingPopup,
   theme,
+  userInfoPopover,
 });

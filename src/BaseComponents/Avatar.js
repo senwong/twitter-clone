@@ -1,6 +1,7 @@
 import React from 'react';
 import styled from 'styled-components';
 import PropTypes from 'prop-types';
+import MakeHoverUserInfo from '../middleComponents/MakeHoverUserInfo';
 
 const StyledImg = styled.img`
   border-radius: 50%;
@@ -20,12 +21,12 @@ const StyledImg = styled.img`
   }};
 `;
 export default function Avatar({
-  src, onClick, xsmall, small, middle, large,
+  onClick, xsmall, small, middle, large, user, hoverable,
 }) {
-  return (
+  const Content = () => (
     <StyledImg
-      src={src}
-      alt="user avatar"
+      src={user && user.avatarSrc}
+      alt={user && user.nickName}
       onClick={onClick}
       xsmall={xsmall}
       small={small}
@@ -33,9 +34,25 @@ export default function Avatar({
       large={large}
     />
   );
+  return (
+    hoverable
+      ? (
+        <MakeHoverUserInfo user={user}>
+          <Content />
+        </MakeHoverUserInfo>
+      )
+      : <Content />
+  );
 }
+const UserType = PropTypes.shape({
+  nickName: PropTypes.string,
+  name: PropTypes.string,
+  isV: PropTypes.bool,
+  desc: PropTypes.string,
+});
 Avatar.propTypes = {
-  src: PropTypes.string.isRequired,
+  user: UserType,
+  hoverable: PropTypes.bool,
   onClick: PropTypes.func,
   xsmall: PropTypes.bool,
   small: PropTypes.bool,
@@ -43,6 +60,8 @@ Avatar.propTypes = {
   large: PropTypes.bool,
 };
 Avatar.defaultProps = {
+  user: null,
+  hoverable: false,
   onClick: null,
   xsmall: false,
   small: false,
