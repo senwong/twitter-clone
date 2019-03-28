@@ -1,5 +1,5 @@
 import { connect } from 'react-redux';
-import UserSettingPopupPage from '../User/UserSettingPopupPage';
+import UserSettingPopupMenu from '../User/UserSettingPopupMenu';
 import { hide } from '../actionCreators/userSettingPopup';
 import { show as showModal, setup as setupModal } from '../actionCreators/modal';
 
@@ -15,4 +15,4 @@ const mapDispatchToProps = dispatch => ({
 export default connect(
   mapStateToProps,
   mapDispatchToProps,
-)(UserSettingPopupPage);
+)(UserSettingPopupMenu);

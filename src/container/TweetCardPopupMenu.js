@@ -1,5 +1,5 @@
 import { connect } from 'react-redux';
-import TweetCardPopupPage from '../middleComponents/TweetCardPopupPage';
+import TweetCardPopupMenu from '../middleComponents/TweetCardPopupMenu';
 import { hide } from '../actionCreators/tweetCardPopup';
 
 const mapStateToProps = state => ({
@@ -12,4 +12,4 @@ const mapDispatchToProps = dispatch => ({
 export default connect(
   mapStateToProps,
   mapDispatchToProps,
-)(TweetCardPopupPage);
+)(TweetCardPopupMenu);

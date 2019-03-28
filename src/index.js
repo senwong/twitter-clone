@@ -9,9 +9,9 @@ import PropTypes from 'prop-types';
 import { ThemeProvider } from 'styled-components';
 import reducer from './reducers';
 import ProfilePage from './Home/ProfilePage';
-import TweetCardPopupPage from './container/TweetCardPopupPage';
+import TweetCardPopupMenu from './container/TweetCardPopupMenu';
 import HistoryNRecommendPage from './container/HistoryNRecommendPage';
-import UserSettingPopupPage from './container/UserSettingPopupPage';
+import UserSettingPopupMenu from './container/UserSettingPopupMenu';
 import Modal from './container/Modal';
 
 import routes from './routes';
@@ -28,7 +28,7 @@ const store = createStore(
 let App = ({
   showTweetCardPop,
   showHistoryNRecPage,
-  showUserSettingPopupPage,
+  showUserSettingPopupMenu,
   showModal,
   showProfilePage,
   themeMode,
@@ -51,10 +51,10 @@ let App = ({
           { showProfilePage && <ProfilePage /> }
           { showHistoryNRecPage && <HistoryNRecommendPage />}
           <SlideUpTransition inSlide={showTweetCardPop}>
-            <TweetCardPopupPage />
+            <TweetCardPopupMenu />
           </SlideUpTransition>
-          <SlideUpTransition inSlide={showUserSettingPopupPage}>
-            <UserSettingPopupPage />
+          <SlideUpTransition inSlide={showUserSettingPopupMenu}>
+            <UserSettingPopupMenu />
           </SlideUpTransition>
 
           { showModal && <Modal />}
@@ -66,7 +66,7 @@ let App = ({
 App.propTypes = {
   showTweetCardPop: PropTypes.bool.isRequired,
   showHistoryNRecPage: PropTypes.bool.isRequired,
-  showUserSettingPopupPage: PropTypes.bool.isRequired,
+  showUserSettingPopupMenu: PropTypes.bool.isRequired,
   showModal: PropTypes.bool.isRequired,
   showProfilePage: PropTypes.bool.isRequired,
   themeMode: PropTypes.oneOf(['light', 'dark']).isRequired,
@@ -77,7 +77,7 @@ const mapStateToProps = state => ({
   showTweetCardPop: state.tweetCardPopup.show,
   showProfilePage: state.profilePage.show,
   showHistoryNRecPage: state.recommendPage.show,
-  showUserSettingPopupPage: state.userSettingPopup.show,
+  showUserSettingPopupMenu: state.userSettingPopup.show,
   showModal: state.modal.show,
   themeMode: state.theme.mode,
 });

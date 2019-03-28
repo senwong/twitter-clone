@@ -1,7 +1,7 @@
 import TYPE from '../actionTypes';
 
 const initialState = {
-  mode: 'dark',
+  mode: 'light',
 };
 const themeReducer = (state = initialState, action) => {
   switch (action.type) {

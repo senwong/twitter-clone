@@ -75,7 +75,7 @@ const SettingButton = styled.button`
   background-color: transparent;
 `;
 export default function User({
-  match, currentUser, showUserSettingPopupPage, setPopupPosition,
+  match, currentUser, showUserSettingPopupMenu, setPopupPosition,
 }) {
   const [user, setUser] = useState();
   function handleRefresh() {
@@ -92,7 +92,7 @@ export default function User({
   const { userName } = match.params;
 
   function handleSettingClick({ target }) {
-    showUserSettingPopupPage();
+    showUserSettingPopupMenu();
     if (window.matchMedia('(min-width: 1000px)').matches) {
       const { left, top } = target.getBoundingClientRect();
       setPopupPosition({
@@ -196,7 +196,7 @@ export default function User({
 }
 User.propTypes = {
   match: ReactRouterPropTypes.match.isRequired,
-  showUserSettingPopupPage: PropTypes.func.isRequired,
+  showUserSettingPopupMenu: PropTypes.func.isRequired,
   setPopupPosition: PropTypes.func.isRequired,
   currentUser: PropTypes.shape({
     name: PropTypes.string.isRequired,

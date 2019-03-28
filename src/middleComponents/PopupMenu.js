@@ -62,7 +62,7 @@ const Cancel = styled.div`
   ${grayBorderTop}
 `;
 
-function PopupPage({
+function PopupMenu({
   history, location, items, hide, position,
 }) {
   const contentRef = useRef();
@@ -106,8 +106,21 @@ function PopupPage({
     </Wrapper>
   );
 }
-export default withRouter(PopupPage);
-PopupPage.propTypes = {
+
+// types
+const positionType = PropTypes.shape({
+  left: PropTypes.number,
+  right: PropTypes.number,
+  top: PropTypes.number,
+  bottom: PropTypes.number,
+});
+const defaultPosition = {
+  left: null,
+  right: null,
+  top: null,
+  bottom: null,
+};
+PopupMenu.propTypes = {
   items: PropTypes.arrayOf(PropTypes.shape({
     title: PropTypes.string.isRequired,
     warning: PropTypes.bool,
@@ -115,18 +128,10 @@ PopupPage.propTypes = {
   hide: PropTypes.func.isRequired,
   history: ReactRouterPropTypes.history.isRequired,
   location: ReactRouterPropTypes.location.isRequired,
-  position: PropTypes.shape({
-    left: PropTypes.number,
-    right: PropTypes.number,
-    top: PropTypes.number,
-    bottom: PropTypes.number,
-  }),
+  position: positionType,
 };
-PopupPage.defaultProps = {
-  position: {
-    left: null,
-    right: null,
-    top: null,
-    bottom: null,
-  },
+PopupMenu.defaultProps = {
+  position: defaultPosition,
 };
+export { positionType, defaultPosition };
+export default withRouter(PopupMenu);

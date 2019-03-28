@@ -7,7 +7,7 @@ const mapStateToProps = state => ({
 });
 
 const mapDispatchToProps = dispatch => ({
-  showUserSettingPopupPage: () => dispatch(show()),
+  showUserSettingPopupMenu: () => dispatch(show()),
   setPopupPosition: position => dispatch(setPosition(position)),
 });
 export default connect(

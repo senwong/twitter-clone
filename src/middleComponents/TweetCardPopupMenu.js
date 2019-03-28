@@ -1,8 +1,8 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import PopupPage from './PopupPage';
+import PopupMenu, { positionType, defaultPosition } from './PopupMenu';
 
-export default function TweetCardPopupPage({
+export default function TweetCardPopupMenu({
   user, hide, position, ...props
 }) {
   const items = [
@@ -12,26 +12,16 @@ export default function TweetCardPopupPage({
     { title: `屏蔽@${user && user.name}` },
     { title: '举报推文', warning: true },
   ];
-  return <PopupPage items={items} hide={hide} position={position} {...props} />;
+  return <PopupMenu items={items} hide={hide} position={position} {...props} />;
 }
-TweetCardPopupPage.propTypes = {
+TweetCardPopupMenu.propTypes = {
   user: PropTypes.shape({
     name: PropTypes.string.isRequired,
   }),
   hide: PropTypes.func.isRequired,
-  position: PropTypes.shape({
-    left: PropTypes.number,
-    right: PropTypes.number,
-    top: PropTypes.number,
-    bottom: PropTypes.number,
-  }),
+  position: positionType,
 };
-TweetCardPopupPage.defaultProps = {
+TweetCardPopupMenu.defaultProps = {
   user: null,
-  position: {
-    left: null,
-    right: null,
-    top: null,
-    bottom: null,
-  },
+  position: defaultPosition,
 };

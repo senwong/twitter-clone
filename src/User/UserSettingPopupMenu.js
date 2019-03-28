@@ -1,8 +1,8 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import PopupPage from '../middleComponents/PopupPage';
+import PopupMenu, { positionType, defaultPosition } from '../middleComponents/PopupMenu';
 
-export default function UserSettingPopupPage({
+export default function UserSettingPopupMenu({
   hidePopup, setModal, showModal, position,
 }) {
   function handleBlockClick() {
@@ -23,24 +23,14 @@ export default function UserSettingPopupPage({
     { title: '屏蔽', warning: true, onClick: handleBlockClick },
     { title: '举报' },
   ];
-  return <PopupPage hide={hidePopup} items={items} position={position} />;
+  return <PopupMenu hide={hidePopup} items={items} position={position} />;
 }
-UserSettingPopupPage.propTypes = {
+UserSettingPopupMenu.propTypes = {
   hidePopup: PropTypes.func.isRequired,
   showModal: PropTypes.func.isRequired,
   setModal: PropTypes.func.isRequired,
-  position: PropTypes.shape({
-    left: PropTypes.number,
-    right: PropTypes.number,
-    top: PropTypes.number,
-    bottom: PropTypes.number,
-  }),
+  position: positionType,
 };
-UserSettingPopupPage.defaultProps = {
-  position: {
-    left: null,
-    right: null,
-    top: null,
-    bottom: null,
-  },
+UserSettingPopupMenu.defaultProps = {
+  position: defaultPosition,
 };
