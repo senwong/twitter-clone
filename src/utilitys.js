@@ -1,14 +1,15 @@
 import { useState, useEffect } from 'react';
 
 export function useMediaQuery(query) {
-  const [isMatched, setIsmatched] = useState(window.matchMedia(query).matches);
-  function handleResize() {
-    setIsmatched(window.matchMedia(query).matches);
+  const mql = window.matchMedia(query);
+  const [isMatched, setIsmatched] = useState(mql.matches);
+  function handleMQChange(e) {
+    setIsmatched(e.matches);
   }
   useEffect(() => {
-    window.addEventListener('resize', handleResize);
+    mql.addListener(handleMQChange);
     return () => {
-      window.removeEventListener('resize', handleResize);
+      mql.removeListener(handleMQChange);
     };
   });
   return isMatched;
