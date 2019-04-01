@@ -14,7 +14,7 @@
 importScripts("https://storage.googleapis.com/workbox-cdn/releases/3.6.3/workbox-sw.js");
 
 importScripts(
-  "/twitter-imitation/precache-manifest.d6201ed5149d7606e26c1a5962b720e0.js"
+  "/twitter-clone/precache-manifest.8ffd2cc04830284c8b78b226aa64a3a2.js"
 );
 
 workbox.clientsClaim();
@@ -28,7 +28,7 @@ self.__precacheManifest = [].concat(self.__precacheManifest || []);
 workbox.precaching.suppressWarnings();
 workbox.precaching.precacheAndRoute(self.__precacheManifest, {});
 
-workbox.routing.registerNavigationRoute("/twitter-imitation/index.html", {
+workbox.routing.registerNavigationRoute("/twitter-clone/index.html", {
   
   blacklist: [/^\/_/,/\/[^\/]+\.[^\/]+$/],
 });
