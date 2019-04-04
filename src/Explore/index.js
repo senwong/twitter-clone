@@ -70,7 +70,7 @@ function Explore({ history }) {
             />
           )}
           right={(
-            <BackIconWrapper as={Link} to="/related">
+            <BackIconWrapper as={Link} to="/twitter-clone/related">
               <RelateIcon small primary />
             </BackIconWrapper>
           )}

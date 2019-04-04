@@ -22,7 +22,7 @@ const Container = styled.div`
 function Settings({ user, match, history }) {
   const isWide = useMediaQuery('(min-width: 1000px)');
   if (isWide) {
-    history.push('/settings/account');
+    history.push('/twitter-clone/settings/account');
   }
   return (
     <Router>
@@ -56,7 +56,7 @@ function Settings({ user, match, history }) {
         rightAside={(
           <>
             <Route path={`${match.url}/account`} component={Account} />
-            <Route path="/settings/safety" component={Safety} />
+            <Route path="/twitter-clone/settings/safety" component={Safety} />
           </>
         )}
       />

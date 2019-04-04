@@ -37,7 +37,7 @@ function RelatedUsers({ setModal, showModal }) {
     <Container>
       <TitleBar title="推荐关注" rear />
       <RelatedUsersListWithoutDesc users={relatedUsers} />
-      <ShowMore href="/related" />
+      <ShowMore href="/twitter-clone/related" />
     </Container>
   );
 }

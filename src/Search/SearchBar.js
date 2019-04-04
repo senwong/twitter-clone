@@ -147,12 +147,12 @@ function useDropdownVisibility(history, backIconRef, selectedHistory, containerE
       setTimeout(() => {
         if (value) {
           history.push({
-            pathname: '/search',
+            pathname: '/twitter-clone/search',
             search: `q=${value}`,
           });
         } else if (selectedHistory) {
           history.push({
-            pathname: '/search',
+            pathname: '/twitter-clone/search',
             search: `q=${selectedHistory}`,
           });
         }
@@ -281,7 +281,7 @@ function SearchBar({
 
   useEffect(() => {
     const { pathname, search } = window.location;
-    if (pathname === '/search') {
+    if (pathname === '/twitter-clone/search') {
       const value = queryString.parse(search).q;
       setQuery(value);
     }

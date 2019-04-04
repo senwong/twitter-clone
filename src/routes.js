@@ -53,211 +53,211 @@ import Login from './Login';
 
 const routes = [
   {
-    path: '/',
+    path: '/twitter-clone/',
     exact: true,
-    component: () => <Redirect to="/home" />,
+    component: () => <Redirect to="/twitter-clone/home" />,
   },
   {
-    path: '/home',
+    path: '/twitter-clone/home',
     component: Home,
   },
   {
-    path: '/explore',
+    path: '/twitter-clone/explore',
     component: Explore,
   },
   {
-    path: '/notifications',
+    path: '/twitter-clone/notifications',
     component: Notifications,
   },
   {
-    path: '/messages',
+    path: '/twitter-clone/messages',
     component: Message,
   },
   {
-    path: '/search',
+    path: '/twitter-clone/search',
     component: Search,
   },
   {
-    path: '/related',
+    path: '/twitter-clone/related',
     component: Related,
   },
   {
-    path: '/settings',
+    path: '/twitter-clone/settings',
     exact: true,
     component: Settings,
   },
   {
-    path: '/settings/account/login_verification',
+    path: '/twitter-clone/settings/account/login_verification',
     exact: true,
     component: LoginVerification,
   },
   {
-    path: '/settings/account/login_verification/backup_code',
+    path: '/twitter-clone/settings/account/login_verification/backup_code',
     exact: true,
     component: BackupCode,
   },
   {
-    path: '/settings/account/login_verification/temporary_password',
+    path: '/twitter-clone/settings/account/login_verification/temporary_password',
     exact: true,
     component: TemporayrPassword,
   },
   {
-    path: '/settings/account',
+    path: '/twitter-clone/settings/account',
     component: Account,
   },
   {
-    path: '/settings/safety',
+    path: '/twitter-clone/settings/safety',
     component: Safety,
   },
   {
-    path: '/settings/notifications',
+    path: '/twitter-clone/settings/notifications',
     exact: true,
     component: NotificationsSetting,
   },
   {
-    path: '/settings/content_preferences',
+    path: '/twitter-clone/settings/content_preferences',
     component: ContentPreferences,
   },
   {
-    path: '/settings/data',
+    path: '/twitter-clone/settings/data',
     component: Data,
   },
   {
-    path: '/settings/accessibility',
+    path: '/twitter-clone/settings/accessibility',
     component: Accessibility,
   },
   {
-    path: '/settings/about',
+    path: '/twitter-clone/settings/about',
     component: About,
   },
   {
-    path: '/settings/screen_name',
+    path: '/twitter-clone/settings/screen_name',
     component: ScreenName,
   },
   {
-    path: '/settings/phone',
+    path: '/twitter-clone/settings/phone',
     component: Phone,
   },
   {
-    path: '/settings/email',
+    path: '/twitter-clone/settings/email',
     component: Email,
   },
   {
-    path: '/settings/password',
+    path: '/twitter-clone/settings/password',
     component: Password,
   },
   {
-    path: '/settings/security',
+    path: '/twitter-clone/settings/security',
     component: Security,
   },
   {
-    path: '/settings/language',
+    path: '/twitter-clone/settings/language',
     component: Language,
   },
   {
-    path: '/settings/country',
+    path: '/twitter-clone/settings/country',
     component: Country,
   },
   {
-    path: '/settings/your_data',
+    path: '/twitter-clone/settings/your_data',
     component: YourData,
   },
   {
-    path: '/settings/applications',
+    path: '/twitter-clone/settings/applications',
     component: Applications,
   },
   {
-    path: '/settings/AutoPlay',
+    path: '/twitter-clone/settings/AutoPlay',
     component: AutoPlay,
   },
   {
-    path: '/settings/search',
+    path: '/twitter-clone/settings/search',
     component: SettingSearch,
   },
   {
-    path: '/settings/trends',
+    path: '/twitter-clone/settings/trends',
     component: SettingTrends,
   },
   {
-    path: '/settings/mute',
+    path: '/twitter-clone/settings/mute',
     component: Mute,
   },
   {
-    path: '/settings/muted/all',
+    path: '/twitter-clone/settings/muted/all',
     component: MutedAll,
   },
   {
-    path: '/settings/muted/following',
+    path: '/twitter-clone/settings/muted/following',
     component: MutedFollowing,
   },
   {
-    path: '/settings/muted/not_following',
+    path: '/twitter-clone/settings/muted/not_following',
     component: MutedNotFollowing,
   },
   {
-    path: '/settings/blocked/all',
+    path: '/twitter-clone/settings/blocked/all',
     component: BlockedAll,
   },
   {
-    path: '/settings/blocked/imported',
+    path: '/twitter-clone/settings/blocked/imported',
     component: BlockedImported,
   },
   {
-    path: '/settings/personalization',
+    path: '/twitter-clone/settings/personalization',
     component: Personalization,
   },
   {
-    path: '/settings/notifications/advanced_filters',
+    path: '/twitter-clone/settings/notifications/advanced_filters',
     component: AdvancedFilters,
   },
   {
-    path: '/settings/push_notifications',
+    path: '/twitter-clone/settings/push_notifications',
     component: PushNotifications,
   },
   {
-    path: '/settings/sms_notifications',
+    path: '/twitter-clone/settings/sms_notifications',
     component: SMSNotifications,
   },
   {
-    path: '/settings/email_notifications',
+    path: '/twitter-clone/settings/email_notifications',
     component: EmailNotifications,
   },
   {
-    path: '/settings/location',
+    path: '/twitter-clone/settings/location',
     component: Location,
   },
   {
-    path: '/settings/tagging',
+    path: '/twitter-clone/settings/tagging',
     component: Tagging,
   },
   {
-    path: '/settings/contacts',
+    path: '/twitter-clone/settings/contacts',
     component: Contacts,
   },
   {
-    path: '/settings/contacts_dashboard',
+    path: '/twitter-clone/settings/contacts_dashboard',
     component: ContactsDashboard,
   },
   {
-    path: '/settings/teams',
+    path: '/twitter-clone/settings/teams',
     component: Teams,
   },
   {
-    path: '/settings/deactivate',
+    path: '/twitter-clone/settings/deactivate',
     component: Deactivate,
   },
   {
-    path: '/i/trends',
+    path: '/twitter-clone/i/trends',
     component: Trend,
   },
   {
-    path: '/:userName',
+    path: '/twitter-clone/:userName',
     component: User,
   },
 ];
 const common = [
   {
-    path: '/login',
+    path: '/twitter-clone/login',
     component: Login,
   },
 ];

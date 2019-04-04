@@ -17,17 +17,17 @@ const data = {
     {
       title: '@sunsenflower',
       list: [
-        {type: 'link', key: 1, to: '/setings/account', title: '账号'},
-        {type: 'link', key: 2, to: '/setings/safety', title: '隐私和安全'},
-        {type: 'link', key: 3, to: '/setings/notification', title: '通知'},
+        {type: 'link', key: 1, to: '/twitter-clone/setings/account', title: '账号'},
+        {type: 'link', key: 2, to: '/twitter-clone/setings/safety', title: '隐私和安全'},
+        {type: 'link', key: 3, to: '/twitter-clone/setings/notification', title: '通知'},
       ]
     },
     {
       title: '通用',
       list: [
-        {type: 'link', key: 1, to: '/setings/account', title: '数据使用'},
-        {type: 'link', key: 2, to: '/setings/safety', title: '辅助功能'},
-        {type: 'link', key: 3, to: '/setings/notification', title: '关于应用'},
+        {type: 'link', key: 1, to: '/twitter-clone/setings/account', title: '数据使用'},
+        {type: 'link', key: 2, to: '/twitter-clone/setings/safety', title: '辅助功能'},
+        {type: 'link', key: 3, to: '/twitter-clone/setings/notification', title: '关于应用'},
       ]
     },
   ],

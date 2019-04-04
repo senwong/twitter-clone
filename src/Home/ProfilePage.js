@@ -174,7 +174,7 @@ function ProfilePage({
     }
   }
   function handleSettingClick() {
-    history.push('/settings');
+    history.push('/twitter-clone/settings');
     hideSelf();
   }
   function handleUserClick() {

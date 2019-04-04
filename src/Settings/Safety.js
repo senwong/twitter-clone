@@ -17,10 +17,10 @@ const data = () => ({
           key: 1, type: 'checkbox', title: '保护你的推文', subTitle: '只向关注你的人显示你的推文。选中后，你将需要批准每个新关注者。',
         },
         {
-          key: 2, type: 'link', title: '位置信息', to: '/settings/location',
+          key: 2, type: 'link', title: '位置信息', to: '/twitter-clone/settings/location',
         },
         {
-          key: 3, type: 'link', title: '照片圈人', subTitle: '关闭', to: '/settings/tagging',
+          key: 3, type: 'link', title: '照片圈人', subTitle: '关闭', to: '/twitter-clone/settings/tagging',
         },
       ],
     },
@@ -41,7 +41,7 @@ const data = () => ({
       title: '允许我认识的人找到我和联系人',
       list: [
         {
-          key: 1, type: 'link', title: '允许我认识的人找到我和联系人', to: '/settings/contacts',
+          key: 1, type: 'link', title: '允许我认识的人找到我和联系人', to: '/twitter-clone/settings/contacts',
         },
       ],
     },
@@ -56,16 +56,16 @@ const data = () => ({
           key: 2, type: 'checkbox', title: '将媒体标记为包含可能敏感内容的材料',
         },
         {
-          key: 3, type: 'link', title: '已隐藏', to: '/settings/mute',
+          key: 3, type: 'link', title: '已隐藏', to: '/twitter-clone/settings/mute',
         },
         {
-          key: 4, type: 'link', title: '已屏蔽账号', to: '/settings/blocked/all',
+          key: 4, type: 'link', title: '已屏蔽账号', to: '/twitter-clone/settings/blocked/all',
         },
         {
-          key: 5, type: 'link', title: '通知', to: '/settings/notifications',
+          key: 5, type: 'link', title: '通知', to: '/twitter-clone/settings/notifications',
         },
         {
-          key: 6, type: 'link', title: '搜索过滤', to: '/settings/search',
+          key: 6, type: 'link', title: '搜索过滤', to: '/twitter-clone/settings/search',
         },
       ],
     },
@@ -74,7 +74,7 @@ const data = () => ({
       title: '个性化与数据',
       list: [
         {
-          key: 1, type: 'link', title: '个性化与数据', subTitle: '允许一些', to: '/settings/personalization',
+          key: 1, type: 'link', title: '个性化与数据', subTitle: '允许一些', to: '/twitter-clone/settings/personalization',
         },
       ],
     },
@@ -83,7 +83,7 @@ const data = () => ({
       title: 'Twitter团队版',
       list: [
         {
-          key: 1, type: 'link', title: 'Twitter团队版', subTitle: '任何人都能把你添加到他们的团队中', to: '/settings/teams',
+          key: 1, type: 'link', title: 'Twitter团队版', subTitle: '任何人都能把你添加到他们的团队中', to: '/twitter-clone/settings/teams',
         },
       ],
     },

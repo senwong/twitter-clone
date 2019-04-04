@@ -22,7 +22,7 @@ const data = {
           key: 1,
           type: 'link',
           title: '管理联系人',
-          to: '/settings/contacts_dashboard',
+          to: '/twitter-clone/settings/contacts_dashboard',
         },
       ],
     },
