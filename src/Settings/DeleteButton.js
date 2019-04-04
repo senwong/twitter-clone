@@ -1,7 +1,7 @@
 import React from 'react';
 import styled from 'styled-components';
 import PropTypes from 'prop-types';
-import { whiteBackgroud } from '../themes';
+import { whiteBackground } from '../themes';
 
 const Container = styled.div`
   padding: 14px 9px;
@@ -13,7 +13,7 @@ const Container = styled.div`
   &:hover {
     background-color: rgba(224, 36, 94, 0.1);
   }
-  ${whiteBackgroud}
+  ${whiteBackground}
 `;
 function DeleteButton({ children }) {
   return (

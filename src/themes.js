@@ -49,7 +49,7 @@ export const lighterBlueBackground = theme('mode', {
     background-color: rgb(24, 36, 48);
   `,
 });
-export const whiteBackgroud = theme('mode', {
+export const whiteBackground = theme('mode', {
   light: css`
     background-color: rgb(255, 255, 255);
   `,

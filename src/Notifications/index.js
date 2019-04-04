@@ -53,7 +53,7 @@ export default function Notifications({ match }) {
   }
   return (
     <Layout
-      narrowHead={() => (
+      narrowHead={(
         <HomePageNarrowHead
           middle={<Text bold large>通知</Text>}
           right={<Link to="/settings/notifications"><SettingIcon small primary /></Link>}

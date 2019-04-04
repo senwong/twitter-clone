@@ -1,19 +1,19 @@
-import React, { useState, useEffect } from 'react';
+import React from 'react';
 import styled from 'styled-components';
-import PropTypes from 'prop-types';
+import { arrayOf, string } from 'prop-types';
 import { DeleteIcon, ExploreIcon } from '../BaseComponents/SVGIcons';
-import { getSearchHistory, deleteAllSearchHistory, deleteSearchHistory } from '../Api/SearchHistory';
+import { deleteAllSearchHistory, deleteSearchHistory } from '../Api/SearchHistory';
 import Text from '../BaseComponents/Text';
 
 const Container = styled.div`
-  position: fixed;
+  /* position: fixed;
   top: 49px;
   left: 0;
   right: 0;
   bottom: 0;
   display: block;
   background-color: rgb(255, 255, 255);
-  z-index: 2;
+  z-index: 2; */
 `;
 const Padding = styled.div`
   padding: 18px 9px 9px 9px;
@@ -40,10 +40,11 @@ const Item = styled.div`
   display: flex;
   padding: 14px 9px;
   border-bottom: 1px solid  rgb(230, 236, 240);
-  background-color: ${props => (props.selected
-    ? 'rgb(245, 248, 250)'
-    : 'transparent')
-};
+  background-color: ${props => (
+    props.selected
+      ? 'rgb(245, 248, 250)'
+      : 'transparent'
+  )};
 `;
 const ItemLeft = styled.div`
   flex: 1 0 0;
@@ -59,20 +60,14 @@ const ItemRight = styled.div`
   align-items: center;
 `;
 // search history page (exclude search bar in top)
-function HistorysPage({ selected }) {
-  const [historys, setHistorys] = useState();
+function SearchHistorys({ selected, historys }) {
   function handleDeleteAll() {
     deleteAllSearchHistory();
-    setHistorys(getSearchHistory());
   }
   function handleDelete(h) {
     deleteSearchHistory(h);
-    setHistorys(getSearchHistory());
   }
 
-  useEffect(() => {
-    setHistorys(getSearchHistory());
-  }, []);
   // current selected search history
   return (
     <Container>
@@ -111,7 +106,8 @@ function HistorysPage({ selected }) {
     </Container>
   );
 }
-HistorysPage.propTypes = {
-  selected: PropTypes.string.isRequired,
+SearchHistorys.propTypes = {
+  selected: string.isRequired,
+  historys: arrayOf(string).isRequired,
 };
-export default HistorysPage;
+export default SearchHistorys;

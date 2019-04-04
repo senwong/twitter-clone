@@ -3,7 +3,7 @@ import styled from 'styled-components';
 import { withRouter } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import ReactRouterPropTypes from 'react-router-prop-types';
-import { whiteBackgroud, grayHover, grayBorderTop } from '../themes';
+import { whiteBackground, grayHover, grayBorderTop } from '../themes';
 import Text from '../BaseComponents/Text';
 import { positionType, defaultPosition } from '../propTypes';
 
@@ -26,7 +26,7 @@ const Wrapper = styled.div`
   }
 `;
 const ContentWrapper = styled.div`
-  ${whiteBackgroud}
+  ${whiteBackground}
   margin: 0 auto;
 
   @media (max-width: 600px) {

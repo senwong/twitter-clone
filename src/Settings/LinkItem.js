@@ -6,7 +6,7 @@ import ReactRouterPropTypes from 'react-router-prop-types';
 import { ArrowRight } from '../BaseComponents/SVGIcons';
 import Text from '../BaseComponents/Text';
 import {
-  whiteBackgroud, grayHover, grayBorderBottom, lighterBlueBackground,
+  whiteBackground, grayHover, grayBorderBottom, lighterBlueBackground,
 } from '../themes';
 
 const Item = styled(Link)`
@@ -22,7 +22,7 @@ const Item = styled(Link)`
   cursor: pointer;
   transition-property: background-color;
   transition-duration: 0.2s;
-  ${whiteBackgroud};
+  ${whiteBackground};
   ${grayHover};
   ${grayBorderBottom}
 `;

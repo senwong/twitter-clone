@@ -2,7 +2,7 @@ import React from 'react';
 import styled from 'styled-components';
 import PropTypes from 'prop-types';
 import Text from '../BaseComponents/Text';
-import { whiteBackgroud } from '../themes';
+import { whiteBackground } from '../themes';
 
 const Container = styled.div`
   padding: 0 10px;
@@ -11,7 +11,7 @@ const Container = styled.div`
   align-items: center;
   justify-content: flex-start;
   border-bottom: 1px solid rgba(0, 0, 0, 0.3);
-  ${whiteBackgroud}
+  ${whiteBackground}
 `;
 function Title({ children }) {
   return (

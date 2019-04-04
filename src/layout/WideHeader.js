@@ -1,9 +1,9 @@
 import React from 'react';
 import styled from 'styled-components';
 import NavigationBar from '../middleComponents/NavigationBar';
-import InputText from '../BaseComponents/InputText';
 import UserNameBar from './UserNameBar';
-import { whiteBackgroud } from '../themes';
+import { whiteBackground } from '../themes';
+import SearchBar from '../Search/SearchBar';
 
 const FakeHeader = styled.div`
   height: 53px;
@@ -15,7 +15,7 @@ const Content = styled.div`
   right: 0;
   height: 53px;
   z-index: 2;
-  ${whiteBackgroud}
+  ${whiteBackground}
 `;
 const ContentWrapper = styled.div`
   max-width: 1000px;
@@ -28,7 +28,6 @@ const NavigationWrapper = styled.div`
   margin-right: 20px;
 `;
 const InputWrapper = styled.div`
-  margin: 8.5px 0;
   flex-grow: 1;
 `;
 const UserNameWrapper = styled.div`
@@ -46,7 +45,7 @@ function WideHeader() {
           </NavigationWrapper>
 
           <InputWrapper>
-            <InputText placeholder="搜索twitter" />
+            <SearchBar />
           </InputWrapper>
 
           <UserNameWrapper>

@@ -74,15 +74,18 @@ function Home({ setModal, showModal }) {
   // todo refresh data
   function handleRefresh() {
     return new Promise((resolve) => {
-      getTweets().promise.then((newTweets) => {
-        setTweets(newTweets.data);
-        resolve();
-      });
+      getTweets().promise.then(
+        (newTweets) => {
+          setTweets(newTweets.data);
+          resolve();
+        },
+        error => console.log(error),
+      );
     });
   }
   return (
     <Layout
-      narrowHead={() => (
+      narrowHead={(
         <HomePageNarrowHead middle={<Text large bold>主页</Text>} />
       )}
       main={(

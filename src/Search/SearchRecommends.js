@@ -7,14 +7,14 @@ import PrimaryGap from '../BaseComponents/PrimaryGap';
 import Text from '../BaseComponents/Text';
 
 const Container = styled.div`
-  position: fixed;
+  /* position: fixed;
   top: 49px;
   left: 0;
   right: 0;
   bottom: 0;
   display: block;
   background-color: rgb(255, 255, 255);
-  z-index: 2;
+  z-index: 2; */
 `;
 const TopicItem = styled.div`
   padding: 14px 9px;
@@ -31,15 +31,16 @@ export default function SearchRecommendPage({ query }) {
     const p = getSearchRecommend(query);
     p.promise.then(
       res => setData(res.data),
+      error => console.log('error', error),
     );
     return () => {
       p.cancel();
     };
-  });
+  }, [query]);
   const { topics, users, userLinked } = data;
   return (
     <Container>
-      {topics.length > 0
+      {topics && topics.length > 0
         ? topics.map(t => (
           <TopicItem key={t.id}>
             <Text bold>{t.title}</Text>
@@ -58,7 +59,7 @@ export default function SearchRecommendPage({ query }) {
       }
       <PrimaryGap />
       {
-        users.length > 0 && users.map(u => <UserBar key={u.id} user={u} />)
+        users && users.length > 0 && users.map(u => <UserBar key={u.id} user={u} />)
       }
       {
         userLinked && (
@@ -74,3 +75,6 @@ export default function SearchRecommendPage({ query }) {
 SearchRecommendPage.propTypes = {
   query: PropTypes.string.isRequired,
 };
+// SearchRecommendPage.defaultProps = {
+//   query: '',
+// };

@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import styled from 'styled-components';
-import PropTypes from 'prop-types';
-import { whiteBackgroud } from '../themes';
+import { node, bool } from 'prop-types';
+import { whiteBackground } from '../themes';
 
 const HeaderContainer = styled.header`
 
@@ -19,17 +19,18 @@ const Header = styled.div`
   transition-duration: 0.2s;
   z-index: 2;
   transform: ${props => props.isShort && 'translateY(-49px)'};
-  ${whiteBackgroud};
+  ${whiteBackground};
 `;
 const ContentWrapper = styled.div`
   max-width: 600px;
   margin: 0 auto;
 `;
-export default function StretchableHeader({ children }) {
+export default function StretchableHeader({ stretchable, children }) {
   const [lastWindowScrollTop, setLastWindowScrollTop] = useState(null);
   const [isHeadShort, setIsHeadShort] = useState(false);
   let isInOneSecond = false;
   function handleWindowScroll(e) {
+    if (!stretchable) return;
     isInOneSecond = true;
     setTimeout(() => {
       isInOneSecond = false;
@@ -65,5 +66,9 @@ export default function StretchableHeader({ children }) {
   );
 }
 StretchableHeader.propTypes = {
-  children: PropTypes.node.isRequired,
+  children: node.isRequired,
+  stretchable: bool,
+};
+StretchableHeader.defaultProps = {
+  stretchable: true,
 };

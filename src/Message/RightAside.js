@@ -2,14 +2,14 @@ import React from 'react';
 import styled from 'styled-components';
 import Text from '../BaseComponents/Text';
 import CustomizedButton from '../BaseComponents/CustomizedButton';
-import { whiteBackgroud } from '../themes';
+import { whiteBackground } from '../themes';
 
 const Container = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
   height: 100%;
-  ${whiteBackgroud}
+  ${whiteBackground}
 `;
 
 function RightAside() {

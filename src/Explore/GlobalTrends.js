@@ -6,10 +6,10 @@ import ListCard from './ListCard';
 import Dot from '../BaseComponents/Dot';
 import ShowMore from '../BaseComponents/ShowMore';
 import Text from '../BaseComponents/Text';
-import { whiteBackgroud } from '../themes';
+import { whiteBackground } from '../themes';
 
 const Container = styled.div`
-  ${whiteBackgroud}
+  ${whiteBackground}
 `;
 function GlobalTrends() {
   const [globalTrends, setGlobalTrends] = useState();

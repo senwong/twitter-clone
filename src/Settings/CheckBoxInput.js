@@ -3,11 +3,11 @@ import styled, { css } from 'styled-components';
 import PropTypes from 'prop-types';
 import { CheckedIcon } from '../BaseComponents/SVGIcons';
 import Text from '../BaseComponents/Text';
-import { whiteBackgroud, grayBorderBottom } from '../themes';
+import { whiteBackground, grayBorderBottom } from '../themes';
 
 const CheckBoxContainer = styled.div`
   position: relative;
-  ${whiteBackgroud};
+  ${whiteBackground};
   ${grayBorderBottom}
   padding: 14px 9px;
 `;

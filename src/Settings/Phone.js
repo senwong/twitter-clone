@@ -11,11 +11,11 @@ import LayOut from './LayOut';
 import { setPhone as setPhoneActionCreator } from '../actionCreators/currentUser';
 import SaveButton from './SaveButton';
 import DeleteButton from './DeleteButton';
-import { whiteBackgroud } from '../themes';
+import { whiteBackground } from '../themes';
 
 const Wrapper = styled.div`
   padding: 14px 9px;
-  ${whiteBackgroud}
+  ${whiteBackground}
 `;
 function Warning({ validate }) {
   return (

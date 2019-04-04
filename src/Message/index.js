@@ -15,7 +15,7 @@ function Message() {
   return (
     <Layout
       reverse
-      narrowHead={() => (
+      narrowHead={(
         <HomePageNarrowHead
           middle={<Text large>私信</Text>}
         />

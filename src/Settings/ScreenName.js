@@ -13,7 +13,7 @@ import BackHeadWithUsername from '../middleComponents/BackHeadWithUsername';
 import LayOut from './LayOut';
 import { setScreenName } from '../actionCreators/currentUser';
 import SaveButton from './SaveButton';
-import { whiteBackgroud } from '../themes';
+import { whiteBackground } from '../themes';
 
 function Warning({ value }) {
   return (
@@ -35,7 +35,7 @@ Warning.propTypes = {
 
 const RecommendNamesWrapper = styled.div`
   padding: 14px 9px;
-  ${whiteBackgroud}
+  ${whiteBackground}
 `;
 const StyledButton = styled.button`
   border: none;

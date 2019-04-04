@@ -1,11 +1,11 @@
-import React, { useState, useRef } from 'react';
-import PropTypes from 'prop-types';
+import React, { useState } from 'react';
+import { func, string, bool } from 'prop-types';
 import styled from 'styled-components';
 import { ExploreIcon, FilledDeleteIcon } from './SVGIcons';
-import { lightBlueBackground, whiteBackgroud } from '../themes';
+import { lightBlueBackground, whiteBackground } from '../themes';
 
 const Container = styled.div`
-  ${props => (props.primary ? whiteBackgroud : lightBlueBackground)};
+  ${props => (props.primary ? whiteBackground : lightBlueBackground)};
   border-color: ${props => (props.primary ? 'rgb(29, 161, 242)' : 'rgba(0, 0, 0, 0)')};
   display: flex;
   align-items: center;
@@ -13,6 +13,7 @@ const Container = styled.div`
   overflow: hidden;
   border-width: 1px;
   border-style: solid;
+  box-sizing: border-box;
 `;
 
 const Input = styled.input`
@@ -22,9 +23,25 @@ const Input = styled.input`
   width: 100%;
   padding: 9px;
   font-size: 14px;
-  color: ${props => props.primary && 'rgb(29, 161, 242)'};
+  /* color: ${props => props.primary && 'rgb(29, 161, 242)'}; */
   :focus {
     outline: none;
+  }
+`;
+const DeleteButton = styled.div`
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 39px;
+  min-width: 39px;
+  border: none;
+  background-color: none;
+  border-radius: 9999px;
+  transition-property: backgournd-color;
+  transition-duration: 0.2s;
+  cursor: pointer;
+  &:hover {
+    background-color: rgba(29, 161, 242, 0.1);
   }
 `;
 
@@ -33,16 +50,13 @@ const THEME = {
   secondary: 'secondary',
 };
 
-function InputText({
-  onChange, onFocus, onKeyDown, placeholder, value, ...other
-}) {
+const InputText = ({
+  placeholder, value, onChange, onKeyDown, onFocus, onBlur, showDelete,
+}) => {
   const [theme, setTheme] = useState(THEME.secondary);
-  const inputRef = useRef(null);
-  function handleDelte() {
+  function handleDelete(event) {
     onChange({ target: { value: '' } });
-    if (inputRef && inputRef.current) {
-      inputRef.current.focus();
-    }
+    event.stopPropagation();
   }
   function handleFocus(e) {
     setTheme(THEME.primary);
@@ -50,8 +64,11 @@ function InputText({
       onFocus(e);
     }
   }
-  function handleBlur() {
+  function handleBlur(e) {
     setTheme(THEME.secondary);
+    if (onBlur && typeof onBlur === 'function') {
+      onBlur(e);
+    }
   }
   function handleKeyDown(e) {
     e.persist();
@@ -77,46 +94,43 @@ function InputText({
         value={value}
         onChange={onChange}
         onKeyDown={handleKeyDown}
-        placeholder={placeholder}
-        onFocus={handleFocus}
         onBlur={handleBlur}
-        ref={inputRef}
-        {...other}
+        onFocus={handleFocus}
+        placeholder={placeholder}
       />
-      {value && value.length > 0 ? (
-        <button
-          type="button"
-          style={{
-            justifyContent: 'center',
-            alignItems: 'center',
-            minHeight: '32px',
-            minWidth: '32px',
-            display: 'flex',
-          }}
-          onClick={handleDelte}
-        >
-          <FilledDeleteIcon small primary />
-        </button>
-      ) : (
-        <div />
-      )}
+      {
+        showDelete
+        && value
+        && (
+          <DeleteButton
+            type="button"
+            onClick={handleDelete}
+          >
+            <FilledDeleteIcon small primary />
+          </DeleteButton>
+        )
+      }
     </Container>
   );
-}
+};
 
 InputText.propTypes = {
-  value: PropTypes.string,
-  onChange: PropTypes.func,
-  onFocus: PropTypes.func,
-  onKeyDown: PropTypes.func,
-  placeholder: PropTypes.string,
+  value: string,
+  placeholder: string,
+  onChange: func,
+  onKeyDown: func,
+  onFocus: func,
+  onBlur: func,
+  showDelete: bool,
 };
 InputText.defaultProps = {
   value: '',
-  onChange: () => {},
-  onFocus: () => {},
-  onKeyDown: () => {},
   placeholder: '',
+  onChange: null,
+  onKeyDown: null,
+  onFocus: null,
+  onBlur: null,
+  showDelete: false,
 };
 
 export default InputText;

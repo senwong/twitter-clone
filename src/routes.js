@@ -1,7 +1,7 @@
 import React from 'react';
 import { Redirect } from 'react-router-dom';
-import Explore from './container/Explore';
-import Search from './container/Search';
+import Explore from './Explore';
+import Search from './Search';
 import Home from './container/Home';
 import Notifications from './Notifications';
 import Message from './Message';
@@ -49,6 +49,7 @@ import ContactsDashboard from './Settings/ContactsDashboard';
 import Teams from './Settings/Teams';
 import BackupCode from './Settings/BackupCode';
 import TemporayrPassword from './Settings/TemporaryPassword';
+import Login from './Login';
 
 const routes = [
   {
@@ -254,4 +255,10 @@ const routes = [
     component: User,
   },
 ];
-export default routes;
+const common = [
+  {
+    path: '/login',
+    component: Login,
+  },
+];
+export default { protected: routes, common };

@@ -15,7 +15,7 @@ import Text from '../BaseComponents/Text';
 import { useMediaQuery } from '../utilitys';
 import { hide } from '../actionCreators/profilePage';
 import { setLight, setDark } from '../actionCreators/theme';
-import { whiteBackgroud } from '../themes';
+import { whiteBackground } from '../themes';
 import { userType } from '../propTypes';
 
 const ListItemContainer = styled.div`
@@ -104,7 +104,7 @@ const SidePage = styled.div`
   };
 `;
 const SideMenu = styled.div`
-  ${whiteBackgroud};
+  ${whiteBackground};
   height: 100%;
   min-width: 280px;
   display: flex;
@@ -152,7 +152,7 @@ const SideMenu = styled.div`
   };
 `;
 const WrapperButton = styled.button`
-  ${whiteBackgroud}
+  ${whiteBackground}
   border: none;
   margin: 0;
   padding: 0;

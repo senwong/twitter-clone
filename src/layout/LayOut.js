@@ -5,7 +5,7 @@ import BodyAside from './BodyAside';
 import WideHeader from './WideHeader';
 import PageFooter from './PageFooter';
 import { useMediaQuery } from '../utilitys';
-import { lightBlueBackground, whiteBackgroud } from '../themes';
+import { lightBlueBackground, whiteBackground } from '../themes';
 
 const Container = styled.div`
   ${lightBlueBackground};
@@ -28,7 +28,7 @@ const Main = styled.main`
     max-width: ${props => (props.reverse ? '360px' : '600px')};
   }
   max-width: 600px;
-  ${whiteBackgroud}
+  ${whiteBackground}
 `;
 const RightAside = styled.aside`
   width: ${props => (props.reverse ? '600px' : '360px')};
@@ -36,13 +36,13 @@ const RightAside = styled.aside`
   align-self: ${props => (props.reverse ? 'stretch' : 'flex-start')};
 `;
 function Layout({
-  narrowHead: NarrowHead, main, rightAside, reverse,
+  narrowHead, main, rightAside, reverse,
 }) {
   const isWide = useMediaQuery('(min-width: 1000px)');
   return (
     <Container>
       {
-        isWide ? <WideHeader /> : <NarrowHead />
+        isWide ? <WideHeader /> : narrowHead
       }
       <BodyContainer reverse={reverse}>
         <Main reverse={reverse}>
@@ -62,7 +62,7 @@ function Layout({
   );
 }
 Layout.propTypes = {
-  narrowHead: PropTypes.func.isRequired,
+  narrowHead: PropTypes.node.isRequired,
   main: PropTypes.node.isRequired,
   rightAside: PropTypes.node,
   reverse: PropTypes.bool,

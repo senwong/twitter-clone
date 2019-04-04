@@ -4,7 +4,7 @@ import styled, { css } from 'styled-components';
 import {
   oneOf, oneOfType, string, node,
 } from 'prop-types';
-import { grayBorderBottom, whiteBackgroud } from '../themes';
+import { grayBorderBottom, whiteBackground } from '../themes';
 import { linkListType } from '../propTypes';
 
 const Wrapper = styled.ul`
@@ -17,7 +17,7 @@ const Wrapper = styled.ul`
   position: relative;
   z-index: 1;
   ${grayBorderBottom}
-  ${whiteBackgroud}
+  ${whiteBackground}
 `;
 const StyledNavLinkWithHover = styled(NavLink)`
   flex: 1 1 0;

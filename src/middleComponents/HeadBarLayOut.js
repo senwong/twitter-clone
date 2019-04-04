@@ -5,7 +5,7 @@ import { node } from 'prop-types';
 const Container = styled.div`
   display: flex;
   align-items: center;
-  height: 49px;
+  height: 53px;
   padding: 0 9px;
 `;
 const Left = styled.div`
@@ -14,6 +14,11 @@ const Left = styled.div`
 `;
 const Middle = styled.div`
   flex: 1 1 0;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: stretch;
 `;
 const Right = styled.div`
   margin-left: 18px;

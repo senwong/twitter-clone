@@ -2,7 +2,7 @@ import React from 'react';
 import styled from 'styled-components';
 import { connect } from 'react-redux';
 import { func, number } from 'prop-types';
-import { whiteBackgroud } from '../themes';
+import { whiteBackground } from '../themes';
 import Avatar from '../BaseComponents/Avatar';
 import CustomizedButton from '../BaseComponents/CustomizedButton';
 import UserName from './UserName';
@@ -11,7 +11,7 @@ import { hide, setHideTimerId as setHideTimer } from '../actionCreators/userInfo
 import { userType, positionType } from '../propTypes';
 
 const Container = styled.div`
-  ${whiteBackgroud}
+  ${whiteBackground}
   border-radius: 13px; 
   padding: 13px;
   position: fixed;

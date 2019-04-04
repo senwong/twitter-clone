@@ -2,11 +2,11 @@ import React from 'react';
 import styled from 'styled-components';
 import PropTypes from 'prop-types';
 import Text from '../BaseComponents/Text';
-import { whiteBackgroud, darkColor } from '../themes';
+import { whiteBackground, darkColor } from '../themes';
 
 const Container = styled.div`
   padding: 9px;
-  ${whiteBackgroud}
+  ${whiteBackground}
 `;
 const StyledInput = styled.input`
   border: none;

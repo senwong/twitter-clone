@@ -1,5 +1,5 @@
 import React from 'react';
-import PropTypes from 'prop-types';
+// import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import LayOut from './LayOut';
 import MakeSettingPanel from './MakeSettingPanel';
@@ -44,8 +44,7 @@ const data = {
     },
   ],
 };
-function ContentPreferences({ personalization }) {
-  console.log({ personalization });
+function ContentPreferences() {
   return (
     <LayOut
       narrowHead={<BackHeadWithUsername title="内容偏好" />}
@@ -56,10 +55,10 @@ function ContentPreferences({ personalization }) {
   );
 }
 ContentPreferences.propTypes = {
-  personalization: PropTypes.oneOf([0, 1, 2]),
+  // personalization: PropTypes.oneOf([0, 1, 2]),
 };
 ContentPreferences.defaultProps = {
-  personalization: 0,
+  // personalization: 0,
 };
 const mapStateToProps = state => ({
   personalization: state.currentUser && state.currentUser.personalization,

@@ -23,6 +23,7 @@ function MakeHoverUserInfo({
     if (showTimerId) return;
     if (hideTimerId) {
       clearTimeout(hideTimerId);
+      setHideTimer(null);
     }
     showTimerId = setTimeout(() => {
       showTimerId = null;
@@ -42,6 +43,7 @@ function MakeHoverUserInfo({
     }
     const timerId = setTimeout(() => {
       hidePopover();
+      setHideTimer(null);
     }, delay);
     setHideTimerId(timerId);
   }

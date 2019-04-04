@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import styled from 'styled-components';
 import { node } from 'prop-types';
-import { grayBorderBottom, grayHover, whiteBackgroud } from '../themes';
+import { grayBorderBottom, grayHover, whiteBackground } from '../themes';
 
 const MediaCardContainer = styled.div`
   display: flex;
@@ -12,7 +12,7 @@ const MediaCardContainer = styled.div`
   border-bottom-style: solid;
   transition-duration: 0.2s;
   transition-property: background-color;
-  ${whiteBackgroud}
+  ${whiteBackground}
   ${grayHover}
   ${grayBorderBottom}
 `;

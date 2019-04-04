@@ -5,7 +5,7 @@ import { history as historyType } from 'react-router-prop-types';
 import { withRouter } from 'react-router-dom';
 import { BackIcon } from '../BaseComponents/SVGIcons';
 import Text from '../BaseComponents/Text';
-import { whiteBackgroud } from '../themes';
+import { whiteBackground } from '../themes';
 
 const Filling = styled.div`
   height: 49px;
@@ -21,7 +21,7 @@ const Container = styled.div`
   top: 0;
   left: 0;
   width: 100%;
-  ${whiteBackgroud}
+  ${whiteBackground}
 `;
 
 const BtnWrapper = styled.div`

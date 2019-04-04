@@ -3,11 +3,11 @@ import PropTypes from 'prop-types';
 import styled from 'styled-components';
 import Text from '../BaseComponents/Text';
 import RadioInput from './RadioInput';
-import { whiteBackgroud } from '../themes';
+import { whiteBackground } from '../themes';
 
 const Container = styled.div`
   padding: 14px 9px;
-  ${whiteBackgroud}
+  ${whiteBackground}
 `;
 const TitleWrapper = styled.div`
   padding: 9px 0 5px 0;

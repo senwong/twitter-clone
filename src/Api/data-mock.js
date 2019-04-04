@@ -138,7 +138,7 @@ Mock.mock(/notifications/, () => {
 });
 Mock.mock(/searchhot/, () => {
   const res = {};
-  const userNum = Math.random() < 0.5 ? 0 : Math.round(Math.random() * 5);
+  const userNum = Math.round(Math.random() * 20) + 10;
   res.users = Array(userNum).fill(null).map(() => getUserInfo());
   res.tweets = Array(userNum).fill(null).map(() => getTweet());
   return res;
