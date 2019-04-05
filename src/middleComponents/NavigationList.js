@@ -19,6 +19,18 @@ const Wrapper = styled.ul`
   ${grayBorderBottom}
   ${whiteBackground}
 `;
+const StyledLi = styled.li`
+  list-style: none;
+  display: flex;
+  margin: 0;
+  padding: 0;
+  flex: 1 1 0;
+  justify-content: stretch;
+  align-items: stretch;
+  &:active {
+    text-decoration: none;
+  }
+`;
 const StyledNavLinkWithHover = styled(NavLink)`
   flex: 1 1 0;
   text-align: center;
@@ -74,15 +86,20 @@ function NavigationList({ links, type }) {
   return (
     <Wrapper>
       {
-        links.map(({ to, title, exact }) => (
-          <StyledNavLinkWithHover
-            key={to}
-            to={to}
-            exact={exact}
-            type={type}
-          >
-            <Content title={title} type={type} />
-          </StyledNavLinkWithHover>
+        links.map(({
+          to, title, exact, ariaLabel,
+        }) => (
+          <StyledLi>
+            <StyledNavLinkWithHover
+              key={to}
+              to={to}
+              exact={exact}
+              type={type}
+              aria-label={ariaLabel}
+            >
+              <Content title={title} type={type} />
+            </StyledNavLinkWithHover>
+          </StyledLi>
         ))
       }
     </Wrapper>

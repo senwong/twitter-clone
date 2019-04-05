@@ -305,6 +305,7 @@ function SearchBar({
         onKeyDown={handleKeyDown}
         onFocus={handleFocus}
         showDelete={showHistory || showSearchRcommend}
+        ariaLabel="Search twitter"
       />
       {
         (showHistory || showSearchRcommend)

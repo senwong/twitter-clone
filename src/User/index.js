@@ -182,10 +182,18 @@ export default function User({
             </div>
 
             <NavigationList links={[
-              { to: match.url, title: '推文', exact: true },
-              { to: `${match.url}/with_replies`, title: '推文与回复' },
-              { to: `${match.url}/media`, title: '媒体' },
-              { to: `${match.url}/likes`, title: '喜欢' },
+              {
+                to: match.url, title: '推文', exact: true, ariaLabel: 'View all tweets',
+              },
+              {
+                to: `${match.url}/with_replies`, title: '推文与回复', ariaLabel: 'View all replys',
+              },
+              {
+                to: `${match.url}/media`, title: '媒体', ariaLabel: 'View all media',
+              },
+              {
+                to: `${match.url}/likes`, title: '喜欢', ariaLabel: 'View all liked tweets',
+              },
             ]}
             />
             <Route path={match.url} exact component={Tweets} />

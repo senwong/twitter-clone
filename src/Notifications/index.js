@@ -43,8 +43,12 @@ function Mentions() {
 }
 export default function Notifications({ match }) {
   const LINKS = [
-    { to: match.url, title: '全部', exact: true },
-    { to: `${match.url}/mentions`, title: '提及' },
+    {
+      to: match.url, title: '全部', exact: true, ariaLabel: 'View all notifications',
+    },
+    {
+      to: `${match.url}/mentions`, title: '提及', ariaLabel: 'View notifications mentioned to yourself',
+    },
   ];
   function handleRefresh() {
     return new Promise((resolve) => {

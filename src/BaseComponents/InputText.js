@@ -51,7 +51,7 @@ const THEME = {
 };
 
 const InputText = ({
-  placeholder, value, onChange, onKeyDown, onFocus, onBlur, showDelete,
+  placeholder, value, onChange, onKeyDown, onFocus, onBlur, showDelete, ariaLabel,
 }) => {
   const [theme, setTheme] = useState(THEME.secondary);
   function handleDelete(event) {
@@ -97,6 +97,7 @@ const InputText = ({
         onBlur={handleBlur}
         onFocus={handleFocus}
         placeholder={placeholder}
+        aria-label={ariaLabel}
       />
       {
         showDelete
@@ -122,6 +123,7 @@ InputText.propTypes = {
   onFocus: func,
   onBlur: func,
   showDelete: bool,
+  ariaLabel: string,
 };
 InputText.defaultProps = {
   value: '',
@@ -131,6 +133,7 @@ InputText.defaultProps = {
   onFocus: null,
   onBlur: null,
   showDelete: false,
+  ariaLabel: '',
 };
 
 export default InputText;
