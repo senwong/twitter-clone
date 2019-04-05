@@ -36,7 +36,7 @@ const data = {
       title: '动态效果',
       list: [
         {
-          key: 1, type: 'link', title: '视频自动播放', subTitle: '仅开启无线网络时', to: '/twitter-clone/settings/autoplay',
+          key: 1, type: 'link', title: '视频自动播放', subTitle: '仅开启无线网络时', to: '/settings/autoplay',
         },
       ],
     },

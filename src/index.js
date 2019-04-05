@@ -39,7 +39,7 @@ let App = ({
   });
   return (
     <ThemeProvider theme={{ mode: themeMode }}>
-      <Router>
+      <Router basename={process.env.PUBLIC_URL}>
         <>
           <Switch>
             {

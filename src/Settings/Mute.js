@@ -10,10 +10,10 @@ const data = {
       key: 1,
       list: [
         {
-          key: 1, type: 'link', title: '已隐藏账号', to: '/twitter-clone/settings/muted/all',
+          key: 1, type: 'link', title: '已隐藏账号', to: '/settings/muted/all',
         },
         {
-          key: 2, type: 'link', title: '已隐藏的字词', to: '/twitter-clone/settings/muted_keywords',
+          key: 2, type: 'link', title: '已隐藏的字词', to: '/settings/muted_keywords',
         },
       ],
     },

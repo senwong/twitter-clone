@@ -18,7 +18,7 @@ const data = {
       key: 2,
       list: [
         {
-          key: 1, type: 'link', title: '更改位置', subTitle: '全球 ', to: '/twitter-clone/settings/trends/location',
+          key: 1, type: 'link', title: '更改位置', subTitle: '全球 ', to: '/settings/trends/location',
         },
       ],
     },

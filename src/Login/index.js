@@ -118,7 +118,7 @@ const StyledInput = styled.input`
 function Login({ history }) {
   function handleClick() {
     auth.login(() => {
-      history.push('/twitter-clone/');
+      history.push('/');
     });
   }
   return (

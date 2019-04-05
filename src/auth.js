@@ -1,5 +1,5 @@
 const Auth = () => {
-  let isAuthoried = false;
+  let isAuthoried = true;
   function login(cb) {
     isAuthoried = true;
     if (cb && typeof cb === 'function') {

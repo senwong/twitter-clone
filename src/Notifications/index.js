@@ -56,7 +56,7 @@ export default function Notifications({ match }) {
       narrowHead={(
         <HomePageNarrowHead
           middle={<Text bold large>通知</Text>}
-          right={<Link to="/twitter-clone/settings/notifications"><SettingIcon small primary /></Link>}
+          right={<Link to="/settings/notifications"><SettingIcon small primary /></Link>}
         />
       )}
       main={(

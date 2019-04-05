@@ -5,6 +5,7 @@ import { setup, show } from '../actionCreators/modal';
 import { getRelatedUsers } from '../Api';
 import RelatedUsersList from './RelatedUsersList';
 import BackHead from '../middleComponents/BackHead';
+import Layout from '../layout/Layout';
 
 function Related({ setModal, showModal }) {
   const [users, setUsers] = useState();
@@ -28,10 +29,10 @@ function Related({ setModal, showModal }) {
     };
   }, []);
   return (
-    <div>
-      <BackHead title="推荐关注" />
-      <RelatedUsersList users={users} />
-    </div>
+    <Layout
+      narrowHead={<BackHead title="推荐关注" />}
+      main={<RelatedUsersList users={users} />}
+    />
   );
 }
 Related.propTypes = {

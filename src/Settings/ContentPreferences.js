@@ -14,10 +14,10 @@ const data = {
       title: '探索',
       list: [
         {
-          key: 1, type: 'link', title: '探索设置', to: '/twitter-clone/settings/search',
+          key: 1, type: 'link', title: '探索设置', to: '/settings/search',
         },
         {
-          key: 2, type: 'link', title: '趋势', to: '/twitter-clone/settings/trends',
+          key: 2, type: 'link', title: '趋势', to: '/settings/trends',
         },
       ],
     },
@@ -26,10 +26,10 @@ const data = {
       title: '安全',
       list: [
         {
-          key: 1, type: 'link', title: '已隐藏', to: '/twitter-clone/settings/mute',
+          key: 1, type: 'link', title: '已隐藏', to: '/settings/mute',
         },
         {
-          key: 2, type: 'link', title: '已屏蔽账号', to: '/twitter-clone/settings/blocked/all',
+          key: 2, type: 'link', title: '已屏蔽账号', to: '/settings/blocked/all',
         },
       ],
     },
@@ -38,7 +38,7 @@ const data = {
       title: '个性化与数据',
       list: [
         {
-          key: 1, type: 'link', title: '个性化与数据', subTitle: '允许一些', to: '/twitter-clone/settings/personalization',
+          key: 1, type: 'link', title: '个性化与数据', subTitle: '允许一些', to: '/settings/personalization',
         },
       ],
     },

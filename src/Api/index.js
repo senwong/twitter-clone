@@ -26,7 +26,7 @@ function makeCancelable(promise) {
 }
 // get all tweets
 export function getTweets() {
-  return makeCancelable(api.get('/twitter-clone/tweets'));
+  return makeCancelable(api.get('/tweets'));
 }
 
 export function getUserById(userId) {
@@ -46,35 +46,35 @@ export function getUserByName(name) {
 }
 // explore page, get global trendings
 export function getGlobalTrends() {
-  return makeCancelable(api.get('/twitter-clone/trends?limit=5'));
+  return makeCancelable(api.get('/trends?limit=5'));
 }
 // get all trends
 export function getTrends() {
-  return makeCancelable(api.get('/twitter-clone/trends'));
+  return makeCancelable(api.get('/trends'));
 }
 /**
  * return recommending following users
  * @param {number} limit the number of users of returned, default 20.
  */
 export function getRelatedUsers(limit) {
-  const url = limit ? `/relatedusers?limit=${limit}` : '/twitter-clone/relatedusers';
+  const url = limit ? `/relatedusers?limit=${limit}` : '/relatedusers';
   return makeCancelable(api.get(url));
 }
 
 export function getEvent() {
-  const url = '/twitter-clone/bigevent';
+  const url = '/bigevent';
   return makeCancelable(api.get(url));
 }
 export function getNewEvents() {
-  const url = '/twitter-clone/newevents';
+  const url = '/newevents';
   return makeCancelable(api.get(url));
 }
 export function getRecommendUsers() {
-  const url = '/twitter-clone/recommendusers';
+  const url = '/recommendusers';
   return makeCancelable(api.get(url));
 }
 export function getPopularArticles() {
-  const url = '/twitter-clone/populararticles';
+  const url = '/populararticles';
   return makeCancelable(api.get(url));
 }
 export function getSearchRecommend(query) {
@@ -82,18 +82,18 @@ export function getSearchRecommend(query) {
   return makeCancelable(api.get(url));
 }
 export function getNotifications() {
-  const url = '/twitter-clone/notifications';
+  const url = '/notifications';
   return makeCancelable(api.get(url));
 }
 export function searchHot() {
-  const url = '/twitter-clone/searchhot';
+  const url = '/searchhot';
   return makeCancelable(api.get(url));
 }
 export function getRecommendScreenName() {
-  const url = '/twitter-clone/recommendscreenname';
+  const url = '/recommendscreenname';
   return makeCancelable(api.get(url));
 }
 export function getRecommendFollowings() {
-  const url = '/twitter-clone/recommendfollowings';
+  const url = '/recommendfollowings';
   return makeCancelable(api.get(url));
 }

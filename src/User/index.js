@@ -74,6 +74,9 @@ const SettingButton = styled.button`
   justify-content: center;
   margin-right: 9px;
   background-color: transparent;
+  &:focus {
+    outline: none;
+  }
 `;
 export default function User({
   match, currentUser, showUserSettingPopupMenu, setPopupPosition,

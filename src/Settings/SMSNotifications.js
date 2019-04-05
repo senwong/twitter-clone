@@ -10,7 +10,7 @@ const data = {
       key: 1,
       list: [
         {
-          key: 1, type: 'link', title: '手机号码', to: '/twitter-clone/settings/phone',
+          key: 1, type: 'link', title: '手机号码', to: '/settings/phone',
         },
       ],
     },

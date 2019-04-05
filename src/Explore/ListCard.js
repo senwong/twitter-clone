@@ -93,6 +93,6 @@ ListCard.propTypes = {
   right: PropTypes.node,
 };
 ListCard.defaultProps = {
-  right: <></>,
+  right: null,
 };
 export default ListCard;

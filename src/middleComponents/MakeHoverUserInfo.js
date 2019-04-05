@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import styled from 'styled-components';
@@ -47,6 +47,7 @@ function MakeHoverUserInfo({
     }, delay);
     setHideTimerId(timerId);
   }
+  useEffect(() => () => hidePopover(), []);
   return (
     <Container
       onMouseEnter={handleMouseEnter}

@@ -12,15 +12,13 @@ const Container = styled.div`
   ${whiteBackground}
 `;
 function GlobalTrends() {
-  const [globalTrends, setGlobalTrends] = useState();
+  const [globalTrends, setGlobalTrends] = useState([]);
   useEffect(() => {
     const getGlobalTrendsPromise = getGlobalTrends();
     getGlobalTrendsPromise
       .promise
       .then(
-        (res) => {
-          setGlobalTrends(res.data);
-        },
+        res => setGlobalTrends(res.data),
         () => {},
       );
     return () => {
@@ -31,20 +29,22 @@ function GlobalTrends() {
     <Container>
       <TitleBar title="全球趋势" rear />
       {
-        globalTrends && globalTrends.map((globalTrend, i) => (
-          <ListCard
-            key={globalTrend.id}
-            head={(
-              <Text secondary small>
-                {i + 1}
-                <Dot />
-                全球趋势
-              </Text>
-            )}
-            body={<Text>{globalTrend.title}</Text>}
-            foot={<Text secondary>{`${globalTrend.tweetNum} 推文`}</Text>}
-          />
-        ))
+        globalTrends.length > 0
+          ? globalTrends.map((globalTrend, i) => (
+            <ListCard
+              key={globalTrend.id}
+              head={(
+                <Text secondary small>
+                  {i + 1}
+                  <Dot />
+                  全球趋势
+                </Text>
+              )}
+              body={<Text>{globalTrend.title}</Text>}
+              foot={<Text secondary>{`${globalTrend.tweetNum} 推文`}</Text>}
+            />
+          ))
+          : <></>
       }
       <ShowMore href="i/trends" />
     </Container>

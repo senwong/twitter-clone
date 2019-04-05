@@ -7,7 +7,7 @@ function ProtectedRoute({ component: Component, ...rest }) {
   return (
     <Route
       {...rest}
-      render={props => (auth.isAuth() ? <Component {...props} /> : <Redirect to="/twitter-clone/login" />)}
+      render={props => (auth.isAuth() ? <Component {...props} /> : <Redirect to="/login" />)}
     />
   );
 }

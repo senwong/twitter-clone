@@ -11,16 +11,16 @@ const data = user => ({
       title: `@${user.name}`,
       list: [
         {
-          key: 1, type: 'link', to: '/twitter-clone/settings/account', title: '账号', isNav: true,
+          key: 1, type: 'link', to: '/settings/account', title: '账号', isNav: true,
         },
         {
-          key: 2, type: 'link', to: '/twitter-clone/settings/safety', title: '隐私和安全', isNav: true,
+          key: 2, type: 'link', to: '/settings/safety', title: '隐私和安全', isNav: true,
         },
         {
-          key: 3, type: 'link', to: '/twitter-clone/settings/notifications', title: '通知', isNav: true,
+          key: 3, type: 'link', to: '/settings/notifications', title: '通知', isNav: true,
         },
         {
-          key: 4, type: 'link', to: '/twitter-clone/settings/content_preferences', title: '内容偏好', isNav: true,
+          key: 4, type: 'link', to: '/settings/content_preferences', title: '内容偏好', isNav: true,
         },
       ],
     },
@@ -29,13 +29,13 @@ const data = user => ({
       title: '通用',
       list: [
         {
-          key: 1, type: 'link', to: '/twitter-clone/settings/data', title: '数据使用', isNav: true,
+          key: 1, type: 'link', to: '/settings/data', title: '数据使用', isNav: true,
         },
         {
-          key: 2, type: 'link', to: '/twitter-clone/settings/accessibility', title: '辅助功能', isNav: true,
+          key: 2, type: 'link', to: '/settings/accessibility', title: '辅助功能', isNav: true,
         },
         {
-          key: 3, type: 'link', to: '/twitter-clone/settings/about', title: '关于应用', isNav: true,
+          key: 3, type: 'link', to: '/settings/about', title: '关于应用', isNav: true,
         },
       ],
     },

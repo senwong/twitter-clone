@@ -34,10 +34,10 @@ const data = {
       title: '其他方式',
       list: [
         {
-          key: 1, type: 'link', title: '备用码', subTitle: '保存一个备用码以防手机丢失。', to: '/twitter-clone/settings/account/login_verification/backup_code',
+          key: 1, type: 'link', title: '备用码', subTitle: '保存一个备用码以防手机丢失。', to: '/settings/account/login_verification/backup_code',
         },
         {
-          key: 2, type: 'link', title: '临时密码', subTitle: '生成一个一次性密码，供登录第三方应用和服务时使用。', to: '/twitter-clone/settings/account/login_verification/temporary_password',
+          key: 2, type: 'link', title: '临时密码', subTitle: '生成一个一次性密码，供登录第三方应用和服务时使用。', to: '/settings/account/login_verification/temporary_password',
         },
       ],
     },

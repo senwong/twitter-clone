@@ -16,7 +16,7 @@ function SearchResutlContent({ query }) {
     <div>
       <CustomHr />
       <Route
-        path="/twitter-clone/search"
+        path="/search"
         render={({ location }) => {
           if (location.search.indexOf('type=') < 0) {
             return <HotPage query={query} />;
