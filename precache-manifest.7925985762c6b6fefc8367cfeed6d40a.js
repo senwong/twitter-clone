@@ -12,7 +12,7 @@ self.__precacheManifest = [
     "url": "/twitter-clone/static/js/2.64fefbcd.chunk.js"
   },
   {
-    "revision": "33b01ab6ca6e46a29e769d75c273c54b",
+    "revision": "e4e36eb382f8920ce160e13200005f64",
     "url": "/twitter-clone/index.html"
   }
 ];
