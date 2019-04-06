@@ -507,7 +507,8 @@ module.exports = function(webpackEnv) {
       // preload initial chunks
       new PreloadWebpackPlugin({
         rel: 'preload',
-        include: 'initial'
+        include: 'initial',
+        fileBlacklist: [/\.map/, /runtime\~main\..*\.js/],
       }),
       // Inlines the webpack runtime script. This script is too small to warrant
       // a network request.
