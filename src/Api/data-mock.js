@@ -14,7 +14,7 @@ export function getTweet() {
   };
 }
 Mock.mock(/tweets/, () => {
-  const tweetsNum = Math.round(Math.random() * 50);
+  const tweetsNum = 15 + Math.round(Math.random() * 20);
   return Array(tweetsNum).fill(null).map(() => getTweet());
 });
 
