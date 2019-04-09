@@ -14,8 +14,6 @@ import UserSettingPopupMenu from './container/UserSettingPopupMenu';
 import Modal from './container/Modal';
 import UserInfoPopover from './middleComponents/UserInfoPopover';
 import routes from './routes';
-// transition
-import SlideUpTransition from './middleComponents/SlideUpTransition';
 import ProtectedRoute from './middleComponents/ProtectedRoute';
 
 const store = createStore(
@@ -54,13 +52,8 @@ let App = ({
             }
           </Switch>
           { showProfilePage && <ProfilePage /> }
-          <SlideUpTransition inSlide={showTweetCardPop}>
-            <TweetCardPopupMenu />
-          </SlideUpTransition>
-          <SlideUpTransition inSlide={showUserSettingPopupMenu}>
-            <UserSettingPopupMenu />
-          </SlideUpTransition>
-
+          { showTweetCardPop && <TweetCardPopupMenu />}
+          { showUserSettingPopupMenu && <UserSettingPopupMenu />}
           { showModal && <Modal /> }
           { showUserInofPopover && <UserInfoPopover /> }
         </>

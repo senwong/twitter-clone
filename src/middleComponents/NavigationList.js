@@ -89,7 +89,7 @@ function NavigationList({ links, type }) {
         links.map(({
           to, title, exact, ariaLabel,
         }) => (
-          <StyledLi>
+          <StyledLi key={to}>
             <StyledNavLinkWithHover
               key={to}
               to={to}

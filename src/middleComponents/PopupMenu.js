@@ -3,11 +3,12 @@ import styled from 'styled-components';
 import { withRouter } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import ReactRouterPropTypes from 'react-router-prop-types';
+import { useSpring, animated } from 'react-spring';
 import { whiteBackground, grayHover, grayBorderTop } from '../themes';
 import Text from '../BaseComponents/Text';
 import { positionType, defaultPosition } from '../propTypes';
 
-const Wrapper = styled.div`
+const Wrapper = styled(animated.div)`
   position: fixed;
   top: 0;
   left: 0;
@@ -25,7 +26,7 @@ const Wrapper = styled.div`
     background-color: transparent;
   }
 `;
-const ContentWrapper = styled.div`
+const ContentWrapper = styled(animated.div)`
   ${whiteBackground}
   margin: 0 auto;
 
@@ -66,16 +67,35 @@ const Cancel = styled.div`
 function PopupMenu({
   history, location, items, hide, position,
 }) {
+  const [pageProps, setPage] = useSpring(() => ({
+    opacity: 1,
+    from: { opacity: 0 },
+  }));
+  const [menuProps, setMenu] = useSpring(() => ({
+    transform: 'translate3d(0, 0, 0)',
+    from: { transform: 'translate3d(0, 50px, 0)' },
+  }));
+  function hideSelf() {
+    setPage({
+      opacity: 0,
+    });
+    setMenu({
+      transform: 'translate3d(0, 50px, 0)',
+      onRest: () => {
+        hide();
+      },
+    });
+  }
   const contentRef = useRef();
   function handleWrapperClick(e) {
     if (e.target !== contentRef.current && !contentRef.current.contains(e.target)) {
-      hide();
+      hideSelf();
       history.goBack();
     }
   }
   function handlePopstate() {
     // 安卓返回键
-    hide();
+    hideSelf();
   }
   useEffect(() => {
     history.push(location.pathname);
@@ -86,9 +106,11 @@ function PopupMenu({
   }, []);
   return (
     <Wrapper
+      style={pageProps}
       onClick={handleWrapperClick}
     >
       <ContentWrapper
+        style={menuProps}
         ref={contentRef}
         position={position}
       >
@@ -102,7 +124,7 @@ function PopupMenu({
             </Item>
           ))
         }
-        <Cancel onClick={() => hide()}><Text>取消</Text></Cancel>
+        <Cancel onClick={() => hideSelf()}><Text>取消</Text></Cancel>
       </ContentWrapper>
     </Wrapper>
   );

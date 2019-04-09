@@ -4,7 +4,7 @@ import { withRouter } from 'react-router-dom';
 import styled from 'styled-components';
 import PropTypes from 'prop-types';
 import ReactRouterPropTypes from 'react-router-prop-types';
-import { Transition } from 'react-transition-group';
+import { useSpring, animated } from 'react-spring';
 import Avatar from '../BaseComponents/Avatar';
 import CustomHr from '../BaseComponents/CustomHr';
 import {
@@ -13,7 +13,7 @@ import {
 import ToggleButton from '../BaseComponents/ToggleButton';
 import Text from '../BaseComponents/Text';
 import { useMediaQuery } from '../utilitys';
-import { hide } from '../actionCreators/profilePage';
+import { hide as hideProfilePage } from '../actionCreators/profilePage';
 import { setLight, setDark } from '../actionCreators/theme';
 import { whiteBackground } from '../themes';
 import { userType } from '../propTypes';
@@ -67,7 +67,7 @@ ListItem.defaultProps = {
   right: <div />,
 };
 
-const SidePage = styled.div`
+const SidePage = styled(animated.div)`
   background-color: rgba(0, 0, 0, 0.07);
   position: fixed;
   top: 0;
@@ -76,80 +76,16 @@ const SidePage = styled.div`
   bottom: 0;
   display: flex;
   flex-direction: row;
-  justify-content: ${props => (props.isWide ? 'flex-end' : 'flex-start')};
+  justify-content: ${props => (props.iswide ? 'flex-end' : 'flex-start')};
   z-index: 2;
-  animation-duration: ${props => `${props.timeout}ms`};
-  animation-timing-function: ease;
-  animation-fill-mode: forwards;
-  animation-name: ${(props) => {
-    if (props.state === 'entering') return 'fadeIn';
-    if (props.state === 'exiting') return 'fadeOut';
-    return '';
-  }};
-  @keyframes fadeIn {
-    from {
-      opacity: 0;
-    }
-    to {
-      opacity: 1;
-    }
-  };
-  @keyframes fadeOut {
-    from {
-      opacity: 1;
-    }
-    to {
-      opacity: 0;
-    }
-  };
 `;
-const SideMenu = styled.div`
+const SideMenu = styled(animated.div)`
   ${whiteBackground};
   height: 100%;
   min-width: 280px;
   display: flex;
   flex-direction: column;
   box-shadow: rgba(0, 0, 0, 0.19) 0px 10px 20px, rgba(0, 0, 0, 0.22) 0px 6px 6px;
-  animation-duration: ${props => `${props.timeout}ms`};
-  animation-timing-function: ease;
-  animation-fill-mode: forwards;
-  animation-name: ${(props) => {
-    if (props.state === 'entering') return props.isWide ? 'fadeInRight' : 'fadeInLeft';
-    if (props.state === 'exiting') return props.isWide ? 'fadeOutRight' : 'fadeOutLeft';
-    return '';
-  }};
-  @keyframes fadeInLeft {
-    from {
-      transform: translateX(-280px);
-    }
-    to {
-      transform: translateX(0px);
-    }
-  };
-  @keyframes fadeInRight {
-    from {
-      transform: translateX(280px);
-    }
-    to {
-      transform: translateX(0px);
-    }
-  };
-  @keyframes fadeOutLeft {
-    from {
-      transform: translateX(0px);
-    }
-    to {
-      transform: translateX(-280px);
-    }
-  };
-  @keyframes fadeOutRight {
-    from {
-      transform: translateX(0px);
-    }
-    to {
-      transform: translateX(280px);
-    }
-  };
 `;
 const WrapperButton = styled.button`
   ${whiteBackground}
@@ -161,25 +97,45 @@ const WrapperButton = styled.button`
     outline: none;
   }
 `;
-const timeout = 250;
+
 function ProfilePage({
-  user, hideSelf, history, show, themeMode, setLightTheme, setDarkTheme,
+  user, hideSelf, history, themeMode, setLightTheme, setDarkTheme,
 }) {
   const isWide = useMediaQuery('(min-width: 1000px)');
   const [isDataSaver, setIsDataSaver] = useState(false);
   let menu = null;
+
+  const [pageProps, setPage] = useSpring(() => ({
+    from: { opacity: 0 },
+    to: { opacity: 1 },
+  }));
+  const [menuProps, setMenu] = useSpring(() => ({
+    from: { transform: `translate3d(${isWide ? 280 : -280}px, 0, 0)` },
+    to: { transform: 'translate3d(0, 0, 0)' },
+  }));
+  function hide() {
+    setPage({
+      opacity: 0,
+      onRest: () => {
+        hideSelf();
+      },
+    });
+    setMenu({
+      transform: `translate3d(${isWide ? 280 : -280}px, 0, 0)`,
+    });
+  }
   function handleClick(e) {
     if (menu && e.target !== menu && !menu.contains(e.target)) {
-      hideSelf();
+      hide();
     }
   }
   function handleSettingClick() {
     history.push('/settings');
-    hideSelf();
+    hide();
   }
   function handleUserClick() {
     history.push(`/${user.name}`);
-    hideSelf();
+    hide();
   }
   function handleDataSaverClick() {
     setIsDataSaver(!isDataSaver);
@@ -190,97 +146,90 @@ function ProfilePage({
     } else {
       setDarkTheme();
     }
-    hideSelf();
+    hide();
   }
   return (
-    <Transition in={show} timeout={timeout} unmountOnExit appear>
-      {
-        state => (
-          <SidePage onClick={handleClick} state={state} timeout={timeout} isWide={isWide}>
-            <SideMenu ref={(el) => { menu = el; }} state={state} timeout={timeout} isWide={isWide}>
-              <WrapperButton
-                type="button"
-                style={{ padding: '9px 18px 0' }}
-                onClick={handleUserClick}
-              >
-                {
-                  user
-                  && user.avatarSrc
-                  && <Avatar user={user} />
-                }
-              </WrapperButton>
-              <WrapperButton
-                type="button"
-                style={{ padding: '9px 18px 0' }}
-                onClick={handleUserClick}
-              >
-                <Text bold>{user.nickName}</Text>
-                <br />
-                <Text secondary>
-                  @
-                  {user.name}
-                </Text>
-              </WrapperButton>
-              <div style={{ padding: '9px 18px' }}>
-                <div style={{ display: 'inline-block', marginRight: '9px' }}>
-                  <Text bold>
-                    {user.following}
-                    {' '}
-                    正在关注
-                  </Text>
-                </div>
-                <div style={{ display: 'inline-block' }}>
-                  <Text bold>
-                    {user.followers}
-                    {' '}
-                    关注者
-                  </Text>
-                </div>
-              </div>
-              <ListItem left={<Person xsmall secondary />} middle={<Text>个人资料</Text>} />
-              <ListItem left={<List xsmall secondary />} middle={<Text>列表</Text>} />
-              <ListItem left={<BookMark xsmall secondary />} middle={<Text>书签</Text>} />
-              <ListItem left={<Momments xsmall secondary />} middle={<Text>瞬间</Text>} />
-              <CustomHr />
-              <WrapperButton type="button" onClick={handleSettingClick}>
-                <ListItem middle={<Text>设置和隐私</Text>} />
-              </WrapperButton>
-              <ListItem middle={<Text>帮助中心</Text>} />
-              <ListItem middle={<Text>登出</Text>} />
-              <CustomHr />
-              <ListItem
-                middle={
-                  <div style={{ marginRight: '55px' }}><Text>流量节省程序</Text></div>
-                }
-                right={(
-                  <div style={{ margin: '0 9px' }}>
-                    <ToggleButton checked={isDataSaver} onClick={handleDataSaverClick} />
-                  </div>
-                )}
-              />
-              <ListItem
-                middle={
-                  <div style={{ marginRight: '55px' }}><Text>夜间模式</Text></div>
-                }
-                right={(
-                  <div style={{ margin: '0 9px' }}>
-                    <ToggleButton checked={themeMode === 'dark'} onClick={handleDarkModeClick} />
-                  </div>
-                )}
-              />
-            </SideMenu>
-          </SidePage>
-        )
-      }
-
-    </Transition>
+    <SidePage style={pageProps} onClick={handleClick} iswide={isWide ? 1 : 0}>
+      <SideMenu style={menuProps} ref={(el) => { menu = el; }}>
+        <WrapperButton
+          type="button"
+          style={{ padding: '9px 18px 0' }}
+          onClick={handleUserClick}
+        >
+          {
+            user
+            && user.avatarSrc
+            && <Avatar user={user} />
+          }
+        </WrapperButton>
+        <WrapperButton
+          type="button"
+          style={{ padding: '9px 18px 0' }}
+          onClick={handleUserClick}
+        >
+          <Text bold>{user.nickName}</Text>
+          <br />
+          <Text secondary>
+            @
+            {user.name}
+          </Text>
+        </WrapperButton>
+        <div style={{ padding: '9px 18px' }}>
+          <div style={{ display: 'inline-block', marginRight: '9px' }}>
+            <Text bold>
+              {user.following}
+              {' '}
+              正在关注
+            </Text>
+          </div>
+          <div style={{ display: 'inline-block' }}>
+            <Text bold>
+              {user.followers}
+              {' '}
+              关注者
+            </Text>
+          </div>
+        </div>
+        <ListItem left={<Person xsmall secondary />} middle={<Text>个人资料</Text>} />
+        <ListItem left={<List xsmall secondary />} middle={<Text>列表</Text>} />
+        <ListItem left={<BookMark xsmall secondary />} middle={<Text>书签</Text>} />
+        <ListItem left={<Momments xsmall secondary />} middle={<Text>瞬间</Text>} />
+        <CustomHr />
+        <WrapperButton type="button" onClick={handleSettingClick}>
+          <ListItem middle={<Text>设置和隐私</Text>} />
+        </WrapperButton>
+        <ListItem middle={<Text>帮助中心</Text>} />
+        <ListItem middle={<Text>登出</Text>} />
+        <CustomHr />
+        <ListItem
+          middle={
+            <div style={{ marginRight: '55px' }}><Text>流量节省程序</Text></div>
+          }
+          right={(
+            <div style={{ margin: '0 9px' }}>
+              <ToggleButton checked={isDataSaver} onClick={handleDataSaverClick} />
+            </div>
+          )}
+        />
+        <ListItem
+          middle={
+            <div style={{ marginRight: '55px' }}><Text>夜间模式</Text></div>
+          }
+          right={(
+            <div style={{ margin: '0 9px' }}>
+              <ToggleButton checked={themeMode === 'dark'} onClick={handleDarkModeClick} />
+            </div>
+          )}
+        />
+      </SideMenu>
+    </SidePage>
   );
 }
 ProfilePage.propTypes = {
   user: userType.isRequired,
   hideSelf: PropTypes.func.isRequired,
   history: ReactRouterPropTypes.history.isRequired,
-  show: PropTypes.bool.isRequired,
+  // show: PropTypes.bool.isRequired,
   themeMode: PropTypes.oneOf(['light', 'dark']).isRequired,
   setLightTheme: PropTypes.func.isRequired,
   setDarkTheme: PropTypes.func.isRequired,
@@ -288,11 +237,11 @@ ProfilePage.propTypes = {
 
 const mapStateToProps = state => ({
   user: state.currentUser,
-  show: state.profilePage.show,
+  // show: state.profilePage.show,
   themeMode: state.theme.mode,
 });
 const mapDispatchToProps = dispatch => ({
-  hideSelf: () => dispatch(hide()),
+  hideSelf: () => dispatch(hideProfilePage()),
   setLightTheme: () => dispatch(setLight()),
   setDarkTheme: () => dispatch(setDark()),
 });
