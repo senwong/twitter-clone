@@ -1,9 +1,11 @@
 import React, { useEffect, useRef } from 'react';
 import styled from 'styled-components';
 import { withRouter } from 'react-router-dom';
-import PropTypes from 'prop-types';
+import {
+  bool, func, arrayOf, shape, string,
+} from 'prop-types';
 import ReactRouterPropTypes from 'react-router-prop-types';
-import { useSpring, animated } from 'react-spring';
+import { useTransition, animated } from 'react-spring';
 import { whiteBackground, grayHover, grayBorderTop } from '../themes';
 import Text from '../BaseComponents/Text';
 import { positionType, defaultPosition } from '../propTypes';
@@ -29,7 +31,6 @@ const Wrapper = styled(animated.div)`
 const ContentWrapper = styled(animated.div)`
   ${whiteBackground}
   margin: 0 auto;
-
   @media (max-width: 600px) {
     width: 100%;
   }
@@ -46,7 +47,6 @@ const ContentWrapper = styled(animated.div)`
     bottom: ${props => `${props.position.bottom}px`};
     box-shadow: rgba(0, 0, 0, 0.19) 0px 10px 20px, rgba(0, 0, 0, 0.22) 0px 6px 6px;
   }
-
 `;
 const Item = styled.div`
   padding: 14px 18px;
@@ -65,27 +65,19 @@ const Cancel = styled.div`
 `;
 
 function PopupMenu({
-  history, location, items, hide, position,
+  history, location, items, show, hide: hideSelf, position,
 }) {
-  const [pageProps, setPage] = useSpring(() => ({
-    opacity: 1,
+  const pageTransitions = useTransition(show, null, {
     from: { opacity: 0 },
-  }));
-  const [menuProps, setMenu] = useSpring(() => ({
-    transform: 'translate3d(0, 0, 0)',
+    enter: { opacity: 1 },
+    leave: { opacity: 0 },
+  });
+  const menuTransitions = useTransition(show, null, {
     from: { transform: 'translate3d(0, 50px, 0)' },
-  }));
-  function hideSelf() {
-    setPage({
-      opacity: 0,
-    });
-    setMenu({
-      transform: 'translate3d(0, 50px, 0)',
-      onRest: () => {
-        hide();
-      },
-    });
-  }
+    enter: { transform: 'translate3d(0, 0, 0)' },
+    leave: { transform: 'translate3d(0, 50px, 0)' },
+  });
+
   const contentRef = useRef();
   function handleWrapperClick(e) {
     if (e.target !== contentRef.current && !contentRef.current.contains(e.target)) {
@@ -104,39 +96,46 @@ function PopupMenu({
       window.removeEventListener('popstate', handlePopstate);
     };
   }, []);
-  return (
+  return pageTransitions.map(({ item, key, props: pageProps }) => item && (
     <Wrapper
+      key={key}
       style={pageProps}
       onClick={handleWrapperClick}
     >
-      <ContentWrapper
-        style={menuProps}
-        ref={contentRef}
-        position={position}
-      >
-        {
-          items.map(({ title, warning, onClick }) => (
-            <Item
-              key={title}
-              onClick={onClick}
-            >
-              <Text warning={warning}>{title}</Text>
-            </Item>
-          ))
-        }
-        <Cancel onClick={() => hideSelf()}><Text>取消</Text></Cancel>
-      </ContentWrapper>
+      {
+        menuTransitions.map(({ item: menuShow, key: menuKey, props: menuProps }) => menuShow && (
+          <ContentWrapper
+            key={menuKey}
+            style={menuProps}
+            ref={contentRef}
+            position={position}
+          >
+            {
+              items.map(({ title, warning, onClick }) => (
+                <Item
+                  key={title}
+                  onClick={onClick}
+                >
+                  <Text warning={warning}>{title}</Text>
+                </Item>
+              ))
+            }
+            <Cancel onClick={() => hideSelf()}><Text>取消</Text></Cancel>
+          </ContentWrapper>
+        ))
+      }
     </Wrapper>
-  );
+  ));
 }
 
 // types
 PopupMenu.propTypes = {
-  items: PropTypes.arrayOf(PropTypes.shape({
-    title: PropTypes.string.isRequired,
-    warning: PropTypes.bool,
+  items: arrayOf(shape({
+    title: string.isRequired,
+    warning: bool,
   })).isRequired,
-  hide: PropTypes.func.isRequired,
+  show: bool.isRequired,
+  hide: func.isRequired,
   history: ReactRouterPropTypes.history.isRequired,
   location: ReactRouterPropTypes.location.isRequired,
   position: positionType,

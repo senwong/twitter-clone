@@ -1,7 +1,8 @@
 import React from 'react';
 import styled from 'styled-components';
 import { connect } from 'react-redux';
-import { func, number } from 'prop-types';
+import { func, number, bool } from 'prop-types';
+import { useTransition, animated } from 'react-spring';
 import { whiteBackground } from '../themes';
 import Avatar from '../BaseComponents/Avatar';
 import CustomizedButton from '../BaseComponents/CustomizedButton';
@@ -10,7 +11,7 @@ import Text from '../BaseComponents/Text';
 import { hide, setHideTimerId as setHideTimer } from '../actionCreators/userInfoPopover';
 import { userType, positionType } from '../propTypes';
 
-const Container = styled.div`
+const Container = styled(animated.div)`
   ${whiteBackground}
   border-radius: 13px; 
   padding: 13px;
@@ -52,8 +53,13 @@ const MarginTop = styled.div`
  * @param {} param0
  */
 function UserInfoPopover({
-  position, user, hideSelf, hideTimerId, setHideTimerId,
+  position, user, hideSelf, hideTimerId, setHideTimerId, show,
 }) {
+  const transitions = useTransition(show, null, {
+    from: { opacity: 0 },
+    enter: { opacity: 1 },
+    leave: { opacity: 0 },
+  });
   const delay = 300;
   function handleMouseEnter() {
     if (hideTimerId) {
@@ -67,8 +73,10 @@ function UserInfoPopover({
     setHideTimerId(timerId);
   }
   if (!position.left || !position.top) return null;
-  return (
+  return transitions.map(({ item, key, props }) => item && (
     <Container
+      key={key}
+      style={props}
       left={position.left}
       top={position.top}
       onMouseEnter={handleMouseEnter}
@@ -96,7 +104,7 @@ function UserInfoPopover({
         <Text secondary>你关注的人中没有人关注</Text>
       </MarginTop>
     </Container>
-  );
+  ));
 }
 UserInfoPopover.propTypes = {
   position: positionType.isRequired,
@@ -104,6 +112,7 @@ UserInfoPopover.propTypes = {
   hideSelf: func.isRequired,
   hideTimerId: number,
   setHideTimerId: func.isRequired,
+  show: bool.isRequired,
 };
 UserInfoPopover.defaultProps = {
   user: null,
@@ -113,6 +122,7 @@ const mapStateToProps = state => ({
   position: state.userInfoPopover.position,
   user: state.userInfoPopover.user,
   hideTimerId: state.userInfoPopover.hideTimerId,
+  show: state.userInfoPopover.show,
 });
 const mapDispatchToProps = dispatch => ({
   hideSelf: () => dispatch(hide()),

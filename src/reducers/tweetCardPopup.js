@@ -5,10 +5,7 @@ import actionTypes from '../actionTypes';
 
 const showReducer = createFilteredReducer(displayReducer, action => action.name === 'tweetCardPopup');
 
-const initState = {
-  name: '',
-};
-function userReducer(state = initState, action) {
+function userReducer(state = null, action) {
   switch (action.type) {
     case actionTypes.TWEETCARD_POPUP_SET_USER:
       return action.user;

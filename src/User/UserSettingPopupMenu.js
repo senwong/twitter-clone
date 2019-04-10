@@ -1,10 +1,13 @@
 import React from 'react';
-import { func } from 'prop-types';
+import { func, bool } from 'prop-types';
+import { connect } from 'react-redux';
 import PopupMenu from '../middleComponents/PopupMenu';
 import { positionType, defaultPosition } from '../propTypes';
+import { hide } from '../actionCreators/userSettingPopup';
+import { show, setup as setupModal } from '../actionCreators/modal';
 
-export default function UserSettingPopupMenu({
-  hidePopup, setModal, showModal, position,
+function UserSettingPopupMenu({
+  showSelf, hidePopup, setModal, showModal, position,
 }) {
   function handleBlockClick() {
     hidePopup();
@@ -24,14 +27,30 @@ export default function UserSettingPopupMenu({
     { title: '屏蔽', warning: true, onClick: handleBlockClick },
     { title: '举报' },
   ];
-  return <PopupMenu hide={hidePopup} items={items} position={position} />;
+  return <PopupMenu show={showSelf} hide={hidePopup} items={items} position={position} />;
 }
 UserSettingPopupMenu.propTypes = {
   hidePopup: func.isRequired,
   showModal: func.isRequired,
   setModal: func.isRequired,
+  showSelf: bool.isRequired,
   position: positionType,
 };
 UserSettingPopupMenu.defaultProps = {
   position: defaultPosition,
 };
+
+const mapStateToProps = state => ({
+  position: state.userSettingPopup.position,
+  showSelf: state.userSettingPopup.show,
+});
+
+const mapDispatchToProps = dispatch => ({
+  hidePopup: () => dispatch(hide()),
+  setModal: config => dispatch(setupModal(config)),
+  showModal: () => dispatch(show()),
+});
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps,
+)(UserSettingPopupMenu);
