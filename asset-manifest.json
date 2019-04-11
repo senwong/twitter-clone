@@ -1,11 +1,11 @@
 {
-  "main.js": "/twitter-clone/static/js/main.bd2ddc36.chunk.js",
-  "main.js.map": "/twitter-clone/static/js/main.bd2ddc36.chunk.js.map",
+  "main.js": "/twitter-clone/static/js/main.6a81b475.chunk.js",
+  "main.js.map": "/twitter-clone/static/js/main.6a81b475.chunk.js.map",
   "runtime~main.js": "/twitter-clone/static/js/runtime~main.13e36d32.js",
   "runtime~main.js.map": "/twitter-clone/static/js/runtime~main.13e36d32.js.map",
-  "static/js/2.64fefbcd.chunk.js": "/twitter-clone/static/js/2.64fefbcd.chunk.js",
-  "static/js/2.64fefbcd.chunk.js.map": "/twitter-clone/static/js/2.64fefbcd.chunk.js.map",
+  "static/js/2.e4a044cc.chunk.js": "/twitter-clone/static/js/2.e4a044cc.chunk.js",
+  "static/js/2.e4a044cc.chunk.js.map": "/twitter-clone/static/js/2.e4a044cc.chunk.js.map",
   "index.html": "/twitter-clone/index.html",
-  "precache-manifest.e361424cf0ca869cb50b9f65953bb4e3.js": "/twitter-clone/precache-manifest.e361424cf0ca869cb50b9f65953bb4e3.js",
+  "precache-manifest.15b87cf12261587a9e5ea1ec317e7011.js": "/twitter-clone/precache-manifest.15b87cf12261587a9e5ea1ec317e7011.js",
   "service-worker.js": "/twitter-clone/service-worker.js"
 }
