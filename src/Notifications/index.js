@@ -1,5 +1,7 @@
 import React, { useState, useEffect } from 'react';
-import { Link, Switch, Route } from 'react-router-dom';
+import {
+  Link, Switch, Route, withRouter,
+} from 'react-router-dom';
 import ReactRouterPropTypes from 'react-router-prop-types';
 import { SettingIcon } from '../BaseComponents/SVGIcons';
 import NotificationCard from './NotificationCard';
@@ -41,7 +43,8 @@ function Mentions() {
     </div>
   );
 }
-export default function Notifications({ match }) {
+
+let Navigation = ({ match }) => {
   const LINKS = [
     {
       to: match.url, title: '全部', exact: true, ariaLabel: 'View all notifications',
@@ -50,11 +53,34 @@ export default function Notifications({ match }) {
       to: `${match.url}/mentions`, title: '提及', ariaLabel: 'View notifications mentioned to yourself',
     },
   ];
+  return <NavigationList links={LINKS} />;
+};
+Navigation.propTypes = {
+  match: ReactRouterPropTypes.match.isRequired,
+};
+Navigation = withRouter(Navigation);
+
+let MainContent = ({ match }) => {
   function handleRefresh() {
     return new Promise((resolve) => {
       setTimeout(() => resolve(), 1000);
     });
   }
+  return (
+    <PullDownRefresh onRefresh={handleRefresh}>
+      <Switch>
+        <Route exact path={match.url} component={AllNotifications} />
+        <Route path={`${match.url}/mentions`} component={Mentions} />
+      </Switch>
+    </PullDownRefresh>
+  );
+};
+MainContent.propTypes = {
+  match: ReactRouterPropTypes.match.isRequired,
+};
+MainContent = withRouter(MainContent);
+
+export default function Notifications() {
   return (
     <Layout
       narrowHead={(
@@ -65,18 +91,10 @@ export default function Notifications({ match }) {
       )}
       main={(
         <>
-          <NavigationList links={LINKS} />
-          <PullDownRefresh onRefresh={handleRefresh}>
-            <Switch>
-              <Route exact path={match.url} component={AllNotifications} />
-              <Route path={`${match.url}/mentions`} component={Mentions} />
-            </Switch>
-          </PullDownRefresh>
+          <Navigation />
+          <MainContent />
         </>
       )}
     />
   );
 }
-Notifications.propTypes = {
-  match: ReactRouterPropTypes.match.isRequired,
-};

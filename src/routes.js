@@ -2,7 +2,7 @@ import React from 'react';
 import { Redirect } from 'react-router-dom';
 import Explore from './Explore';
 import Search from './Search';
-import Home from './container/Home';
+import Home from './Home';
 import Notifications from './Notifications';
 import Message from './Message';
 import Related from './Related';

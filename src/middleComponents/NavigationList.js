@@ -60,9 +60,11 @@ const HoverCircle = styled.div`
   transition-property: background-color;
   transition-duration: 0.2s;
   display: flex;
-  ${StyledNavLinkWithHover}:hover & {
-    background-color: rgba(29, 161, 242, 0.1);
-    color: rgb(29, 161, 242);
+  @media(hover: hover) {
+    ${StyledNavLinkWithHover}:hover & {
+      background-color: rgba(29, 161, 242, 0.1);
+      color: rgb(29, 161, 242);
+    }
   }
 `;
 function Content({ title, type }) {

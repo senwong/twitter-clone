@@ -4,7 +4,6 @@ import { userType } from '../propTypes';
 import Text from '../BaseComponents/Text';
 
 function Followers({ user }) {
-  console.log('Followers component render!');
   return (
     <div style={{ padding: '9px 18px' }}>
       <div style={{ display: 'inline-block', marginRight: '9px' }}>

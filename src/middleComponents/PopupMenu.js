@@ -9,6 +9,7 @@ import { useTransition, animated } from 'react-spring';
 import { whiteBackground, grayHover, grayBorderTop } from '../themes';
 import Text from '../BaseComponents/Text';
 import { positionType, defaultPosition } from '../propTypes';
+import { usePrevious } from '../utilitys';
 
 const Wrapper = styled(animated.div)`
   position: fixed;
@@ -77,20 +78,27 @@ function PopupMenu({
     enter: { transform: 'translate3d(0, 0, 0)' },
     leave: { transform: 'translate3d(0, 50px, 0)' },
   });
-
+  function hideAndBack() {
+    history.goBack();
+    hideSelf();
+  }
   const contentRef = useRef();
   function handleWrapperClick(e) {
     if (e.target !== contentRef.current && !contentRef.current.contains(e.target)) {
-      hideSelf();
-      history.goBack();
+      hideAndBack();
     }
   }
   function handlePopstate() {
     // 安卓返回键
     hideSelf();
   }
+  const prevShow = usePrevious(show);
   useEffect(() => {
-    history.push(location.pathname);
+    if (!prevShow && show) {
+      history.push(location.pathname);
+    }
+  }, [show]);
+  useEffect(() => {
     window.addEventListener('popstate', handlePopstate);
     return () => {
       window.removeEventListener('popstate', handlePopstate);
@@ -120,7 +128,7 @@ function PopupMenu({
                 </Item>
               ))
             }
-            <Cancel onClick={() => hideSelf()}><Text>取消</Text></Cancel>
+            <Cancel onClick={() => hideAndBack()}><Text>取消</Text></Cancel>
           </ContentWrapper>
         ))
       }

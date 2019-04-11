@@ -31,7 +31,7 @@ export default function SearchRecommendPage({ query }) {
     const p = getSearchRecommend(query);
     p.promise.then(
       res => setData(res.data),
-      error => console.log('error', error),
+      () => {},
     );
     return () => {
       p.cancel();

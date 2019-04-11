@@ -32,7 +32,7 @@ function HotPage({ query }) {
         setUsers(res.data.newUsers);
         setTweets(res.data.tweets);
       },
-      err => console.log(err),
+      () => {},
     );
     return () => {
       p.cancel();
