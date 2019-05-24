@@ -2,7 +2,7 @@
   "name": "twitter-clone",
   "version": "0.1.0",
   "private": true,
-  "homepage": "https://wj941.github.io/twitter-clone",
+  "homepage": "https://senwong.github.io/twitter-clone",
   "dependencies": {
     "@babel/core": "7.2.2",
     "@svgr/webpack": "4.1.0",
