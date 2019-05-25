@@ -1,12 +1,13 @@
-import React, { useState } from 'react';
-import { func, string, bool } from 'prop-types';
-import styled from 'styled-components';
-import { ExploreIcon, FilledDeleteIcon } from './SVGIcons';
-import { lightBlueBackground, whiteBackground } from '../themes';
+import React, { useState } from "react";
+import { func, string, bool } from "prop-types";
+import styled from "styled-components";
+import { ExploreIcon, FilledDeleteIcon } from "./SVGIcons";
+import { lightBlueBackground, whiteBackground } from "../themes";
 
 const Container = styled.div`
   ${props => (props.primary ? whiteBackground : lightBlueBackground)};
-  border-color: ${props => (props.primary ? 'rgb(29, 161, 242)' : 'rgba(0, 0, 0, 0)')};
+  border-color: ${props =>
+    props.primary ? "rgb(29, 161, 242)" : "rgba(0, 0, 0, 0)"};
   display: flex;
   align-items: center;
   border-radius: 9999px;
@@ -23,7 +24,7 @@ const Input = styled.input`
   width: 100%;
   padding: 9px;
   font-size: 14px;
-  /* color: ${props => props.primary && 'rgb(29, 161, 242)'}; */
+  /* color: ${props => props.primary && "rgb(29, 161, 242)"}; */
   :focus {
     outline: none;
   }
@@ -46,42 +47,49 @@ const DeleteButton = styled.div`
 `;
 
 const THEME = {
-  primary: 'primary',
-  secondary: 'secondary',
+  primary: "primary",
+  secondary: "secondary"
 };
 
 const InputText = ({
-  placeholder, value, onChange, onKeyDown, onFocus, onBlur, showDelete, ariaLabel,
+  placeholder,
+  value,
+  onChange,
+  onKeyDown,
+  onFocus,
+  onBlur,
+  showDelete,
+  ariaLabel
 }) => {
   const [theme, setTheme] = useState(THEME.secondary);
   function handleDelete(event) {
-    onChange({ target: { value: '' } });
+    onChange({ target: { value: "" } });
     event.stopPropagation();
   }
   function handleFocus(e) {
     setTheme(THEME.primary);
-    if (onFocus && typeof onFocus === 'function') {
+    if (onFocus && typeof onFocus === "function") {
       onFocus(e);
     }
   }
   function handleBlur(e) {
     setTheme(THEME.secondary);
-    if (onBlur && typeof onBlur === 'function') {
+    if (onBlur && typeof onBlur === "function") {
       onBlur(e);
     }
   }
   function handleKeyDown(e) {
     e.persist();
-    if (e.key === 'Enter') {
+    if (e.key === "Enter") {
       e.target.blur();
     }
-    if (onKeyDown && typeof onKeyDown === 'function') {
+    if (onKeyDown && typeof onKeyDown === "function") {
       onKeyDown(e);
     }
   }
   return (
     <Container primary={theme === THEME.primary}>
-      <span style={{ paddingLeft: '9px', display: 'flex' }}>
+      <span style={{ paddingLeft: "9px", display: "flex" }}>
         <ExploreIcon
           xsmall
           primary={theme === THEME.primary}
@@ -99,18 +107,11 @@ const InputText = ({
         placeholder={placeholder}
         aria-label={ariaLabel}
       />
-      {
-        showDelete
-        && value
-        && (
-          <DeleteButton
-            type="button"
-            onClick={handleDelete}
-          >
-            <FilledDeleteIcon small primary />
-          </DeleteButton>
-        )
-      }
+      {showDelete && value && (
+        <DeleteButton type="button" onClick={handleDelete}>
+          <FilledDeleteIcon small primary />
+        </DeleteButton>
+      )}
     </Container>
   );
 };
@@ -123,17 +124,17 @@ InputText.propTypes = {
   onFocus: func,
   onBlur: func,
   showDelete: bool,
-  ariaLabel: string,
+  ariaLabel: string
 };
 InputText.defaultProps = {
-  value: '',
-  placeholder: '',
+  value: "",
+  placeholder: "",
   onChange: null,
   onKeyDown: null,
   onFocus: null,
   onBlur: null,
   showDelete: false,
-  ariaLabel: '',
+  ariaLabel: ""
 };
 
 export default InputText;

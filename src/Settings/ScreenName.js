@@ -1,36 +1,37 @@
-
-import React, { useState, useEffect } from 'react';
-import PropTypes from 'prop-types';
-import styled from 'styled-components';
-import ReactRouterPropTypes from 'react-router-prop-types';
-import { connect } from 'react-redux';
-import PrimaryGap from '../BaseComponents/PrimaryGap';
-import { getRecommendScreenName } from '../Api';
-import Text from '../BaseComponents/Text';
-import TextInput from './TextInput';
-import SubTitle from './SubTitle';
-import BackHeadWithUsername from '../middleComponents/BackHeadWithUsername';
-import LayOut from './LayOut';
-import { setScreenName } from '../actionCreators/currentUser';
-import SaveButton from './SaveButton';
-import { whiteBackground } from '../themes';
+import React, { useState, useEffect } from "react";
+import PropTypes from "prop-types";
+import styled from "styled-components";
+import ReactRouterPropTypes from "react-router-prop-types";
+import { connect } from "react-redux";
+import PrimaryGap from "../BaseComponents/PrimaryGap";
+import { getRecommendScreenName } from "../Api";
+import Text from "../BaseComponents/Text";
+import TextInput from "./TextInput";
+import SubTitle from "./SubTitle";
+import BackHeadWithUsername from "../middleComponents/BackHeadWithUsername";
+import LayOut from "./LayOut";
+import { setScreenName } from "../actionCreators/currentUser";
+import SaveButton from "./SaveButton";
+import { whiteBackground } from "../themes";
 
 function Warning({ value }) {
   return (
     <div>
-      {
-        (!value || value.length <= 4)
-        && <Text small warning>你的用户名长度必须大于4个字符</Text>
-      }
-      {
-        value && value.length >= 15
-        && <Text small warning>你的用户名长度必须少于15个字符</Text>
-      }
+      {(!value || value.length <= 4) && (
+        <Text small warning>
+          你的用户名长度必须大于4个字符
+        </Text>
+      )}
+      {value && value.length >= 15 && (
+        <Text small warning>
+          你的用户名长度必须少于15个字符
+        </Text>
+      )}
     </div>
   );
 }
 Warning.propTypes = {
-  value: PropTypes.string.isRequired,
+  value: PropTypes.string.isRequired
 };
 
 const RecommendNamesWrapper = styled.div`
@@ -42,7 +43,7 @@ const StyledButton = styled.button`
   background: none;
   display: block;
   &:hover {
-    text-decoration: underline solid rgb(27,149,224);
+    text-decoration: underline solid rgb(27, 149, 224);
   }
 `;
 
@@ -55,9 +56,7 @@ function ScreenName({ history, globalStateName, setGlobalStateName }) {
   }
   useEffect(() => {
     const p = getRecommendScreenName();
-    p.promise.then(
-      res => setRecommendNames(res.data),
-    );
+    p.promise.then(res => setRecommendNames(res.data));
     return () => {
       p.cancel();
     };
@@ -70,52 +69,56 @@ function ScreenName({ history, globalStateName, setGlobalStateName }) {
     <LayOut
       narrowHead={<BackHeadWithUsername title="更改用户名" />}
       rightAside={(
-        <>
-          <TextInput
+<>
+  <TextInput
             labelText="用户名"
             value={name}
             placeholder="选择你的用户名"
             onChange={handleChange}
             WarningLabel={() => <Warning value={name} />}
           />
-          <SubTitle>建议</SubTitle>
-          <RecommendNamesWrapper>
-            {
-              recommendNames && recommendNames.map(recName => (
-                <StyledButton type="button" key={recName} onClick={() => setName(recName)} style={{ marginBottom: '9px' }}>
+  <SubTitle>建议</SubTitle>
+  <RecommendNamesWrapper>
+            {recommendNames &&
+              recommendNames.map(recName => (
+                <StyledButton
+                  type="button"
+                  key={recName}
+                  onClick={() => setName(recName)}
+                  style={{ marginBottom: "9px" }}
+                >
                   <Text primary>{recName}</Text>
                 </StyledButton>
-              ))
-            }
+              ))}
           </RecommendNamesWrapper>
-          <PrimaryGap />
-          <SaveButton
+  <PrimaryGap />
+  <SaveButton
             onClick={handleSave}
             disabled={
-              !name
-              || name === globalStateName
-              || name.length <= 4
-              || name.length >= 15
+              !name ||
+              name === globalStateName ||
+              name.length <= 4 ||
+              name.length >= 15
             }
           />
-        </>
-      )}
+</>
+)}
     />
   );
 }
 ScreenName.propTypes = {
   history: ReactRouterPropTypes.history.isRequired,
   globalStateName: PropTypes.string.isRequired,
-  setGlobalStateName: PropTypes.func.isRequired,
+  setGlobalStateName: PropTypes.func.isRequired
 };
 
 const mapStateToProps = state => ({
-  globalStateName: state.currentUser && state.currentUser.name,
+  globalStateName: state.currentUser && state.currentUser.name
 });
 const mapDispathToProps = dispatch => ({
-  setGlobalStateName: name => dispatch(setScreenName(name)),
+  setGlobalStateName: name => dispatch(setScreenName(name))
 });
 export default connect(
   mapStateToProps,
-  mapDispathToProps,
+  mapDispathToProps
 )(ScreenName);

@@ -1,14 +1,14 @@
-import React from 'react';
-import styled from 'styled-components';
-import PropTypes from 'prop-types';
-import ReactRouterPropTypes from 'react-router-prop-types';
-import Title from './Title';
-import SubTitle from './SubTitle';
-import LinkItem from './LinkItem';
-import TextInput from './TextInput';
-import CheckBoxInput from './CheckBoxInput';
-import RadioGroup, { RadioGroupType } from './RadioGroup';
-import { useMediaQuery } from '../utilitys';
+import React from "react";
+import styled from "styled-components";
+import PropTypes from "prop-types";
+import ReactRouterPropTypes from "react-router-prop-types";
+import Title from "./Title";
+import SubTitle from "./SubTitle";
+import LinkItem from "./LinkItem";
+import TextInput from "./TextInput";
+import CheckBoxInput from "./CheckBoxInput";
+import RadioGroup, { RadioGroupType } from "./RadioGroup";
+import { useMediaQuery } from "../utilitys";
 
 /*
 const data = {
@@ -39,75 +39,83 @@ const Gap = styled.div`
 function ItemList({ data }) {
   return (
     <>
-      {
-        data.title
-          ? <SubTitle>{data.title}</SubTitle>
-          : <Gap />
-      }
-      {
-        data.list
-        && data.list.length > 0
-        && (
-          data.list.map(({
-            key, to, title, subTitle, type, isNav, radios, label,
-          }) => {
+      {data.title ? <SubTitle>{data.title}</SubTitle> : <Gap />}
+      {data.list &&
+        data.list.length > 0 &&
+        data.list.map(
+          ({ key, to, title, subTitle, type, isNav, radios, label }) => {
             switch (type) {
-              case 'link':
+              case "link":
                 return (
-                  <LinkItem key={key} to={to} title={title} subTitle={subTitle} isNav={isNav} />
+                  <LinkItem
+                    key={key}
+                    to={to}
+                    title={title}
+                    subTitle={subTitle}
+                    isNav={isNav}
+                  />
                 );
-              case 'checkbox':
-                return <CheckBoxInput key={key} title={title} subTitle={subTitle} />;
-              case 'tex-tinput':
+              case "checkbox":
+                return (
+                  <CheckBoxInput key={key} title={title} subTitle={subTitle} />
+                );
+              case "tex-tinput":
                 return <TextInput key={key} labelText={label} />;
-              case 'radio-group':
-                return <RadioGroup key={key} title={title} subTitle={subTitle} radios={radios} />;
+              case "radio-group":
+                return (
+                  <RadioGroup
+                    key={key}
+                    title={title}
+                    subTitle={subTitle}
+                    radios={radios}
+                  />
+                );
               default:
                 return null;
             }
-          })
-        )
-      }
+          }
+        )}
     </>
   );
 }
 const LinkItemType = PropTypes.shape({
   key: PropTypes.number.isRequired,
-  to: PropTypes.oneOfType([PropTypes.string, ReactRouterPropTypes.route]).isRequired,
+  to: PropTypes.oneOfType([PropTypes.string, ReactRouterPropTypes.route])
+    .isRequired,
   title: PropTypes.string.isRequired,
   subTitle: PropTypes.string,
-  isNav: PropTypes.bool,
+  isNav: PropTypes.bool
 });
 const CheckBoxType = PropTypes.shape({
   title: PropTypes.string.isRequired,
-  subTitle: PropTypes.string,
+  subTitle: PropTypes.string
 });
 const subDataType = PropTypes.shape({
   title: PropTypes.string,
-  list: PropTypes.arrayOf(PropTypes.oneOfType([LinkItemType, CheckBoxType, RadioGroupType])),
+  list: PropTypes.arrayOf(
+    PropTypes.oneOfType([LinkItemType, CheckBoxType, RadioGroupType])
+  )
 });
 ItemList.propTypes = {
-  data: subDataType.isRequired,
+  data: subDataType.isRequired
 };
 
 function MakeSettingPanel({ data }) {
-  const isWide = useMediaQuery('(min-width: 1000px)');
+  const isWide = useMediaQuery("(min-width: 1000px)");
   return (
     <div>
-      { isWide && <Title>{data.title}</Title> }
-      {
-        data.list
-        && data.list.length > 0
-        && data.list.map(subData => <ItemList key={subData.key} data={subData} />)
-      }
+      {isWide && <Title>{data.title}</Title>}
+      {data.list &&
+        data.list.length > 0 &&
+        data.list.map(subData => <ItemList key={subData.key} data={subData} />)}
     </div>
   );
 }
 const DataType = PropTypes.shape({
   title: PropTypes.string.isRequired,
-  list: PropTypes.arrayOf(subDataType),
+  list: PropTypes.arrayOf(subDataType)
 });
 MakeSettingPanel.propTypes = {
-  data: DataType.isRequired,
+  data: DataType.isRequired
 };
 export default MakeSettingPanel;

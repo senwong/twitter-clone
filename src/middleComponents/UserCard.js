@@ -1,10 +1,10 @@
-import React from 'react';
-import CustomizedButton from '../BaseComponents/CustomizedButton';
-import Avatar from '../BaseComponents/Avatar';
-import Text from '../BaseComponents/Text';
-import MediaCard from './MediaCard';
-import UserName from './UserName';
-import { userType } from '../propTypes';
+import React from "react";
+import CustomizedButton from "../BaseComponents/CustomizedButton";
+import Avatar from "../BaseComponents/Avatar";
+import Text from "../BaseComponents/Text";
+import MediaCard from "./MediaCard";
+import UserName from "./UserName";
+import { userType } from "../propTypes";
 
 /**
  * -----—-----------------------------------------------------------------+
@@ -21,13 +21,14 @@ function UserCard({ user }) {
   const headRight = <CustomizedButton small>关注</CustomizedButton>;
   const content = <Text>{user.desc}</Text>;
   const p = {
-    left, headLeft, headRight, content,
+    left,
+    headLeft,
+    headRight,
+    content
   };
-  return (
-    <MediaCard {...p} />
-  );
+  return <MediaCard {...p} />;
 }
 UserCard.propTypes = {
-  user: userType.isRequired,
+  user: userType.isRequired
 };
 export default UserCard;

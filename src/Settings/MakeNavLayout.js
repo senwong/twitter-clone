@@ -1,13 +1,13 @@
-import React from 'react';
-import { string } from 'prop-types';
-import styled from 'styled-components';
-import { Link } from 'react-router-dom';
-import LayOut from './LayOut';
-import BackHeadWithUsername from '../middleComponents/BackHeadWithUsername';
-import NavigationList from '../middleComponents/NavigationList';
-import MakeSettingPanel from './MakeSettingPanel';
-import Text from '../BaseComponents/Text';
-import { linkListType } from '../propTypes';
+import React from "react";
+import { string } from "prop-types";
+import styled from "styled-components";
+import { Link } from "react-router-dom";
+import LayOut from "./LayOut";
+import BackHeadWithUsername from "../middleComponents/BackHeadWithUsername";
+import NavigationList from "../middleComponents/NavigationList";
+import MakeSettingPanel from "./MakeSettingPanel";
+import Text from "../BaseComponents/Text";
+import { linkListType } from "../propTypes";
 
 const ContentWrapper = styled.div`
   background-color: rgb(255, 255, 255);
@@ -24,7 +24,11 @@ const StyledLink = styled(Link)`
   color: rgb(27, 149, 224);
 `;
 function RightAside({
-  headTitle, navLinks, contentTitle, contentSubTitle, href,
+  headTitle,
+  navLinks,
+  contentTitle,
+  contentSubTitle,
+  href
 }) {
   return (
     <>
@@ -32,7 +36,9 @@ function RightAside({
       <NavigationList links={navLinks} />
       <ContentWrapper>
         <Content>
-          <Text bold large>{contentTitle}</Text>
+          <Text bold large>
+            {contentTitle}
+          </Text>
           <br />
           <SubTitleWrapper>
             <Text secondary>{contentSubTitle}</Text>
@@ -48,7 +54,7 @@ RightAside.propTypes = {
   contentTitle: string.isRequired,
   contentSubTitle: string.isRequired,
   href: string.isRequired,
-  navLinks: linkListType.isRequired,
+  navLinks: linkListType.isRequired
 };
 
 function MakeNavLayout(title, links) {
@@ -57,24 +63,24 @@ function MakeNavLayout(title, links) {
       <LayOut
         narrowHead={<BackHeadWithUsername title={title} />}
         rightAside={(
-          <RightAside
-            headTitle={title}
-            navLinks={links}
-            contentTitle={contentTitle}
-            contentSubTitle={contentSubTitle}
-            href={href}
-          />
-        )}
+<RightAside
+  headTitle={title}
+  navLinks={links}
+  contentTitle={contentTitle}
+  contentSubTitle={contentSubTitle}
+  href={href}
+/>
+)}
       />
     );
   }
   LayoutComponent.propTypes = {
     contentTitle: string.isRequired,
     contentSubTitle: string,
-    href: string.isRequired,
+    href: string.isRequired
   };
   LayoutComponent.defaultProps = {
-    contentSubTitle: null,
+    contentSubTitle: null
   };
   return LayoutComponent;
 }

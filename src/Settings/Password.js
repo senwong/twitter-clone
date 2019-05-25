@@ -1,7 +1,7 @@
-import React from 'react';
-import BackHeadWithUsername from '../middleComponents/BackHeadWithUsername';
-import LayOut from './LayOut';
-import Text from '../BaseComponents/Text';
+import React from "react";
+import BackHeadWithUsername from "../middleComponents/BackHeadWithUsername";
+import LayOut from "./LayOut";
+import Text from "../BaseComponents/Text";
 
 export default function Password() {
   return (

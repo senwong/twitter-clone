@@ -1,19 +1,22 @@
-import React from 'react';
-import styled from 'styled-components';
-import { connect } from 'react-redux';
-import { func, number, bool } from 'prop-types';
-import { useTransition, animated } from 'react-spring';
-import { whiteBackground } from '../themes';
-import Avatar from '../BaseComponents/Avatar';
-import CustomizedButton from '../BaseComponents/CustomizedButton';
-import UserName from './UserName';
-import Text from '../BaseComponents/Text';
-import { hide, setHideTimerId as setHideTimer } from '../actionCreators/userInfoPopover';
-import { userType, positionType } from '../propTypes';
+import React from "react";
+import styled from "styled-components";
+import { connect } from "react-redux";
+import { func, number, bool } from "prop-types";
+import { useTransition, animated } from "react-spring";
+import { whiteBackground } from "../themes";
+import Avatar from "../BaseComponents/Avatar";
+import CustomizedButton from "../BaseComponents/CustomizedButton";
+import UserName from "./UserName";
+import Text from "../BaseComponents/Text";
+import {
+  hide,
+  setHideTimerId as setHideTimer
+} from "../actionCreators/userInfoPopover";
+import { userType, positionType } from "../propTypes";
 
 const Container = styled(animated.div)`
   ${whiteBackground}
-  border-radius: 13px; 
+  border-radius: 13px;
   padding: 13px;
   position: fixed;
   left: ${props => `${props.left}px`};
@@ -53,12 +56,17 @@ const MarginTop = styled.div`
  * @param {} param0
  */
 function UserInfoPopover({
-  position, user, hideSelf, hideTimerId, setHideTimerId, show,
+  position,
+  user,
+  hideSelf,
+  hideTimerId,
+  setHideTimerId,
+  show
 }) {
   const transitions = useTransition(show, null, {
     from: { opacity: 0 },
     enter: { opacity: 1 },
-    leave: { opacity: 0 },
+    leave: { opacity: 0 }
   });
   const delay = 300;
   function handleMouseEnter() {
@@ -73,38 +81,41 @@ function UserInfoPopover({
     setHideTimerId(timerId);
   }
   if (!position.left || !position.top) return null;
-  return transitions.map(({ item, key, props }) => item && (
-    <Container
-      key={key}
-      style={props}
-      left={position.left}
-      top={position.top}
-      onMouseEnter={handleMouseEnter}
-      onMouseLeave={handleMouseLeave}
-    >
-      <HeadWrapper>
-        <Avatar user={user} />
-        <CustomizedButton small>关注</CustomizedButton>
-      </HeadWrapper>
-      <MarginTop>
-        <UserName user={user} isTwoLine hoverable={false} />
-      </MarginTop>
-      <MarginTop>
-        <Text>{user.desc}</Text>
-      </MarginTop>
-      <MarginTop>
-        <FollowingWrapper>
-          <Text bold>{user.following}</Text>
-          <Text secondary>正在关注</Text>
-        </FollowingWrapper>
-        <Text bold>{user.followers}</Text>
-        <Text secondary>关注者</Text>
-      </MarginTop>
-      <MarginTop>
-        <Text secondary>你关注的人中没有人关注</Text>
-      </MarginTop>
-    </Container>
-  ));
+  return transitions.map(
+    ({ item, key, props }) =>
+      item && (
+        <Container
+          key={key}
+          style={props}
+          left={position.left}
+          top={position.top}
+          onMouseEnter={handleMouseEnter}
+          onMouseLeave={handleMouseLeave}
+        >
+          <HeadWrapper>
+            <Avatar user={user} />
+            <CustomizedButton small>关注</CustomizedButton>
+          </HeadWrapper>
+          <MarginTop>
+            <UserName user={user} isTwoLine hoverable={false} />
+          </MarginTop>
+          <MarginTop>
+            <Text>{user.desc}</Text>
+          </MarginTop>
+          <MarginTop>
+            <FollowingWrapper>
+              <Text bold>{user.following}</Text>
+              <Text secondary>正在关注</Text>
+            </FollowingWrapper>
+            <Text bold>{user.followers}</Text>
+            <Text secondary>关注者</Text>
+          </MarginTop>
+          <MarginTop>
+            <Text secondary>你关注的人中没有人关注</Text>
+          </MarginTop>
+        </Container>
+      )
+  );
 }
 UserInfoPopover.propTypes = {
   position: positionType.isRequired,
@@ -112,23 +123,23 @@ UserInfoPopover.propTypes = {
   hideSelf: func.isRequired,
   hideTimerId: number,
   setHideTimerId: func.isRequired,
-  show: bool.isRequired,
+  show: bool.isRequired
 };
 UserInfoPopover.defaultProps = {
   user: null,
-  hideTimerId: null,
+  hideTimerId: null
 };
 const mapStateToProps = state => ({
   position: state.userInfoPopover.position,
   user: state.userInfoPopover.user,
   hideTimerId: state.userInfoPopover.hideTimerId,
-  show: state.userInfoPopover.show,
+  show: state.userInfoPopover.show
 });
 const mapDispatchToProps = dispatch => ({
   hideSelf: () => dispatch(hide()),
-  setHideTimerId: id => dispatch(setHideTimer(id)),
+  setHideTimerId: id => dispatch(setHideTimer(id))
 });
 export default connect(
   mapStateToProps,
-  mapDispatchToProps,
+  mapDispatchToProps
 )(UserInfoPopover);

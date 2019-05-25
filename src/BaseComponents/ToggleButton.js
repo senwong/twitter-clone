@@ -1,7 +1,7 @@
-import React from 'react';
-import styled from 'styled-components';
-import PropTypes from 'prop-types';
-import { useSpring, animated } from 'react-spring';
+import React from "react";
+import styled from "styled-components";
+import PropTypes from "prop-types";
+import { useSpring, animated } from "react-spring";
 
 const Container = styled.div`
   height: 20px;
@@ -34,11 +34,11 @@ const Circle = styled(animated.div)`
 
 export default function ToggleButton({ checked, onClick }) {
   const bgProps = useSpring({
-    background: checked ? 'rgb(113, 201, 248)' : 'rgb(147, 147, 147)',
+    background: checked ? "rgb(113, 201, 248)" : "rgb(147, 147, 147)"
   });
   const circleProps = useSpring({
-    background: checked ? 'rgb(29, 161, 242)' : 'rgb(255, 255, 255)',
-    transform: `translate3d(${checked ? 20 : 0}px, 0, 0)`,
+    background: checked ? "rgb(29, 161, 242)" : "rgb(255, 255, 255)",
+    transform: `translate3d(${checked ? 20 : 0}px, 0, 0)`
   });
   return (
     <Container onClick={onClick}>
@@ -49,5 +49,5 @@ export default function ToggleButton({ checked, onClick }) {
 }
 ToggleButton.propTypes = {
   checked: PropTypes.bool.isRequired,
-  onClick: PropTypes.func.isRequired,
+  onClick: PropTypes.func.isRequired
 };

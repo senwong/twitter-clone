@@ -1,18 +1,22 @@
-import React, { useState, useEffect } from 'react';
-import styled from 'styled-components';
-import { Link } from 'react-router-dom';
-import PropTypes from 'prop-types';
-import DateTime from '../BaseComponents/DateTime';
-import Dot from '../BaseComponents/Dot';
-import Avatar from '../BaseComponents/Avatar';
-import Text from '../BaseComponents/Text';
-import { getUserById } from '../Api';
-import MediaCard from './MediaCard';
+import React, { useState, useEffect } from "react";
+import styled from "styled-components";
+import { Link } from "react-router-dom";
+import PropTypes from "prop-types";
+import DateTime from "../BaseComponents/DateTime";
+import Dot from "../BaseComponents/Dot";
+import Avatar from "../BaseComponents/Avatar";
+import Text from "../BaseComponents/Text";
+import { getUserById } from "../Api";
+import MediaCard from "./MediaCard";
 import {
-  ReplyIcon, ForewardIcon, LikeIcon, ShareIcon, ArrowDown,
-} from '../BaseComponents/SVGIcons';
-import UserName from './UserName';
-import { tweetType } from '../propTypes';
+  ReplyIcon,
+  ForewardIcon,
+  LikeIcon,
+  ShareIcon,
+  ArrowDown
+} from "../BaseComponents/SVGIcons";
+import UserName from "./UserName";
+import { tweetType } from "../propTypes";
 
 /**
  * -----—-----------------------------------------------------------------+
@@ -25,8 +29,8 @@ import { tweetType } from '../propTypes';
  */
 
 /*
-* actions at tweet card bottom
-*/
+ * actions at tweet card bottom
+ */
 const ActionsContainer = styled.div`
   margin-top: 9px;
   display: flex;
@@ -60,8 +64,8 @@ TweetCardActions.propTypes = {
   actions: PropTypes.shape({
     replayAmount: PropTypes.number.isRequired,
     forewardAmount: PropTypes.number.isRequired,
-    likeAmount: PropTypes.number.isRequired,
-  }).isRequired,
+    likeAmount: PropTypes.number.isRequired
+  }).isRequired
 };
 
 // component TweetCard, a card to show tweet content and user info
@@ -92,18 +96,19 @@ const StyledArrowDown = styled(ArrowDown)`
     color: rgb(29, 161, 242);
   }
 `;
-function TweetCard({
-  showPopup, setPopupUser, setPopupPosition, tweet,
-}) {
+function TweetCard({ showPopup, setPopupUser, setPopupPosition, tweet }) {
   const [user, setUser] = useState(null);
 
   function handleHeadRightClick({ target }) {
     setPopupUser(user);
     showPopup();
-    if (window.matchMedia('(min-width: 1000px)').matches) {
+    if (window.matchMedia("(min-width: 1000px)").matches) {
       const { left, top } = target.getBoundingClientRect();
       setPopupPosition({
-        left, top, right: null, bottom: null,
+        left,
+        top,
+        right: null,
+        bottom: null
       });
     }
   }
@@ -118,26 +123,20 @@ function TweetCard({
   }, [tweet.userId]);
   const left = (
     <React.Fragment>
-      {
-        user
-        && user.name
-        && (
-          <Link to={{ pathname: `/${user.name}` }}>
-            {
-              user
-              && user.avatarSrc
-              && <Avatar user={user} hoverable />
-            }
-          </Link>
-        )
-      }
+      {user && user.name && (
+        <Link to={{ pathname: `/${user.name}` }}>
+          {user && user.avatarSrc && <Avatar user={user} hoverable />}
+        </Link>
+      )}
     </React.Fragment>
   );
   const headLeft = (
     <HeadLeftWrapper>
       <UserName user={user} />
       <Dot />
-      <Text secondary><DateTime dateTimeStr={tweet.createdTime} /></Text>
+      <Text secondary>
+        <DateTime dateTimeStr={tweet.createdTime} />
+      </Text>
     </HeadLeftWrapper>
   );
   const headRight = (
@@ -149,7 +148,7 @@ function TweetCard({
   const actions = {
     replayAmount: tweet.replayAmount,
     forewardAmount: tweet.forewardAmount,
-    likeAmount: tweet.likeAmount,
+    likeAmount: tweet.likeAmount
   };
   const content = (
     <div>
@@ -158,7 +157,10 @@ function TweetCard({
     </div>
   );
   const p = {
-    left, headLeft, headRight, content,
+    left,
+    headLeft,
+    headRight,
+    content
   };
   return (
     <React.Fragment>
@@ -170,6 +172,6 @@ TweetCard.propTypes = {
   showPopup: PropTypes.func.isRequired,
   setPopupUser: PropTypes.func.isRequired,
   setPopupPosition: PropTypes.func.isRequired,
-  tweet: tweetType.isRequired,
+  tweet: tweetType.isRequired
 };
 export default TweetCard;

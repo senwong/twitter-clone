@@ -1,9 +1,12 @@
-import { combineReducers } from 'redux';
-import { createFilteredReducer } from './reducerUtilitys';
-import displayReducer from './displayReducer';
-import actionTypes from '../actionTypes';
+import { combineReducers } from "redux";
+import { createFilteredReducer } from "./reducerUtilitys";
+import displayReducer from "./displayReducer";
+import actionTypes from "../actionTypes";
 
-const showReducer = createFilteredReducer(displayReducer, action => action.name === 'tweetCardPopup');
+const showReducer = createFilteredReducer(
+  displayReducer,
+  action => action.name === "tweetCardPopup"
+);
 
 function userReducer(state = null, action) {
   switch (action.type) {
@@ -17,7 +20,7 @@ const positionInitialState = {
   left: null,
   right: null,
   top: null,
-  bottom: null,
+  bottom: null
 };
 function positionReducer(state = positionInitialState, action) {
   switch (action.type) {
@@ -30,5 +33,5 @@ function positionReducer(state = positionInitialState, action) {
 export default combineReducers({
   show: showReducer,
   user: userReducer,
-  position: positionReducer,
+  position: positionReducer
 });

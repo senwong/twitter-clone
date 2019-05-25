@@ -1,7 +1,7 @@
-import React from 'react';
-import styled from 'styled-components';
-import GlobalTrends from '../Explore/GlobalTrends';
-import RelatedUsers from './RelatedUsers';
+import React from "react";
+import styled from "styled-components";
+import GlobalTrends from "../Explore/GlobalTrends";
+import RelatedUsers from "./RelatedUsers";
 
 const ListWrapper = styled.div`
   margin-bottom: 10px;

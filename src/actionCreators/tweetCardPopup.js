@@ -1,8 +1,12 @@
-import actionTypes from '../actionTypes';
+import actionTypes from "../actionTypes";
 
-export const show = () => ({ name: 'tweetCardPopup', type: 'SHOW' });
-export const hide = () => ({ name: 'tweetCardPopup', type: 'HIDE' });
-export const setUser = user => ({ user, type: actionTypes.TWEETCARD_POPUP_SET_USER });
-export const setPosition = position => (
-  { position, type: actionTypes.TWEETCARD_POPUP_SET_POSITION }
-);
+export const show = () => ({ name: "tweetCardPopup", type: "SHOW" });
+export const hide = () => ({ name: "tweetCardPopup", type: "HIDE" });
+export const setUser = user => ({
+  user,
+  type: actionTypes.TWEETCARD_POPUP_SET_USER
+});
+export const setPosition = position => ({
+  position,
+  type: actionTypes.TWEETCARD_POPUP_SET_POSITION
+});

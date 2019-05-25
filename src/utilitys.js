@@ -1,4 +1,4 @@
-import { useState, useEffect, useRef } from 'react';
+import { useState, useEffect, useRef } from "react";
 
 export function useMediaQuery(query) {
   const mql = window.matchMedia(query);
@@ -32,9 +32,9 @@ export function useClickOutsideEl(cb, ...refs) {
     cb();
   }
   useEffect(() => {
-    window.addEventListener('click', handleWindowClick);
+    window.addEventListener("click", handleWindowClick);
     return () => {
-      window.removeEventListener('click', handleWindowClick);
+      window.removeEventListener("click", handleWindowClick);
     };
   });
 }

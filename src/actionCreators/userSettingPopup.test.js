@@ -1,17 +1,17 @@
-import { show, hide } from './userSettingPopup';
-import { userSettingPopup } from '../actionTypes';
+import { show, hide } from "./userSettingPopup";
+import { userSettingPopup } from "../actionTypes";
 
-describe('userSettingPopup action creator', () => {
-  it('should create an action to show userSettingPopup', () => {
+describe("userSettingPopup action creator", () => {
+  it("should create an action to show userSettingPopup", () => {
     const expectedAction = {
-      type: userSettingPopup.show,
+      type: userSettingPopup.show
     };
-    expect(show()).toEqual(expectedAction)
+    expect(show()).toEqual(expectedAction);
   });
-  it('should create an action to hide userSettingPopup', () => {
+  it("should create an action to hide userSettingPopup", () => {
     const expectedAction = {
-      type: userSettingPopup.hide,
+      type: userSettingPopup.hide
     };
-    expect(hide()).toEqual(expectedAction)
+    expect(hide()).toEqual(expectedAction);
   });
 });

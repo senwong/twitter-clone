@@ -1,10 +1,10 @@
-import React from 'react';
-import LayOut from './LayOut';
-import BackHeadWithUsername from '../middleComponents/BackHeadWithUsername';
-import MakeSettingPanel from './MakeSettingPanel';
+import React from "react";
+import LayOut from "./LayOut";
+import BackHeadWithUsername from "../middleComponents/BackHeadWithUsername";
+import MakeSettingPanel from "./MakeSettingPanel";
 
 const data = {
-  title: '更改国家',
+  title: "更改国家"
 };
 function Country() {
   return (

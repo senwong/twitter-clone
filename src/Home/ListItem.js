@@ -1,6 +1,6 @@
-import React from 'react';
-import styled from 'styled-components';
-import { node } from 'prop-types';
+import React from "react";
+import styled from "styled-components";
+import { node } from "prop-types";
 
 const ListItemContainer = styled.div`
   display: flex;
@@ -28,26 +28,20 @@ const ListItemRight = styled.div`
 function ListItem({ left, middle, right }) {
   return (
     <ListItemContainer>
-      {
-        left && <ListItemLeft>{left}</ListItemLeft>
-      }
-      {
-        middle && <ListItemMiddle>{middle}</ListItemMiddle>
-      }
-      {
-        right && <ListItemRight>{right}</ListItemRight>
-      }
+      {left && <ListItemLeft>{left}</ListItemLeft>}
+      {middle && <ListItemMiddle>{middle}</ListItemMiddle>}
+      {right && <ListItemRight>{right}</ListItemRight>}
     </ListItemContainer>
   );
 }
 ListItem.propTypes = {
   left: node,
   middle: node,
-  right: node,
+  right: node
 };
 ListItem.defaultProps = {
   left: null,
   middle: null,
-  right: null,
+  right: null
 };
 export default ListItem;

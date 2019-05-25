@@ -1,6 +1,6 @@
-import React from 'react';
-import styled from 'styled-components';
-import { node } from 'prop-types';
+import React from "react";
+import styled from "styled-components";
+import { node } from "prop-types";
 
 const Container = styled.div`
   display: flex;
@@ -26,23 +26,17 @@ const Right = styled.div`
 `;
 const HeadBarLayOut = ({ left, middle, right }) => (
   <Container>
-    <Left>
-      {left}
-    </Left>
-    <Middle>
-      {middle}
-    </Middle>
-    <Right>
-      {right}
-    </Right>
+    <Left>{left}</Left>
+    <Middle>{middle}</Middle>
+    <Right>{right}</Right>
   </Container>
 );
 HeadBarLayOut.propTypes = {
   left: node.isRequired,
   middle: node.isRequired,
-  right: node,
+  right: node
 };
 HeadBarLayOut.defaultProps = {
-  right: <></>,
+  right: <></>
 };
 export default HeadBarLayOut;

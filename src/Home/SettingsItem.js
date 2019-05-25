@@ -1,13 +1,13 @@
-import React from 'react';
-import { connect } from 'react-redux';
-import { withRouter } from 'react-router-dom';
-import styled from 'styled-components';
-import { func } from 'prop-types';
-import { history as historyType } from 'react-router-prop-types';
-import Text from '../BaseComponents/Text';
-import { hide } from '../actionCreators/profilePage';
-import { whiteBackground } from '../themes';
-import ListItem from './ListItem';
+import React from "react";
+import { connect } from "react-redux";
+import { withRouter } from "react-router-dom";
+import styled from "styled-components";
+import { func } from "prop-types";
+import { history as historyType } from "react-router-prop-types";
+import Text from "../BaseComponents/Text";
+import { hide } from "../actionCreators/profilePage";
+import { whiteBackground } from "../themes";
+import ListItem from "./ListItem";
 
 const WrapperButton = styled.button`
   ${whiteBackground}
@@ -22,7 +22,7 @@ const WrapperButton = styled.button`
 
 function SettingsItem({ history, hideProfilePage }) {
   function handleSettingClick() {
-    history.push('/settings');
+    history.push("/settings");
     hideProfilePage();
   }
   return (
@@ -33,13 +33,15 @@ function SettingsItem({ history, hideProfilePage }) {
 }
 SettingsItem.propTypes = {
   history: historyType.isRequired,
-  hideProfilePage: func.isRequired,
+  hideProfilePage: func.isRequired
 };
 const mapDispatchToProps = dispatch => ({
-  hideProfilePage: () => dispatch(hide()),
+  hideProfilePage: () => dispatch(hide())
 });
 
-export default withRouter(connect(
-  null,
-  mapDispatchToProps,
-)(SettingsItem));
+export default withRouter(
+  connect(
+    null,
+    mapDispatchToProps
+  )(SettingsItem)
+);

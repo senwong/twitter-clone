@@ -1,10 +1,10 @@
-import React, { useState, useEffect } from 'react';
-import styled from 'styled-components';
-import PropTypes from 'prop-types';
-import { throttle } from 'lodash';
-import { useSpring, animated } from 'react-spring';
-import { useGesture } from 'react-with-gesture';
-import { PullDownIcon, WattingIcon } from '../BaseComponents/SVGIcons';
+import React, { useState, useEffect } from "react";
+import styled from "styled-components";
+import PropTypes from "prop-types";
+import { throttle } from "lodash";
+import { useSpring, animated } from "react-spring";
+import { useGesture } from "react-with-gesture";
+import { PullDownIcon, WattingIcon } from "../BaseComponents/SVGIcons";
 
 const Container = styled(animated.div)`
   position: relative;
@@ -44,15 +44,24 @@ export default function PullDownRefresh({ onRefresh, children }) {
     function handleScroll() {
       setIsScrolledToTop(document.scrollingElement.scrollTop === 0);
     }
-    document.scrollingElement.addEventListener('scroll', throttle(handleScroll, 50));
+    document.scrollingElement.addEventListener(
+      "scroll",
+      throttle(handleScroll, 50)
+    );
     return () => {
-      document.body.removeEventListener('scroll', throttle(handleScroll, 50));
+      document.body.removeEventListener("scroll", throttle(handleScroll, 50));
     };
   }, []);
 
   const [isLoading, setIsLoading] = useState(false);
   const [translateY, setTranslateY] = useState(0);
-  const [bind, { delta: [, y], down }] = useGesture();
+  const [
+    bind,
+    {
+      delta: [, y],
+      down
+    }
+  ] = useGesture();
 
   useEffect(() => {
     if (isScrolledToTop) {
@@ -76,14 +85,14 @@ export default function PullDownRefresh({ onRefresh, children }) {
     }
   }, [down, translateY, isLoading]);
   const props = useSpring({
-    transform: `translateY(${translateY}px)`,
+    transform: `translateY(${translateY}px)`
   });
   const arrowIconProps = useSpring({
     transform: `rotateZ(${translateY >= REFRESH_HEIGHT ? 180 : 0}deg)`,
-    opacity: isLoading ? 0 : 1,
+    opacity: isLoading ? 0 : 1
   });
   const loadingIconProps = useSpring({
-    opacity: isLoading ? 1 : 0,
+    opacity: isLoading ? 1 : 0
   });
 
   // console.log(
@@ -105,14 +114,12 @@ export default function PullDownRefresh({ onRefresh, children }) {
           </ActionIconWrapper>
         </IconsWrapper>
       </Actions>
-      <ContentContainer {...bind()}>
-        {children}
-      </ContentContainer>
+      <ContentContainer {...bind()}>{children}</ContentContainer>
     </Container>
   );
 }
 
 PullDownRefresh.propTypes = {
   onRefresh: PropTypes.func.isRequired,
-  children: PropTypes.node.isRequired,
+  children: PropTypes.node.isRequired
 };

@@ -1,14 +1,17 @@
-import React from 'react';
-import ReactRouterPropTypes from 'react-router-prop-types';
-import styled from 'styled-components';
-import auth from '../auth';
+import React from "react";
+import ReactRouterPropTypes from "react-router-prop-types";
+import styled from "styled-components";
+import auth from "../auth";
 // import { useMediaQuery } from '../utilitys';
 // import Text from '../BaseComponents/Text';
 import {
-  ExploreIcon, Person, MessageIcon, TwitterIcon,
-} from '../BaseComponents/SVGIcons';
-import CustomizedButton from '../BaseComponents/CustomizedButton';
-import Footer from './Footer';
+  ExploreIcon,
+  Person,
+  MessageIcon,
+  TwitterIcon
+} from "../BaseComponents/SVGIcons";
+import CustomizedButton from "../BaseComponents/CustomizedButton";
+import Footer from "./Footer";
 
 const Container = styled.div`
   min-height: 100%;
@@ -69,9 +72,7 @@ const LoginHeadButton = styled(CustomizedButton)`
     display: none;
   }
 `;
-const LoginTitle = styled.h1`
-
-`;
+const LoginTitle = styled.h1``;
 const LoginSubtitle = styled.h2`
   margin-top: 48px;
 `;
@@ -105,20 +106,20 @@ const StyledInput = styled.input`
   border: 1px solid #e6ecf0;
   border-radius: 3px;
   padding: 12px;
-  transition: background .2s linear;
+  transition: background 0.2s linear;
   font-size: 14px;
   width: 100%;
   box-sizing: border-box;
   &:focus {
     outline: 0;
     color: #14171a;
-    border-color: rgba(0,132,180,0.5);
+    border-color: rgba(0, 132, 180, 0.5);
   }
 `;
 function Login({ history }) {
   function handleClick() {
     auth.login(() => {
-      history.push('/');
+      history.push("/");
     });
   }
   return (
@@ -130,25 +131,19 @@ function Login({ history }) {
               <IconWrapper>
                 <ExploreIcon large white />
               </IconWrapper>
-              <Slogan>
-                关注你的兴趣所在
-              </Slogan>
+              <Slogan>关注你的兴趣所在</Slogan>
             </SloganWrappr>
             <SloganWrappr>
               <IconWrapper>
                 <Person large white />
               </IconWrapper>
-              <Slogan>
-                听听大家在谈论什么
-              </Slogan>
+              <Slogan>听听大家在谈论什么</Slogan>
             </SloganWrappr>
             <SloganWrappr>
               <IconWrapper>
                 <MessageIcon large white />
               </IconWrapper>
-              <Slogan>
-                加入对话
-              </Slogan>
+              <Slogan>加入对话</Slogan>
             </SloganWrappr>
           </SlogansContent>
         </SlogansContainer>
@@ -173,15 +168,9 @@ function Login({ history }) {
                 登录
               </LoginHeadButton>
             </LoginHead>
-            <LoginTitle>
-              看看世界上的新鲜事
-            </LoginTitle>
-            <LoginSubtitle>
-              现在就加入Twitter
-            </LoginSubtitle>
-            <LoginButton filled>
-              注册
-            </LoginButton>
+            <LoginTitle>看看世界上的新鲜事</LoginTitle>
+            <LoginSubtitle>现在就加入Twitter</LoginSubtitle>
+            <LoginButton filled>注册</LoginButton>
             <CustomizedButton onClick={() => handleClick()}>
               登录
             </CustomizedButton>
@@ -194,6 +183,6 @@ function Login({ history }) {
 }
 
 Login.propTypes = {
-  history: ReactRouterPropTypes.history.isRequired,
+  history: ReactRouterPropTypes.history.isRequired
 };
 export default Login;

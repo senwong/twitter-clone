@@ -4,3 +4,4 @@ Open [https://senwong.github.io/twitter-clone](https://wj941.github.io/twitter-c
 
 ## Features
 1. Adapt to mobile web
+2. Supporting dark mode

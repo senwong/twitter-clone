@@ -1,9 +1,9 @@
-import React from 'react';
-import styled from 'styled-components';
-import { arrayOf, string } from 'prop-types';
-import { DeleteIcon, ExploreIcon } from '../BaseComponents/SVGIcons';
-import { deleteAllSearchHistory, deleteSearchHistory } from '../Api/SearchHistory';
-import Text from '../BaseComponents/Text';
+import React, { useState, useEffect } from "react";
+import styled from "styled-components";
+import { string, func } from "prop-types";
+import { DeleteIcon, ExploreIcon } from "../BaseComponents/SVGIcons";
+import Text from "../BaseComponents/Text";
+import { getSearchHistory } from "../Api/SearchHistory";
 
 const Container = styled.div`
   /* position: fixed;
@@ -23,7 +23,7 @@ const Padding = styled.div`
 const HeadContainer = styled.div`
   display: flex;
   padding: 14px 9px;
-  border-bottom: 1px solid  rgb(230, 236, 240);
+  border-bottom: 1px solid rgb(230, 236, 240);
 `;
 const HeadLeft = styled.div`
   flex: 7 0 0;
@@ -39,12 +39,9 @@ const HeadRight = styled.div`
 const Item = styled.div`
   display: flex;
   padding: 14px 9px;
-  border-bottom: 1px solid  rgb(230, 236, 240);
-  background-color: ${props => (
-    props.selected
-      ? 'rgb(245, 248, 250)'
-      : 'transparent'
-  )};
+  border-bottom: 1px solid rgb(230, 236, 240);
+  background-color: ${props =>
+    props.selected ? "rgb(245, 248, 250)" : "transparent"};
 `;
 const ItemLeft = styled.div`
   flex: 1 0 0;
@@ -60,54 +57,53 @@ const ItemRight = styled.div`
   align-items: center;
 `;
 // search history page (exclude search bar in top)
-function SearchHistorys({ selected, historys }) {
+function SearchHistorys({ selected, deleteHistory, deleteAll }) {
   function handleDeleteAll() {
-    deleteAllSearchHistory();
+    deleteAll();
   }
   function handleDelete(h) {
-    deleteSearchHistory(h);
+    deleteHistory(h);
   }
+  const [historys, setHistorys] = useState(getSearchHistory());
+  useEffect(() => {
+    setHistorys(getSearchHistory());
+  });
 
   // current selected search history
   return (
     <Container>
-      {historys && historys.length === 0
-        ? (
-          <Padding>
-            <Text secondary>尝试搜索用户、话题或关键词</Text>
-          </Padding>
-        )
-        : (
-          <React.Fragment>
-            <HeadContainer>
-              <HeadLeft>
-                最近搜索
-              </HeadLeft>
-              <HeadRight>
-                <DeleteIcon small primary onClick={handleDeleteAll} />
-              </HeadRight>
-            </HeadContainer>
-            {historys && historys.map(h => (
+      {historys && historys.length === 0 ? (
+        <Padding>
+          <Text secondary>尝试搜索用户、话题或关键词</Text>
+        </Padding>
+      ) : (
+        <React.Fragment>
+          <HeadContainer>
+            <HeadLeft>最近搜索</HeadLeft>
+            <HeadRight>
+              <DeleteIcon small primary onClick={handleDeleteAll} />
+            </HeadRight>
+          </HeadContainer>
+          {historys &&
+            historys.map(h => (
               <Item selected={selected === h} tabIndex="0" key={h}>
                 <ItemLeft>
                   <ExploreIcon xsmall />
                 </ItemLeft>
-                <ItemMiddle>
-                  {h}
-                </ItemMiddle>
+                <ItemMiddle>{h}</ItemMiddle>
                 <ItemRight>
                   <DeleteIcon small primary onClick={() => handleDelete(h)} />
                 </ItemRight>
               </Item>
             ))}
-          </React.Fragment>
-        )
-      }
+        </React.Fragment>
+      )}
     </Container>
   );
 }
 SearchHistorys.propTypes = {
   selected: string.isRequired,
-  historys: arrayOf(string).isRequired,
+  deleteHistory: func.isRequired,
+  deleteAll: func.isRequired
 };
 export default SearchHistorys;

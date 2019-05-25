@@ -1,9 +1,9 @@
-import React from 'react';
-import CustomizedButton from '../BaseComponents/CustomizedButton';
-import Avatar from '../BaseComponents/Avatar';
-import MediaCard from './MediaCard';
-import UserName from './UserName';
-import { userType } from '../propTypes';
+import React from "react";
+import CustomizedButton from "../BaseComponents/CustomizedButton";
+import Avatar from "../BaseComponents/Avatar";
+import MediaCard from "./MediaCard";
+import UserName from "./UserName";
+import { userType } from "../propTypes";
 
 /**
  * -----—----+----------+---------------------------------+-----------------+
@@ -15,15 +15,11 @@ import { userType } from '../propTypes';
 function UserCardWithoutDesc({ user }) {
   const left = user && user.avatarSrc && <Avatar user={user} hoverable />;
   const headLeft = <UserName user={user} isTwoLine />;
-  const headRight = (
-    <CustomizedButton small>关注</CustomizedButton>
-  );
+  const headRight = <CustomizedButton small>关注</CustomizedButton>;
   const p = { left, headLeft, headRight };
-  return (
-    <MediaCard {...p} />
-  );
+  return <MediaCard {...p} />;
 }
 UserCardWithoutDesc.propTypes = {
-  user: userType.isRequired,
+  user: userType.isRequired
 };
 export default UserCardWithoutDesc;

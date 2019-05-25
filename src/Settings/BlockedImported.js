@@ -1,5 +1,5 @@
-import React from 'react';
-import BlockedLayout from './BlockedLayout';
+import React from "react";
+import BlockedLayout from "./BlockedLayout";
 
 function BlockedImported() {
   return (

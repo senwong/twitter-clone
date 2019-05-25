@@ -1,7 +1,7 @@
-import React from 'react';
-import styled from 'styled-components';
-import PropTypes from 'prop-types';
-import { whiteBackground } from '../themes';
+import React from "react";
+import styled from "styled-components";
+import PropTypes from "prop-types";
+import { whiteBackground } from "../themes";
 
 const Container = styled.div`
   padding: 14px 9px;
@@ -16,13 +16,9 @@ const Container = styled.div`
   ${whiteBackground}
 `;
 function DeleteButton({ children }) {
-  return (
-    <Container>
-      {children}
-    </Container>
-  );
+  return <Container>{children}</Container>;
 }
 DeleteButton.propTypes = {
-  children: PropTypes.node.isRequired,
+  children: PropTypes.node.isRequired
 };
 export default DeleteButton;

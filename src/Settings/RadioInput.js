@@ -1,7 +1,7 @@
-import React from 'react';
-import styled from 'styled-components';
-import PropTypes from 'prop-types';
-import Text from '../BaseComponents/Text';
+import React from "react";
+import styled from "styled-components";
+import PropTypes from "prop-types";
+import Text from "../BaseComponents/Text";
 
 const StyledLabel = styled.label`
   padding: 5px 0;
@@ -16,7 +16,8 @@ const RadioButtonWrapper = styled.div`
   justify-content: center;
   align-items: center;
   ${StyledLabel}:hover & {
-    background-color: ${props => (props.checked ? 'rgba(29, 161, 242, 0.1)' : 'rgba(101, 119, 134, 0.1)')}
+    background-color: ${props =>
+      props.checked ? "rgba(29, 161, 242, 0.1)" : "rgba(101, 119, 134, 0.1)"};
   }
   transition-property: background-color;
   transition-duration: 0.2s;
@@ -27,7 +28,8 @@ const FakeRadioButon = styled.div`
   height: 18px;
   border-radius: 9999px;
   border: 2px solid;
-  border-color: ${props => (props.checked ? 'rgb(29, 161, 242)' : 'rgb(101, 119, 134)')};
+  border-color: ${props =>
+    props.checked ? "rgb(29, 161, 242)" : "rgb(101, 119, 134)"};
   position: relative;
   transition-property: border-color;
   transition-duration: 0.2s;
@@ -53,16 +55,14 @@ const StyledInput = styled.input`
   width: 100%;
   height: 100%;
 `;
-function RadioInput({
-  title, name, checked, onChange,
-}) {
+function RadioInput({ title, name, checked, onChange }) {
   return (
     <StyledLabel>
       <Text>{title}</Text>
-      <div style={{ position: 'relative' }}>
+      <div style={{ position: "relative" }}>
         <RadioButtonWrapper checked={checked}>
           <FakeRadioButon checked={checked}>
-            { checked && <Circle />}
+            {checked && <Circle />}
           </FakeRadioButon>
         </RadioButtonWrapper>
         <StyledInput type="radio" name={name} onChange={onChange} />
@@ -74,6 +74,6 @@ RadioInput.propTypes = {
   title: PropTypes.string.isRequired,
   name: PropTypes.string.isRequired,
   checked: PropTypes.bool.isRequired,
-  onChange: PropTypes.func.isRequired,
+  onChange: PropTypes.func.isRequired
 };
 export default RadioInput;

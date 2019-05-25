@@ -1,10 +1,10 @@
-import React from 'react';
-import BackHeadWithUsername from '../middleComponents/BackHeadWithUsername';
-import LayOut from './LayOut';
-import MakeSettingPanel from './MakeSettingPanel';
+import React from "react";
+import BackHeadWithUsername from "../middleComponents/BackHeadWithUsername";
+import LayOut from "./LayOut";
+import MakeSettingPanel from "./MakeSettingPanel";
 
 const data = {
-  title: '停用账号',
+  title: "停用账号"
 };
 export default function Deactivate() {
   return (

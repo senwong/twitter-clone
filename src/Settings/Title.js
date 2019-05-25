@@ -1,8 +1,8 @@
-import React from 'react';
-import styled from 'styled-components';
-import PropTypes from 'prop-types';
-import Text from '../BaseComponents/Text';
-import { whiteBackground } from '../themes';
+import React from "react";
+import styled from "styled-components";
+import PropTypes from "prop-types";
+import Text from "../BaseComponents/Text";
+import { whiteBackground } from "../themes";
 
 const Container = styled.div`
   padding: 0 10px;
@@ -16,12 +16,14 @@ const Container = styled.div`
 function Title({ children }) {
   return (
     <Container>
-      <Text large bold>{children}</Text>
+      <Text large bold>
+        {children}
+      </Text>
     </Container>
   );
 }
 Title.propTypes = {
-  children: PropTypes.node.isRequired,
+  children: PropTypes.node.isRequired
 };
 
 export default Title;

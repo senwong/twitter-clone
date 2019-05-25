@@ -1,17 +1,17 @@
-import { hide, show } from './profilePage';
-import { profilePage } from '../actionTypes';
+import { hide, show } from "./profilePage";
+import { profilePage } from "../actionTypes";
 
-describe('profilePage action creator', () => {
-  it('should create an action to hide profilePage', () => {
+describe("profilePage action creator", () => {
+  it("should create an action to hide profilePage", () => {
     const expectedAction = {
-      type: profilePage.hide,
+      type: profilePage.hide
     };
-    expect(hide()).toEqual(expectedAction)
+    expect(hide()).toEqual(expectedAction);
   });
-  it('should create an action to show profilePage', () => {
+  it("should create an action to show profilePage", () => {
     const expectedAction = {
-      type: profilePage.show,
+      type: profilePage.show
     };
-    expect(show()).toEqual(expectedAction)
+    expect(show()).toEqual(expectedAction);
   });
 });

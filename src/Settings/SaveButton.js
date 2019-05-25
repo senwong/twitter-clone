@@ -1,7 +1,7 @@
-import React from 'react';
-import styled from 'styled-components';
-import CustomizedButton from '../BaseComponents/CustomizedButton';
-import { whiteBackground } from '../themes';
+import React from "react";
+import styled from "styled-components";
+import CustomizedButton from "../BaseComponents/CustomizedButton";
+import { whiteBackground } from "../themes";
 
 const Container = styled.div`
   padding: 9px 9px 9px 0;
@@ -12,9 +12,7 @@ const Container = styled.div`
 function SaveButton() {
   return (
     <Container>
-      <CustomizedButton filled>
-        保存
-      </CustomizedButton>
+      <CustomizedButton filled>保存</CustomizedButton>
     </Container>
   );
 }

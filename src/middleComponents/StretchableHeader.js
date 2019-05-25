@@ -1,13 +1,11 @@
-import React, { useState, useEffect } from 'react';
-import styled from 'styled-components';
-import { node, bool } from 'prop-types';
-import { whiteBackground } from '../themes';
+import React, { useState, useEffect } from "react";
+import styled from "styled-components";
+import { node, bool } from "prop-types";
+import { whiteBackground } from "../themes";
 
-const HeaderContainer = styled.header`
-
-`;
+const HeaderContainer = styled.header``;
 const FakeHeader = styled.div`
-  height: 98px;
+  height: 106px;
 `;
 const Header = styled.div`
   position: fixed;
@@ -18,7 +16,7 @@ const Header = styled.div`
   transition-property: transform;
   transition-duration: 0.2s;
   z-index: 2;
-  transform: ${props => props.isShort && 'translateY(-49px)'};
+  transform: ${props => props.isShort && "translateY(-49px)"};
   ${whiteBackground};
 `;
 const ContentWrapper = styled.div`
@@ -49,26 +47,24 @@ export default function StretchableHeader({ stretchable, children }) {
     setLastWindowScrollTop(e.target.scrollingElement.scrollTop);
   }
   useEffect(() => {
-    window.addEventListener('scroll', handleWindowScroll);
+    window.addEventListener("scroll", handleWindowScroll);
     return () => {
-      window.removeEventListener('scroll', handleWindowScroll);
+      window.removeEventListener("scroll", handleWindowScroll);
     };
   });
   return (
     <HeaderContainer>
       <FakeHeader />
       <Header isShort={isHeadShort}>
-        <ContentWrapper>
-          {children}
-        </ContentWrapper>
+        <ContentWrapper>{children}</ContentWrapper>
       </Header>
     </HeaderContainer>
   );
 }
 StretchableHeader.propTypes = {
   children: node.isRequired,
-  stretchable: bool,
+  stretchable: bool
 };
 StretchableHeader.defaultProps = {
-  stretchable: true,
+  stretchable: true
 };

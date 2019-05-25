@@ -1,6 +1,12 @@
 import {
-  shape, oneOfType, number, string, bool, node, arrayOf,
-} from 'prop-types';
+  shape,
+  oneOfType,
+  number,
+  string,
+  bool,
+  node,
+  arrayOf
+} from "prop-types";
 
 export const userType = shape({
   id: number.isRequired,
@@ -15,7 +21,7 @@ export const userType = shape({
   email: string.isRequired,
   location: string.isRequired,
   birthday: string.isRequired,
-  registerTime: string.isRequired,
+  registerTime: string.isRequired
 });
 export const tweetType = shape({
   id: number.isRequired,
@@ -24,26 +30,25 @@ export const tweetType = shape({
   createdTime: string.isRequired,
   replayAmount: number.isRequired,
   forewardAmount: number.isRequired,
-  likeAmount: number.isRequired,
+  likeAmount: number.isRequired
 });
-export const linkListType = arrayOf(shape({
-  to: string.isRequired,
-  title: oneOfType([
-    string,
-    node,
-  ]).isRequired,
-  exact: bool,
-}));
+export const linkListType = arrayOf(
+  shape({
+    to: string.isRequired,
+    title: oneOfType([string, node]).isRequired,
+    exact: bool
+  })
+);
 
 export const positionType = shape({
   left: number,
   right: number,
   top: number,
-  bottom: number,
+  bottom: number
 });
 export const defaultPosition = {
   left: null,
   right: null,
   top: null,
-  bottom: null,
+  bottom: null
 };

@@ -1,6 +1,6 @@
-import React from 'react';
-import styled from 'styled-components';
-import { Link } from 'react-router-dom';
+import React from "react";
+import styled from "styled-components";
+import { Link } from "react-router-dom";
 
 const Container = styled.div`
   padding: 10px;
@@ -22,7 +22,7 @@ function PageFooter() {
       <Item to="#">更多</Item>
       <Item to="#">
         &copy;&nbsp;
-        {(new Date()).getFullYear()}
+        {new Date().getFullYear()}
         &nbsp;Twitter, Inc.
       </Item>
     </Container>

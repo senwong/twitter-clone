@@ -1,15 +1,14 @@
-import React, { useState, useEffect } from 'react';
-import BackHeadWithUsername from '../middleComponents/BackHeadWithUsername';
-import { getTrends } from '../Api';
-import Dot from '../BaseComponents/Dot';
-import ListCard from './ListCard';
+import React, { useState, useEffect } from "react";
+import BackHeadWithUsername from "../middleComponents/BackHeadWithUsername";
+import { getTrends } from "../Api";
+import Dot from "../BaseComponents/Dot";
+import ListCard from "./ListCard";
 
-export default function () {
+export default function() {
   const [trends, setTrends] = useState();
   useEffect(() => {
     const promise = getTrends();
-    promise.promise
-      .then(res => setTrends(res.data), () => {});
+    promise.promise.then(res => setTrends(res.data), () => {});
     return () => {
       promise.cancel();
     };
@@ -17,22 +16,21 @@ export default function () {
   return (
     <React.Fragment>
       <BackHeadWithUsername title="趋势" />
-      {
-        trends && trends.map((trend, i) => (
+      {trends &&
+        trends.map((trend, i) => (
           <ListCard
             key={trend.id}
             head={(
-              <div>
-                {i + 1}
-                <Dot />
-全球趋势
-              </div>
+<div>
+  {i + 1}
+  <Dot />
+                全球趋势
+</div>
 )}
             body={trend.title}
             foot={`${trend.tweetNum} 推文`}
           />
-        ))
-      }
+        ))}
     </React.Fragment>
   );
 }

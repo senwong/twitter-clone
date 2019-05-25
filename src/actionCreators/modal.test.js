@@ -1,30 +1,30 @@
-import { hide, show, setup } from './modal';
-import { modal } from '../actionTypes';
+import { hide, show, setup } from "./modal";
+import { modal } from "../actionTypes";
 
-describe('modal action creator', () => {
-  it('should create an action to hide modal', () => {
+describe("modal action creator", () => {
+  it("should create an action to hide modal", () => {
     const expectedAction = {
-      type: modal.hide,
+      type: modal.hide
     };
-    expect(hide()).toEqual(expectedAction)
+    expect(hide()).toEqual(expectedAction);
   });
-  it('should create an action to show modal', () => {
+  it("should create an action to show modal", () => {
     const expectedAction = {
-      type: modal.show,
+      type: modal.show
     };
-    expect(show()).toEqual(expectedAction)
+    expect(show()).toEqual(expectedAction);
   });
-  it('should create an action to setup modal', () => {
+  it("should create an action to setup modal", () => {
     const config = {
-      type: 'primary',
-      title: 'title',
+      type: "primary",
+      title: "title",
       onConfirm: () => {},
-      onCancel: () => {},
+      onCancel: () => {}
     };
     const expectedAction = {
       type: modal.setup,
-      config,
+      config
     };
-    expect(setup(config)).toEqual(expectedAction)
+    expect(setup(config)).toEqual(expectedAction);
   });
 });

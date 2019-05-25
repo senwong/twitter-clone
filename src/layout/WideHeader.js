@@ -1,19 +1,18 @@
-import React from 'react';
-import styled from 'styled-components';
-import NavigationBar from '../middleComponents/NavigationBar';
-import UserNameBar from './UserNameBar';
-import { whiteBackground } from '../themes';
-import SearchBar from '../Search/SearchBar';
+import React from "react";
+import styled from "styled-components";
+import NavigationBar from "../middleComponents/NavigationBar";
+import UserNameBar from "./UserNameBar";
+import { whiteBackground } from "../themes";
+import SearchBar from "../Search/SearchBar";
 
 const FakeHeader = styled.div`
-  height: 53px;
+  height: 54px;
 `;
 const Content = styled.div`
   position: fixed;
   top: 0;
   left: 0;
   right: 0;
-  height: 53px;
   z-index: 2;
   ${whiteBackground}
 `;
@@ -29,6 +28,10 @@ const NavigationWrapper = styled.div`
 `;
 const InputWrapper = styled.div`
   flex-grow: 1;
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-start;
+  align-items: center;
 `;
 const UserNameWrapper = styled.div`
   margin-left: 20px;
@@ -39,7 +42,6 @@ function WideHeader() {
       <FakeHeader />
       <Content>
         <ContentWrapper>
-
           <NavigationWrapper>
             <NavigationBar />
           </NavigationWrapper>

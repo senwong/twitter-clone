@@ -1,9 +1,9 @@
-import React, { useState } from 'react';
-import styled, { css } from 'styled-components';
-import PropTypes from 'prop-types';
-import { CheckedIcon } from '../BaseComponents/SVGIcons';
-import Text from '../BaseComponents/Text';
-import { whiteBackground, grayBorderBottom } from '../themes';
+import React, { useState } from "react";
+import styled, { css } from "styled-components";
+import PropTypes from "prop-types";
+import { CheckedIcon } from "../BaseComponents/SVGIcons";
+import Text from "../BaseComponents/Text";
+import { whiteBackground, grayBorderBottom } from "../themes";
 
 const CheckBoxContainer = styled.div`
   position: relative;
@@ -45,10 +45,12 @@ const FakeCheckBoxIcon = styled.div`
   display: flex;
   align-items: center;
   justify-content: center;
-  ${props => props.checked && css`
-    border-color: rgb(29, 161, 242);
-    background-color: rgb(29, 161, 242);
-  `}
+  ${props =>
+    props.checked &&
+    css`
+      border-color: rgb(29, 161, 242);
+      background-color: rgb(29, 161, 242);
+    `}
 `;
 const SubTitleWrapper = styled.div`
   padding-top: 9px;
@@ -61,9 +63,7 @@ function CheckBox({ title, subTitle }) {
         <Text>{title}</Text>
         <CheckBoxIconWrapper>
           <FakeCheckBoxIcon checked={checked}>
-            {
-              checked && <CheckedIcon xsmall white />
-            }
+            {checked && <CheckedIcon xsmall white />}
           </FakeCheckBoxIcon>
           <StyledCheckBoxInput
             type="checkbox"
@@ -72,23 +72,21 @@ function CheckBox({ title, subTitle }) {
           />
         </CheckBoxIconWrapper>
       </StyledLabel>
-      {
-        subTitle
-        && (
-          <SubTitleWrapper>
-            <Text secondary small>{subTitle}</Text>
-          </SubTitleWrapper>
-        )
-      }
-
+      {subTitle && (
+        <SubTitleWrapper>
+          <Text secondary small>
+            {subTitle}
+          </Text>
+        </SubTitleWrapper>
+      )}
     </CheckBoxContainer>
   );
 }
 CheckBox.propTypes = {
   title: PropTypes.string.isRequired,
-  subTitle: PropTypes.string,
+  subTitle: PropTypes.string
 };
 CheckBox.defaultProps = {
-  subTitle: '',
+  subTitle: ""
 };
 export default CheckBox;

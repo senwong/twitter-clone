@@ -1,5 +1,5 @@
-import React from 'react';
-import MutedLayout from './MutedLayout';
+import React from "react";
+import MutedLayout from "./MutedLayout";
 
 function MutedAll() {
   return (

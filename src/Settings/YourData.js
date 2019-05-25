@@ -1,10 +1,10 @@
-import React from 'react';
-import LayOut from './LayOut';
-import BackHeadWithUsername from '../middleComponents/BackHeadWithUsername';
-import MakeSettingPanel from './MakeSettingPanel';
+import React from "react";
+import LayOut from "./LayOut";
+import BackHeadWithUsername from "../middleComponents/BackHeadWithUsername";
+import MakeSettingPanel from "./MakeSettingPanel";
 
 const data = {
-  title: '你的Twitter数据',
+  title: "你的Twitter数据"
 };
 function YourData() {
   return (

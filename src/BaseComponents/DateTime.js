@@ -1,5 +1,5 @@
-import React from 'react';
-import PropTypes from 'prop-types';
+import React from "react";
+import PropTypes from "prop-types";
 
 export default function DateTime({ dateTimeStr }) {
   const dateTime = Date.parse(dateTimeStr);
@@ -19,26 +19,22 @@ export default function DateTime({ dateTimeStr }) {
   if (timeCap < oneHour) {
     timeDesc = `${Math.round(timeCap / oneMinute)}分钟`;
   } else if (
-    timeCap < oneDay
-    && new Date(now).getDate() === new Date(dateTime).getDate()
+    timeCap < oneDay &&
+    new Date(now).getDate() === new Date(dateTime).getDate()
   ) {
     timeDesc = `${Math.round(timeCap / oneHour)}时`;
   } else if (new Date(now).getFullYear() === new Date(dateTime).getFullYear()) {
-    timeDesc = `${new Date(dateTime).getMonth()
-    }月${
-      new Date(dateTime).getDate()
-    }日`;
+    timeDesc = `${new Date(dateTime).getMonth()}月${new Date(
+      dateTime
+    ).getDate()}日`;
   } else {
-    timeDesc = `${new Date(dateTime).getFullYear()
-    }年${
-      new Date(dateTime).getMonth()
-    }月${
-      new Date(dateTime).getDate()
-    }日`;
+    timeDesc = `${new Date(dateTime).getFullYear()}年${new Date(
+      dateTime
+    ).getMonth()}月${new Date(dateTime).getDate()}日`;
   }
 
   return timeDesc;
 }
 DateTime.propTypes = {
-  dateTimeStr: PropTypes.string.isRequired,
+  dateTimeStr: PropTypes.string.isRequired
 };

@@ -1,17 +1,17 @@
-import { show, hide } from './tweetCardPopup';
-import { tweetCardPopup } from '../actionTypes';
+import { show, hide } from "./tweetCardPopup";
+import { tweetCardPopup } from "../actionTypes";
 
-describe('tweetCardPopup action creator', () => {
-  it('should create an action to show tweetCardPopup', () => {
+describe("tweetCardPopup action creator", () => {
+  it("should create an action to show tweetCardPopup", () => {
     const expectedAction = {
-      type: tweetCardPopup.show,
+      type: tweetCardPopup.show
     };
-    expect(show()).toEqual(expectedAction)
+    expect(show()).toEqual(expectedAction);
   });
-  it('should create an action to hide tweetCardPopup', () => {
+  it("should create an action to hide tweetCardPopup", () => {
     const expectedAction = {
-      type: tweetCardPopup.hide,
+      type: tweetCardPopup.hide
     };
-    expect(hide()).toEqual(expectedAction)
+    expect(hide()).toEqual(expectedAction);
   });
 });

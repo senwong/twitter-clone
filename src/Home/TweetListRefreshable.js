@@ -1,11 +1,11 @@
-import React, { useState, useEffect } from 'react';
-import { func } from 'prop-types';
-import { connect } from 'react-redux';
-import { getTweets } from '../Api';
-import TweetCard from '../container/TweetCard';
-import { WattingIcon } from '../BaseComponents/SVGIcons';
-import PullDownRefresh from '../middleComponents/PullDownRefresh';
-import { setup, show } from '../actionCreators/modal';
+import React, { useState, useEffect } from "react";
+import { func } from "prop-types";
+import { connect } from "react-redux";
+import { getTweets } from "../Api";
+import TweetCard from "../container/TweetCard";
+import { WattingIcon } from "../BaseComponents/SVGIcons";
+import PullDownRefresh from "../middleComponents/PullDownRefresh";
+import { setup, show } from "../actionCreators/modal";
 
 // const Container = styled.div`
 //   background-color: rgb(230, 236, 240);
@@ -41,19 +41,18 @@ function TweetListRefreshable({ setModal, showModal }) {
   const [tweets, setTweets] = useState([]);
   useEffect(() => {
     const cancelablePromise = getTweets();
-    cancelablePromise.promise
-      .then(
-        res => setTweets(res.data),
-        () => {
-          setModal({
-            title: 'Network error',
-            type: 'warning',
-            onConfirm: null,
-            onCancel: null,
-          });
-          showModal();
-        },
-      );
+    cancelablePromise.promise.then(
+      res => setTweets(res.data),
+      () => {
+        setModal({
+          title: "Network error",
+          type: "warning",
+          onConfirm: null,
+          onCancel: null
+        });
+        showModal();
+      }
+    );
     return () => {
       cancelablePromise.cancel();
     };
@@ -61,36 +60,36 @@ function TweetListRefreshable({ setModal, showModal }) {
   // const isWide = useMediaQuery('(min-width: 1000px)');
   // todo refresh data
   function handleRefresh() {
-    return new Promise((resolve) => {
+    return new Promise(resolve => {
       getTweets().promise.then(
-        (newTweets) => {
+        newTweets => {
           setTweets(newTweets.data);
           resolve();
         },
-        () => {},
+        () => {}
       );
     });
   }
   return (
     <PullDownRefresh onRefresh={handleRefresh}>
-      {
-        tweets && tweets.length > 0
-          ? tweets.map(tweet => <TweetCard key={tweet.id} tweet={tweet} />)
-          : <WattingIcon large secondary />
-      }
+      {tweets && tweets.length > 0 ? (
+        tweets.map(tweet => <TweetCard key={tweet.id} tweet={tweet} />)
+      ) : (
+        <WattingIcon large secondary />
+      )}
     </PullDownRefresh>
   );
 }
 TweetListRefreshable.propTypes = {
   setModal: func.isRequired,
-  showModal: func.isRequired,
+  showModal: func.isRequired
 };
 
 const mapDispatchToProps = dispatch => ({
   setModal: modalConfig => dispatch(setup(modalConfig)),
-  showModal: () => dispatch(show()),
+  showModal: () => dispatch(show())
 });
 export default connect(
   null,
-  mapDispatchToProps,
+  mapDispatchToProps
 )(TweetListRefreshable);

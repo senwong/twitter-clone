@@ -1,14 +1,14 @@
-import { connect } from 'react-redux';
-import Avatar from '../BaseComponents/Avatar';
-import { show } from '../actionCreators/profilePage';
+import { connect } from "react-redux";
+import Avatar from "../BaseComponents/Avatar";
+import { show } from "../actionCreators/profilePage";
 
 const mapStateToProps = state => ({
-  user: state.currentUser,
+  user: state.currentUser
 });
 const mapDispatchToProps = dispatch => ({
-  onClick: () => dispatch(show()),
+  onClick: () => dispatch(show())
 });
 export default connect(
   mapStateToProps,
-  mapDispatchToProps,
+  mapDispatchToProps
 )(Avatar);

@@ -1,56 +1,70 @@
-import React from 'react';
+import React from "react";
 // import PropTypes from 'prop-types';
-import { connect } from 'react-redux';
-import LayOut from './LayOut';
-import MakeSettingPanel from './MakeSettingPanel';
-import BackHeadWithUsername from '../middleComponents/BackHeadWithUsername';
+import { connect } from "react-redux";
+import LayOut from "./LayOut";
+import MakeSettingPanel from "./MakeSettingPanel";
+import BackHeadWithUsername from "../middleComponents/BackHeadWithUsername";
 
 // const personalizationLabels = { 0: '关闭', 1: '允许一些', 2: '允许全部' };
 const data = {
-  title: '内容偏好',
+  title: "内容偏好",
   list: [
     {
       key: 1,
-      title: '探索',
+      title: "探索",
       list: [
         {
-          key: 1, type: 'link', title: '探索设置', to: '/settings/search',
+          key: 1,
+          type: "link",
+          title: "探索设置",
+          to: "/settings/search"
         },
         {
-          key: 2, type: 'link', title: '趋势', to: '/settings/trends',
-        },
-      ],
+          key: 2,
+          type: "link",
+          title: "趋势",
+          to: "/settings/trends"
+        }
+      ]
     },
     {
       key: 2,
-      title: '安全',
+      title: "安全",
       list: [
         {
-          key: 1, type: 'link', title: '已隐藏', to: '/settings/mute',
+          key: 1,
+          type: "link",
+          title: "已隐藏",
+          to: "/settings/mute"
         },
         {
-          key: 2, type: 'link', title: '已屏蔽账号', to: '/settings/blocked/all',
-        },
-      ],
+          key: 2,
+          type: "link",
+          title: "已屏蔽账号",
+          to: "/settings/blocked/all"
+        }
+      ]
     },
     {
       key: 3,
-      title: '个性化与数据',
+      title: "个性化与数据",
       list: [
         {
-          key: 1, type: 'link', title: '个性化与数据', subTitle: '允许一些', to: '/settings/personalization',
-        },
-      ],
-    },
-  ],
+          key: 1,
+          type: "link",
+          title: "个性化与数据",
+          subTitle: "允许一些",
+          to: "/settings/personalization"
+        }
+      ]
+    }
+  ]
 };
 function ContentPreferences() {
   return (
     <LayOut
       narrowHead={<BackHeadWithUsername title="内容偏好" />}
-      rightAside={(
-        <MakeSettingPanel data={data} />
-      )}
+      rightAside={<MakeSettingPanel data={data} />}
     />
   );
 }
@@ -61,8 +75,6 @@ ContentPreferences.defaultProps = {
   // personalization: 0,
 };
 const mapStateToProps = state => ({
-  personalization: state.currentUser && state.currentUser.personalization,
+  personalization: state.currentUser && state.currentUser.personalization
 });
-export default connect(
-  mapStateToProps,
-)(ContentPreferences);
+export default connect(mapStateToProps)(ContentPreferences);

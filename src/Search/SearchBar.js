@@ -1,20 +1,17 @@
-import React, {
-  useState, useEffect, useRef, useReducer, memo,
-} from 'react';
-import styled from 'styled-components';
-import { withRouter } from 'react-router-dom';
-import { func, shape, element } from 'prop-types';
-import ReactRouterPropTypes from 'react-router-prop-types';
-import queryString from 'query-string';
-import InputText from '../BaseComponents/InputText';
-import { whiteBackground } from '../themes';
-import SearchHistorys from './SearchHistorys';
-import SearchRecommends from './SearchRecommends';
-import { getSearchHistory, addSearchHistory } from '../Api/SearchHistory';
-import { useClickOutsideEl, useMediaQuery } from '../utilitys';
+import React, { useState, useEffect, useRef, useReducer, memo } from "react";
+import styled from "styled-components";
+import { withRouter } from "react-router-dom";
+import { func, shape, instanceOf } from "prop-types";
+import ReactRouterPropTypes from "react-router-prop-types";
+import queryString from "query-string";
+import InputText from "../BaseComponents/InputText";
+import { whiteBackground } from "../themes";
+import SearchHistorys from "./SearchHistorys";
+import SearchRecommends from "./SearchRecommends";
+import { getSearchHistory, setSearchHistory } from "../Api/SearchHistory";
+import { useClickOutsideEl, useMediaQuery } from "../utilitys";
 
 const Wrapper = styled.div`
-  margin: 10px 0;
   flex: 1 0 0px;
   min-height: 0px;
   display: flex;
@@ -72,30 +69,36 @@ in narrow screen mode
       history.goBack()
     back button
 */
-function useDropdownVisibility(history, backIconRef, selectedHistory, containerEl, query) {
-  const isNarrowScreen = useMediaQuery('(max-width: 1000px)');
+function useDropdownVisibility(
+  history,
+  backIconRef,
+  selectedHistory,
+  containerEl,
+  query
+) {
+  const isNarrowScreen = useMediaQuery("(max-width: 1000px)");
   const historyKey = useRef();
   const reducer = (state, action) => {
     switch (action.type) {
-      case 'SHOW_HISTORY': {
+      case "SHOW_HISTORY": {
         return {
           ...state,
           historyVisible: true,
-          searchRecommendVisible: false,
+          searchRecommendVisible: false
         };
       }
-      case 'SHOW_SEARCH_RECOMMEND': {
+      case "SHOW_SEARCH_RECOMMEND": {
         return {
           ...state,
           historyVisible: false,
-          searchRecommendVisible: true,
+          searchRecommendVisible: true
         };
       }
-      case 'HIDE_ALL': {
+      case "HIDE_ALL": {
         return {
           ...state,
           historyVisible: false,
-          searchRecommendVisible: false,
+          searchRecommendVisible: false
         };
       }
       default:
@@ -104,22 +107,20 @@ function useDropdownVisibility(history, backIconRef, selectedHistory, containerE
   };
   const initialState = {
     historyVisible: false,
-    searchRecommendVisible: false,
+    searchRecommendVisible: false
   };
   const [state, dispatch] = useReducer(reducer, initialState);
   const { historyVisible, searchRecommendVisible } = state;
-  const showHistory = () => dispatch({ type: 'SHOW_HISTORY' });
-  const showSearchRcommend = () => dispatch({ type: 'SHOW_SEARCH_RECOMMEND' });
-  const hideAll = () => dispatch({ type: 'HIDE_ALL' });
+  const showHistory = () => dispatch({ type: "SHOW_HISTORY" });
+  const showSearchRcommend = () => dispatch({ type: "SHOW_SEARCH_RECOMMEND" });
+  const hideAll = () => dispatch({ type: "HIDE_ALL" });
 
   // show
   function handleFocus({ target: { value } }) {
     if (historyVisible === false && searchRecommendVisible === false) {
       if (value) showSearchRcommend();
       else showHistory();
-      const {
-        key, pathname, search, state: locationState,
-      } = history.location;
+      const { key, pathname, search, state: locationState } = history.location;
       if (isNarrowScreen && (!locationState || !locationState.dropdownFocus)) {
         historyKey.current = key;
         history.push({ pathname, search, state: { dropdownFocus: true } });
@@ -136,7 +137,7 @@ function useDropdownVisibility(history, backIconRef, selectedHistory, containerE
   }, [historyVisible, searchRecommendVisible, query]);
 
   function handleKeyDown({ key, target: { value } }) {
-    if (key === 'Enter') {
+    if (key === "Enter") {
       hideAll();
       const { state: locationState } = history.location;
       if (isNarrowScreen && locationState && locationState.dropdownFocus) {
@@ -147,28 +148,36 @@ function useDropdownVisibility(history, backIconRef, selectedHistory, containerE
       setTimeout(() => {
         if (value) {
           history.push({
-            pathname: '/search',
-            search: `q=${value}`,
+            pathname: "/search",
+            search: `q=${value}`
           });
         } else if (selectedHistory) {
           history.push({
-            pathname: '/search',
-            search: `q=${selectedHistory}`,
+            pathname: "/search",
+            search: `q=${selectedHistory}`
           });
         }
       }, 100);
     }
   }
 
-  useClickOutsideEl(() => {
-    hideAll();
-    if (isNarrowScreen && history.location.state && history.location.state.dropdownFocus) {
-      history.goBack();
-      // reset dropdownFocu to false
-      const { pathname, search } = history.location;
-      history.replace({ pathname, search, state: { dropdownFocus: false } });
-    }
-  }, containerEl, backIconRef);
+  useClickOutsideEl(
+    () => {
+      hideAll();
+      if (
+        isNarrowScreen &&
+        history.location.state &&
+        history.location.state.dropdownFocus
+      ) {
+        history.goBack();
+        // reset dropdownFocu to false
+        const { pathname, search } = history.location;
+        history.replace({ pathname, search, state: { dropdownFocus: false } });
+      }
+    },
+    containerEl,
+    backIconRef
+  );
 
   // back button trick this function, key is destination location's key
   function handleHistoryChange({ key }) {
@@ -186,74 +195,67 @@ function useDropdownVisibility(history, backIconRef, selectedHistory, containerE
 }
 
 function useSearchHistorys() {
-  const initialState = {
-    selectedHistory: '',
-    historys: null,
-  };
-  const reducer = (state, action) => {
-    switch (action.type) {
-      case 'SET_SELECTED_HISTORY': {
-        return { ...state, selectedHistory: action.value };
-      }
-      case 'SET_SEARCH_HISTORYS': {
-        return { ...state, historys: action.value };
-      }
-      default:
-        return state;
-    }
-  };
-  const [
-    {
-      selectedHistory,
-      searchHistorys,
-    },
-    dispatch,
-  ] = useReducer(reducer, initialState);
-  const setSearchHistorys = value => dispatch({ type: 'SET_SEARCH_HISTORYS', value });
-  const setSelectedHistory = value => dispatch({ type: 'SET_SELECTED_HISTORY', value });
-  // initialize get historys
-  useEffect(() => {
-    const allHistorys = getSearchHistory();
-    if (allHistorys.length > 0) {
-      setSearchHistorys(allHistorys);
-      setSelectedHistory(allHistorys[0]);
-    }
-  }, []);
+  const allHistorys = getSearchHistory();
+  const [selectedHistory, setSelectedHistory] = useState(
+    allHistorys.length > 0 ? allHistorys[0] : ""
+  );
 
-  function handleEnter({ target: { value } }) {
-    if (value) {
-      addSearchHistory(value);
+  function deleteAll() {
+    setSearchHistory([]);
+    setSelectedHistory("");
+  }
+  function deleteHistory(h) {
+    const searchHistorys = getSearchHistory();
+    const idx = searchHistorys.indexOf(h);
+    if (idx > -1) {
+      searchHistorys.splice(idx, 1);
+      setSearchHistory(searchHistorys);
     }
   }
+
+  function handleEnter({ target: { value } }) {
+    if (value.length < 1) return;
+    const searchHistorys = getSearchHistory();
+    const idx = searchHistorys.indexOf(value);
+    if (idx > -1) {
+      searchHistorys.splice(idx, 1);
+    }
+    searchHistorys.unshift(value);
+    setSearchHistory(searchHistorys);
+  }
   function handleArrowUp({ target: { value } }) {
-    if (!value && searchHistorys) {
+    const searchHistorys = getSearchHistory();
+    if (!value && searchHistorys.length) {
       const index = searchHistorys.indexOf(selectedHistory);
-      const newSelectedHistory = searchHistorys[index > 0 ? index - 1 : searchHistorys.length - 1];
+      const newSelectedHistory =
+        searchHistorys[index > 0 ? index - 1 : searchHistorys.length - 1];
       setSelectedHistory(newSelectedHistory);
     }
   }
   function handleArrowDown({ target: { value } }) {
-    if (!value && searchHistorys) {
+    const searchHistorys = getSearchHistory();
+    if (!value && searchHistorys.length) {
       const index = searchHistorys.indexOf(selectedHistory);
-      const newSelectedHistory = searchHistorys[index < searchHistorys.length - 1 ? index + 1 : 0];
+      const newSelectedHistory =
+        searchHistorys[index < searchHistorys.length - 1 ? index + 1 : 0];
       setSelectedHistory(newSelectedHistory);
     }
   }
   function handleKeydown(e) {
     switch (e.key) {
-      case 'Enter':
+      case "Enter":
         handleEnter(e);
         break;
-      case 'ArrowUp':
+      case "ArrowUp":
         handleArrowUp(e);
         break;
-      case 'ArrowDown':
+      case "ArrowDown":
         handleArrowDown(e);
         break;
       default:
     }
   }
-  return [selectedHistory, searchHistorys, handleKeydown];
+  return [selectedHistory, handleKeydown, deleteHistory, deleteAll];
 }
 
 /**
@@ -263,16 +265,27 @@ function useSearchHistorys() {
  * @param {object} backIconRef back button ref, when it clicks don't directly invoke hide, but hide
  * by history listener
  */
-function SearchBar({
-  history, onShow, onHide, backIconRef,
-}) {
+function SearchBar({ history, onShow, onHide, backIconRef }) {
   const containerEl = useRef();
-
-  const [selectedHistory, searchHistorys, handleKeydownHistory] = useSearchHistorys();
-  const [query, setQuery] = useState('');
   const [
-    showHistory, showSearchRcommend, handleFocus, handleKeyDownVisibility,
-  ] = useDropdownVisibility(history, backIconRef, selectedHistory, containerEl, query);
+    selectedHistory,
+    handleKeydownHistory,
+    deleteHistory,
+    deleteAll
+  ] = useSearchHistorys();
+  const [query, setQuery] = useState("");
+  const [
+    showHistory,
+    showSearchRcommend,
+    handleFocus,
+    handleKeyDownVisibility
+  ] = useDropdownVisibility(
+    history,
+    backIconRef,
+    selectedHistory,
+    containerEl,
+    query
+  );
 
   function handleKeyDown(e) {
     handleKeydownHistory(e);
@@ -281,17 +294,25 @@ function SearchBar({
 
   useEffect(() => {
     const { pathname, search } = window.location;
-    if (pathname === '/search') {
+    if (pathname === "/search") {
       const value = queryString.parse(search).q;
       setQuery(value);
     }
   }, []);
 
   useEffect(() => {
-    if ((showHistory || showSearchRcommend) && (onShow && typeof onShow === 'function')) {
+    if (
+      (showHistory || showSearchRcommend) &&
+      (onShow && typeof onShow === "function")
+    ) {
       onShow();
     }
-    if (!showHistory && !showSearchRcommend && onHide && typeof onHide === 'function') {
+    if (
+      !showHistory &&
+      !showSearchRcommend &&
+      onHide &&
+      typeof onHide === "function"
+    ) {
       onHide();
     }
   }, [showHistory, showSearchRcommend]);
@@ -307,23 +328,20 @@ function SearchBar({
         showDelete={showHistory || showSearchRcommend}
         ariaLabel="Search twitter"
       />
-      {
-        (showHistory || showSearchRcommend)
-        && (
-          <ContentWrapper>
-            <Content>
-              {
-                showHistory && (
-                  <SearchHistorys selected={selectedHistory} historys={searchHistorys} />
-                )
-              }
-              {
-                showSearchRcommend && <SearchRecommends query={query} />
-              }
-            </Content>
-          </ContentWrapper>
-        )
-      }
+      {(showHistory || showSearchRcommend) && (
+        <ContentWrapper>
+          <Content>
+            {showHistory && (
+              <SearchHistorys
+                selected={selectedHistory}
+                deleteHistory={deleteHistory}
+                deleteAll={deleteAll}
+              />
+            )}
+            {showSearchRcommend && <SearchRecommends query={query} />}
+          </Content>
+        </ContentWrapper>
+      )}
     </Wrapper>
   );
 }
@@ -332,12 +350,12 @@ SearchBar.propTypes = {
   onShow: func,
   onHide: func,
   backIconRef: shape({
-    current: element,
-  }),
+    current: instanceOf(Element)
+  })
 };
 SearchBar.defaultProps = {
   onShow: null,
   onHide: null,
-  backIconRef: { current: null },
+  backIconRef: { current: null }
 };
 export default memo(withRouter(SearchBar));

@@ -1,10 +1,10 @@
-import React from 'react';
-import LayOut from './LayOut';
-import BackHeadWithUsername from '../middleComponents/BackHeadWithUsername';
-import MakeSettingPanel from './MakeSettingPanel';
+import React from "react";
+import LayOut from "./LayOut";
+import BackHeadWithUsername from "../middleComponents/BackHeadWithUsername";
+import MakeSettingPanel from "./MakeSettingPanel";
 
 const data = {
-  title: '备用码',
+  title: "备用码"
 };
 function BackupCode() {
   return (

@@ -1,15 +1,13 @@
-import React, { useEffect, useRef } from 'react';
-import styled from 'styled-components';
-import { withRouter } from 'react-router-dom';
-import {
-  bool, func, arrayOf, shape, string,
-} from 'prop-types';
-import ReactRouterPropTypes from 'react-router-prop-types';
-import { useTransition, animated } from 'react-spring';
-import { whiteBackground, grayHover, grayBorderTop } from '../themes';
-import Text from '../BaseComponents/Text';
-import { positionType, defaultPosition } from '../propTypes';
-import { usePrevious } from '../utilitys';
+import React, { useEffect, useRef } from "react";
+import styled from "styled-components";
+import { withRouter } from "react-router-dom";
+import { bool, func, arrayOf, shape, string } from "prop-types";
+import ReactRouterPropTypes from "react-router-prop-types";
+import { useTransition, animated } from "react-spring";
+import { whiteBackground, grayHover, grayBorderTop } from "../themes";
+import Text from "../BaseComponents/Text";
+import { positionType, defaultPosition } from "../propTypes";
+import { usePrevious } from "../utilitys";
 
 const Wrapper = styled(animated.div)`
   position: fixed;
@@ -46,7 +44,8 @@ const ContentWrapper = styled(animated.div)`
     right: ${props => `${props.position.right}px`};
     left: ${props => `${props.position.left}px`};
     bottom: ${props => `${props.position.bottom}px`};
-    box-shadow: rgba(0, 0, 0, 0.19) 0px 10px 20px, rgba(0, 0, 0, 0.22) 0px 6px 6px;
+    box-shadow: rgba(0, 0, 0, 0.19) 0px 10px 20px,
+      rgba(0, 0, 0, 0.22) 0px 6px 6px;
   }
 `;
 const Item = styled.div`
@@ -66,17 +65,22 @@ const Cancel = styled.div`
 `;
 
 function PopupMenu({
-  history, location, items, show, hide: hideSelf, position,
+  history,
+  location,
+  items,
+  show,
+  hide: hideSelf,
+  position
 }) {
   const pageTransitions = useTransition(show, null, {
     from: { opacity: 0 },
     enter: { opacity: 1 },
-    leave: { opacity: 0 },
+    leave: { opacity: 0 }
   });
   const menuTransitions = useTransition(show, null, {
-    from: { transform: 'translate3d(0, 50px, 0)' },
-    enter: { transform: 'translate3d(0, 0, 0)' },
-    leave: { transform: 'translate3d(0, 50px, 0)' },
+    from: { transform: "translate3d(0, 50px, 0)" },
+    enter: { transform: "translate3d(0, 0, 0)" },
+    leave: { transform: "translate3d(0, 50px, 0)" }
   });
   function hideAndBack() {
     history.goBack();
@@ -84,7 +88,10 @@ function PopupMenu({
   }
   const contentRef = useRef();
   function handleWrapperClick(e) {
-    if (e.target !== contentRef.current && !contentRef.current.contains(e.target)) {
+    if (
+      e.target !== contentRef.current &&
+      !contentRef.current.contains(e.target)
+    ) {
       hideAndBack();
     }
   }
@@ -95,60 +102,59 @@ function PopupMenu({
   const prevShow = usePrevious(show);
   useEffect(() => {
     if (!prevShow && show) {
-      history.push(location.pathname);
+      history.push(location);
     }
   }, [show]);
   useEffect(() => {
-    window.addEventListener('popstate', handlePopstate);
+    window.addEventListener("popstate", handlePopstate);
     return () => {
-      window.removeEventListener('popstate', handlePopstate);
+      window.removeEventListener("popstate", handlePopstate);
     };
   }, []);
-  return pageTransitions.map(({ item, key, props: pageProps }) => item && (
-    <Wrapper
-      key={key}
-      style={pageProps}
-      onClick={handleWrapperClick}
-    >
-      {
-        menuTransitions.map(({ item: menuShow, key: menuKey, props: menuProps }) => menuShow && (
-          <ContentWrapper
-            key={menuKey}
-            style={menuProps}
-            ref={contentRef}
-            position={position}
-          >
-            {
-              items.map(({ title, warning, onClick }) => (
-                <Item
-                  key={title}
-                  onClick={onClick}
+  return pageTransitions.map(
+    ({ item, key, props: pageProps }) =>
+      item && (
+        <Wrapper key={key} style={pageProps} onClick={handleWrapperClick}>
+          {menuTransitions.map(
+            ({ item: menuShow, key: menuKey, props: menuProps }) =>
+              menuShow && (
+                <ContentWrapper
+                  key={menuKey}
+                  style={menuProps}
+                  ref={contentRef}
+                  position={position}
                 >
-                  <Text warning={warning}>{title}</Text>
-                </Item>
-              ))
-            }
-            <Cancel onClick={() => hideAndBack()}><Text>取消</Text></Cancel>
-          </ContentWrapper>
-        ))
-      }
-    </Wrapper>
-  ));
+                  {items.map(({ title, warning, onClick }) => (
+                    <Item key={title} onClick={onClick}>
+                      <Text warning={warning}>{title}</Text>
+                    </Item>
+                  ))}
+                  <Cancel onClick={() => hideAndBack()}>
+                    <Text>取消</Text>
+                  </Cancel>
+                </ContentWrapper>
+              )
+          )}
+        </Wrapper>
+      )
+  );
 }
 
 // types
 PopupMenu.propTypes = {
-  items: arrayOf(shape({
-    title: string.isRequired,
-    warning: bool,
-  })).isRequired,
+  items: arrayOf(
+    shape({
+      title: string.isRequired,
+      warning: bool
+    })
+  ).isRequired,
   show: bool.isRequired,
   hide: func.isRequired,
   history: ReactRouterPropTypes.history.isRequired,
   location: ReactRouterPropTypes.location.isRequired,
-  position: positionType,
+  position: positionType
 };
 PopupMenu.defaultProps = {
-  position: defaultPosition,
+  position: defaultPosition
 };
 export default withRouter(PopupMenu);

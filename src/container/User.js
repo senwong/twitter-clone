@@ -1,16 +1,16 @@
-import { connect } from 'react-redux';
-import User from '../User';
-import { show, setPosition } from '../actionCreators/userSettingPopup';
+import { connect } from "react-redux";
+import User from "../User";
+import { show, setPosition } from "../actionCreators/userSettingPopup";
 
 const mapStateToProps = state => ({
-  currentUser: state.currentUser,
+  currentUser: state.currentUser
 });
 
 const mapDispatchToProps = dispatch => ({
   showUserSettingPopupMenu: () => dispatch(show()),
-  setPopupPosition: position => dispatch(setPosition(position)),
+  setPopupPosition: position => dispatch(setPosition(position))
 });
 export default connect(
   mapStateToProps,
-  mapDispatchToProps,
+  mapDispatchToProps
 )(User);

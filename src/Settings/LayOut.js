@@ -1,10 +1,10 @@
-import React from 'react';
-import styled from 'styled-components';
-import PropTypes from 'prop-types';
-import WideHeader from '../layout/WideHeader';
-import { useMediaQuery } from '../utilitys';
-import SettingPanel from './SettingPanel';
-import { lightBlueBackground } from '../themes';
+import React from "react";
+import styled from "styled-components";
+import PropTypes from "prop-types";
+import WideHeader from "../layout/WideHeader";
+import { useMediaQuery } from "../utilitys";
+import SettingPanel from "./SettingPanel";
+import { lightBlueBackground } from "../themes";
 
 const Container = styled.div`
   min-height: 100%;
@@ -27,33 +27,19 @@ const RightAside = styled.aside`
   max-width: 600px;
   margin: 0 20px;
   align-self: flex-start;
-  @media(max-width: 1000px) {
+  @media (max-width: 1000px) {
     margin: 0;
   }
 `;
-const NarrowHead = styled.div`
-`;
-function LayOut({
-  narrowHead, main, rightAside,
-}) {
-  const isWide = useMediaQuery('(min-width: 1000px)');
+const NarrowHead = styled.div``;
+function LayOut({ narrowHead, main, rightAside }) {
+  const isWide = useMediaQuery("(min-width: 1000px)");
   return (
     <Container>
-      {
-        isWide ? <WideHeader /> : <NarrowHead>{ narrowHead }</NarrowHead>
-      }
+      {isWide ? <WideHeader /> : <NarrowHead>{narrowHead}</NarrowHead>}
       <BodyContainer>
-        {
-          isWide
-          && (
-            <Main>
-              {main}
-            </Main>
-          )
-        }
-        <RightAside>
-          {rightAside}
-        </RightAside>
+        {isWide && <Main>{main}</Main>}
+        <RightAside>{rightAside}</RightAside>
       </BodyContainer>
     </Container>
   );
@@ -61,9 +47,9 @@ function LayOut({
 LayOut.propTypes = {
   narrowHead: PropTypes.node.isRequired,
   main: PropTypes.node,
-  rightAside: PropTypes.node.isRequired,
+  rightAside: PropTypes.node.isRequired
 };
 LayOut.defaultProps = {
-  main: <SettingPanel />,
+  main: <SettingPanel />
 };
 export default LayOut;

@@ -1,11 +1,11 @@
-import React from 'react';
-import styled from 'styled-components';
-import { string } from 'prop-types';
-import { history as historyType } from 'react-router-prop-types';
-import { withRouter } from 'react-router-dom';
-import { BackIcon } from '../BaseComponents/SVGIcons';
-import Text from '../BaseComponents/Text';
-import { whiteBackground } from '../themes';
+import React from "react";
+import styled from "styled-components";
+import { string } from "prop-types";
+import { history as historyType } from "react-router-prop-types";
+import { withRouter } from "react-router-dom";
+import { BackIcon } from "../BaseComponents/SVGIcons";
+import Text from "../BaseComponents/Text";
+import { whiteBackground } from "../themes";
 
 const Filling = styled.div`
   height: 49px;
@@ -14,7 +14,7 @@ const Container = styled.div`
   padding: 0 9px;
   height: 49px;
   display: flex;
-  align-Items: stretch;
+  align-items: stretch;
   border-bottom: 1px solid rgb(101, 119, 134);
   z-index: 1;
   position: fixed;
@@ -52,18 +52,24 @@ function BackHead({ history, title, subTitle }) {
       <Filling />
       <Container>
         <ContentWrapper>
-          <BtnWrapper aria-label="button" role="button" onClick={() => history.goBack()}>
+          <BtnWrapper
+            aria-label="button"
+            role="button"
+            onClick={() => history.goBack()}
+          >
             <BackIcon small primary />
           </BtnWrapper>
           <div>
-            <Text large bold>{title}</Text>
-            {subTitle
-              && (
+            <Text large bold>
+              {title}
+            </Text>
+            {subTitle && (
               <div>
-                <Text small secondary color="secondary" size="small">{subTitle}</Text>
+                <Text small secondary color="secondary" size="small">
+                  {subTitle}
+                </Text>
               </div>
-              )
-            }
+            )}
           </div>
         </ContentWrapper>
       </Container>
@@ -73,11 +79,11 @@ function BackHead({ history, title, subTitle }) {
 BackHead.propTypes = {
   history: historyType.isRequired,
   title: string,
-  subTitle: string,
+  subTitle: string
 };
 BackHead.defaultProps = {
-  title: '',
-  subTitle: '',
+  title: "",
+  subTitle: ""
 };
 
 export default withRouter(BackHead);

@@ -1,9 +1,9 @@
-import React, { useState } from 'react';
-import PropTypes from 'prop-types';
-import styled from 'styled-components';
-import Text from '../BaseComponents/Text';
-import RadioInput from './RadioInput';
-import { whiteBackground } from '../themes';
+import React, { useState } from "react";
+import PropTypes from "prop-types";
+import styled from "styled-components";
+import Text from "../BaseComponents/Text";
+import RadioInput from "./RadioInput";
+import { whiteBackground } from "../themes";
 
 const Container = styled.div`
   padding: 14px 9px;
@@ -19,33 +19,33 @@ function RadioGroup({ title, subTitle, radios }) {
       <TitleWrapper>
         <Text bold>{title}</Text>
       </TitleWrapper>
-      <Text small secondary>{subTitle}</Text>
+      <Text small secondary>
+        {subTitle}
+      </Text>
       {/* radio buttons */}
-      {
-        radios.map(r => (
-          <RadioInput
-            key={r.key}
-            title={r.title}
-            name={title}
-            checked={value === r.title}
-            onChange={() => setValue(r.title)}
-          />
-        ))
-      }
+      {radios.map(r => (
+        <RadioInput
+          key={r.key}
+          title={r.title}
+          name={title}
+          checked={value === r.title}
+          onChange={() => setValue(r.title)}
+        />
+      ))}
     </Container>
   );
 }
 const radioType = PropTypes.shape({
-  title: PropTypes.string.isRequired,
+  title: PropTypes.string.isRequired
 });
 const propTypes = {
   title: PropTypes.string.isRequired,
   subTitle: PropTypes.string,
-  radios: PropTypes.arrayOf(radioType).isRequired,
+  radios: PropTypes.arrayOf(radioType).isRequired
 };
 RadioGroup.propTypes = propTypes;
 RadioGroup.defaultProps = {
-  subTitle: null,
+  subTitle: null
 };
 export const RadioGroupType = PropTypes.shape(propTypes);
 export default RadioGroup;

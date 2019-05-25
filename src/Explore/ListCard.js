@@ -1,9 +1,9 @@
-import React from 'react';
-import styled, { css } from 'styled-components';
-import PropTypes from 'prop-types';
-import theme from 'styled-theming';
+import React from "react";
+import styled, { css } from "styled-components";
+import PropTypes from "prop-types";
+import theme from "styled-theming";
 
-const listCardContainerStyles = theme('mode', {
+const listCardContainerStyles = theme("mode", {
   light: css`
     border-bottom-color: rgb(230, 236, 240);
     &:hover {
@@ -13,9 +13,9 @@ const listCardContainerStyles = theme('mode', {
   dark: css`
     border-bottom-color: rgb(56, 68, 77);
     &:hover {
-      background-color: rgb(24, 36,48);
+      background-color: rgb(24, 36, 48);
     }
-  `,
+  `
 });
 const ListCardContainer = styled.div`
   display: flex;
@@ -57,32 +57,22 @@ const ImgWrapper = styled.div`
   width: 100%;
   height: 100%;
 `;
-function ListCard({
-  head, body, foot, right,
-}) {
+function ListCard({ head, body, foot, right }) {
   return (
     <ListCardContainer>
       <ListCardLeft>
-        <ListCardHead>
-          {head}
-        </ListCardHead>
-        <ListCardBody>
-          {body}
-        </ListCardBody>
-        <ListCardHead>
-          {foot}
-        </ListCardHead>
+        <ListCardHead>{head}</ListCardHead>
+        <ListCardBody>{body}</ListCardBody>
+        <ListCardHead>{foot}</ListCardHead>
       </ListCardLeft>
-      {right
-        && (
-          <ListCardRight>
-            <div style={{ width: '100%', paddingBottom: '100%' }} />
-            <ImgWrapper>
-              <img src={right} alt="" width="100%" />
-            </ImgWrapper>
-          </ListCardRight>
-        )
-      }
+      {right && (
+        <ListCardRight>
+          <div style={{ width: "100%", paddingBottom: "100%" }} />
+          <ImgWrapper>
+            <img src={right} alt="" width="100%" />
+          </ImgWrapper>
+        </ListCardRight>
+      )}
     </ListCardContainer>
   );
 }
@@ -90,9 +80,9 @@ ListCard.propTypes = {
   head: PropTypes.node.isRequired,
   body: PropTypes.node.isRequired,
   foot: PropTypes.node.isRequired,
-  right: PropTypes.node,
+  right: PropTypes.node
 };
 ListCard.defaultProps = {
-  right: null,
+  right: null
 };
 export default ListCard;

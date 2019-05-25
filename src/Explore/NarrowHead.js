@@ -1,10 +1,10 @@
-import React, { useState, useRef } from 'react';
-import { Link, withRouter } from 'react-router-dom';
-import styled from 'styled-components';
-import ReactRouterPropTypes from 'react-router-prop-types';
-import { RelateIcon, BackIcon } from '../BaseComponents/SVGIcons';
-import HomePageNarrowHead from '../layout/HomePageNarrowHead';
-import SearchBar from '../Search/SearchBar';
+import React, { useState, useRef } from "react";
+import { Link, withRouter } from "react-router-dom";
+import styled from "styled-components";
+import ReactRouterPropTypes from "react-router-prop-types";
+import { RelateIcon, BackIcon } from "../BaseComponents/SVGIcons";
+import HomePageNarrowHead from "../layout/HomePageNarrowHead";
+import SearchBar from "../Search/SearchBar";
 
 const BackIconWrapper = styled.div`
   height: 39px;
@@ -38,30 +38,30 @@ function NarrowHead({ history }) {
     <HomePageNarrowHead
       stretchable={stretchable}
       left={
-        showBackArrow
-          ? (
-            <BackIconWrapper onClick={() => history.goBack()} ref={backIconRef}>
-              <BackIcon small primary />
-            </BackIconWrapper>
-          )
-          : undefined
+        showBackArrow ? (
+          <BackIconWrapper onClick={() => history.goBack()} ref={backIconRef}>
+            <BackIcon small primary />
+          </BackIconWrapper>
+        ) : (
+          undefined
+        )
       }
       middle={(
-        <SearchBar
+<SearchBar
           onShow={handleSearchBarShow}
           onHide={handleSearchBarHide}
           backIconRef={backIconRef}
         />
-      )}
+)}
       right={(
-        <BackIconWrapper as={Link} to="/related">
+<BackIconWrapper as={Link} to="/related">
           <RelateIcon small primary />
         </BackIconWrapper>
-      )}
+)}
     />
   );
 }
 NarrowHead.propTypes = {
-  history: ReactRouterPropTypes.history.isRequired,
+  history: ReactRouterPropTypes.history.isRequired
 };
 export default withRouter(NarrowHead);

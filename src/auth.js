@@ -2,13 +2,13 @@ const Auth = () => {
   let isAuthoried = true;
   function login(cb) {
     isAuthoried = true;
-    if (cb && typeof cb === 'function') {
+    if (cb && typeof cb === "function") {
       cb();
     }
   }
   function logout(cb) {
     isAuthoried = false;
-    if (cb && typeof cb === 'function') {
+    if (cb && typeof cb === "function") {
       cb();
     }
   }
@@ -16,7 +16,9 @@ const Auth = () => {
     return isAuthoried;
   }
   return {
-    login, logout, isAuth,
+    login,
+    logout,
+    isAuth
   };
 };
 export default Auth();

@@ -1,13 +1,13 @@
-import React from 'react';
-import styled from 'styled-components';
-import { connect } from 'react-redux';
-import { compose } from 'redux';
-import { withRouter } from 'react-router-dom';
-import { func } from 'prop-types';
-import ReactRouterPropTypes from 'react-router-prop-types';
-import { whiteBackground } from '../themes';
-import { hide } from '../actionCreators/profilePage';
-import { userType } from '../propTypes';
+import React from "react";
+import styled from "styled-components";
+import { connect } from "react-redux";
+import { compose } from "redux";
+import { withRouter } from "react-router-dom";
+import { func } from "prop-types";
+import ReactRouterPropTypes from "react-router-prop-types";
+import { whiteBackground } from "../themes";
+import { hide } from "../actionCreators/profilePage";
+import { userType } from "../propTypes";
 
 const WrapperButton = styled.button`
   ${whiteBackground}
@@ -27,7 +27,7 @@ function withUserInfo(Component) {
     function handleClick() {
       hideProfile();
       history.push({
-        pathname: `/${user.name}`,
+        pathname: `/${user.name}`
       });
     }
     return (
@@ -39,20 +39,23 @@ function withUserInfo(Component) {
   Wrapper.propTypes = {
     user: userType.isRequired,
     history: ReactRouterPropTypes.history.isRequired,
-    hideProfile: func.isRequired,
+    hideProfile: func.isRequired
   };
   return Wrapper;
 }
 
 const mapStateToProps = state => ({
-  user: state.currentUser,
+  user: state.currentUser
 });
 const mapDispatchToProps = dispatch => ({
-  hideProfile: () => dispatch(hide()),
+  hideProfile: () => dispatch(hide())
 });
 
 export default compose(
   withRouter,
-  connect(mapStateToProps, mapDispatchToProps),
-  withUserInfo,
+  connect(
+    mapStateToProps,
+    mapDispatchToProps
+  ),
+  withUserInfo
 );
